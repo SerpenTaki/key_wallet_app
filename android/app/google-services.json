@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "806163097376",
+    "project_id": "keywalletapp",
+    "storage_bucket": "keywalletapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:806163097376:android:67723fc576b3e00fead945",
+        "android_client_info": {
+          "package_name": "me.gabrieledipietro.key_wallet_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAF6AddxEAgD1vPT2shDxooLbVI8kThz1I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
