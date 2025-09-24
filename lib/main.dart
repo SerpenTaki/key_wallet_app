@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:key_wallet_app/services/RouteGenerator.dart';
-import 'package:key_wallet_app/providers/auth.dart';
+import 'package:key_wallet_app/services/auth.dart';
 import 'package:key_wallet_app/screens/_landingPage.dart';
 import 'package:key_wallet_app/screens/AuthPage.dart';
 import 'services/firebase_options.dart';
+import 'package:provider/provider.dart';
+import 'package:key_wallet_app/providers/wallet_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(MyApp());
+  runApp(
+    MultiProvider(
+        providers: [ChangeNotifierProvider(create: (_) => WalletProvider())],
+        child: MyApp(),
+    )
+  );
 }
 
 class MyApp extends StatefulWidget {
