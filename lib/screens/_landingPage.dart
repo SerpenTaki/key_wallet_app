@@ -1,12 +1,11 @@
-import 'dart:async'; // Import per StreamSubscription
-import 'package:key_wallet_app/services/validators.dart';
+import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:key_wallet_app/services/auth.dart';
 import 'package:key_wallet_app/providers/wallet_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_auth/firebase_auth.dart'; // Import per User
+import 'package:firebase_auth/firebase_auth.dart'; 
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -24,13 +23,20 @@ class _LandingPageState extends State<LandingPage> {
     super.initState();
     _authSubscription = _authService.authStateChanges.listen((User? user) {
       if (!mounted) return;
-      final walletProvider = Provider.of<WalletProvider>(context, listen: false);
+      final walletProvider = Provider.of<WalletProvider>(
+        context,
+        listen: false,
+      );
       if (user != null) {
-        print("LandingPage: Utente autenticato con UID: ${user.uid}. Recupero wallets...");
+        print(
+          "LandingPage: Utente autenticato con UID: ${user.uid}. Recupero wallets...",
+        );
         walletProvider.fetchUserWallets(user.uid);
       } else {
         print("LandingPage: Utente non autenticato. Pulizia wallets...");
-        walletProvider.fetchUserWallets(""); // Passa una stringa vuota per pulire i wallets
+        walletProvider.fetchUserWallets(
+          "",
+        );
       }
     });
   }
@@ -45,52 +51,93 @@ class _LandingPageState extends State<LandingPage> {
     await _authService.signOut();
   }
 
-  Future<String?> _askWalletNameDialog(BuildContext context) async { //Dialog per la creazione del wallet
+  Future<String?> _askWalletNameDialog(BuildContext context) async {
     TextEditingController controller = TextEditingController();
-    return showDialog<String>(
-      context: context,
-      builder: (BuildContext dialogContext) {
-        return AlertDialog(
-          title: const Text('Crea Nuovo Wallet'),
-          content: TextField(
-            controller: controller,
-            autofocus: true,
-            decoration: const InputDecoration(hintText: 'Nome del Wallet'),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Annulla'),
-              onPressed: () {
-                Navigator.of(dialogContext).pop();
-              },
+    if (defaultTargetPlatform == TargetPlatform.iOS) {
+      return showCupertinoDialog<String>(
+        context: context,
+        builder: (BuildContext dialogContext) {
+          return CupertinoAlertDialog(
+            title: const Text('Crea Nuovo Wallet'),
+            content: Padding(
+              padding: const EdgeInsets.only(top: 8.0),
+              child: CupertinoTextField(
+                controller: controller,
+                autofocus: true,
+                placeholder: 'Nome del Wallet',
+              ),
             ),
-            TextButton(
-              child: const Text('Crea'),
-              onPressed: () {
-                if (controller.text.trim().isEmpty) {
-                  ScaffoldMessenger.of(dialogContext).showSnackBar(
-                    const SnackBar(content: Text("Il nome del wallet non può essere vuoto."), backgroundColor: Colors.red,),
-                  );
-                } else {
-                  ScaffoldMessenger.of(dialogContext).showSnackBar(
-                    const SnackBar(content: Text("Wallet creato con successo!"), backgroundColor: Colors.green),
-                  );
-                  Navigator.of(dialogContext).pop(controller.text.trim());
-                }
-              },
+            actions: <CupertinoDialogAction>[
+              CupertinoDialogAction(
+                child: const Text('Annulla'),
+                onPressed: () {
+                  Navigator.of(dialogContext).pop();
+                },
+              ),
+              CupertinoDialogAction(
+                child: const Text('Crea'),
+                isDefaultAction: true,
+                onPressed: () {
+                  if (controller.text.trim().isNotEmpty) {
+                    Navigator.of(dialogContext).pop(controller.text.trim());
+                  }
+                },
+              ),
+            ],
+          );
+        },
+      );
+    } else {
+      return showDialog<String>(
+        context: context,
+        builder: (BuildContext dialogContext) {
+          return AlertDialog(
+            title: const Text('Crea Nuovo Wallet'),
+            content: TextField(
+              controller: controller,
+              autofocus: true,
+              decoration: const InputDecoration(hintText: 'Nome del Wallet'),
             ),
-          ],
-        );
-      },
-    );
+            actions: <Widget>[
+              TextButton(
+                child: const Text('Annulla'),
+                onPressed: () {
+                  Navigator.of(dialogContext).pop();
+                },
+              ),
+              TextButton(
+                child: const Text('Crea'),
+                onPressed: () {
+                  if (controller.text.trim().isEmpty) {
+
+                    ScaffoldMessenger.of(dialogContext).showSnackBar(
+                      const SnackBar(
+                        content: Text("Il nome del wallet non può essere vuoto."),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  } else {
+                    ScaffoldMessenger.of(dialogContext).showSnackBar(
+                      const SnackBar(
+                        content: Text("Wallet creato con successo!"),
+                        backgroundColor: Colors.green,
+                      ),
+                    );
+                    Navigator.of(dialogContext).pop(controller.text.trim());
+                  }
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
   }
 
   Widget _buildBody(BuildContext context, WalletProvider walletProvider) {
     if (walletProvider.isLoading) {
       return const SliverFillRemaining(
-        child: Center(
-          child: CircularProgressIndicator(),
-        ),
+        child: Center(child: CircularProgressIndicator()),
       );
     }
 
@@ -109,30 +156,29 @@ class _LandingPageState extends State<LandingPage> {
       );
     }
 
-    // Se non sta caricando e ci sono wallet, mostra la lista
     return SliverList(
-      delegate: SliverChildBuilderDelegate(
-        (BuildContext context, int index) {
-          final wallet = walletProvider.wallets[index];
-          return Card(
-            margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: ListTile(
-              leading: Icon(Icons.credit_card),
-              title: Text(wallet.name),
-              trailing: Icon(TargetPlatform.android == defaultTargetPlatform ? Icons.arrow_forward : Icons.arrow_forward_ios),
-              onTap: () {
-                print('Tapped on ${wallet.name}');
-                // TO DO:
-              },
-              onLongPress: (){
-                  print('Richiesta eliminazione per ${wallet.name}');
-                  walletProvider.deleteWallet(context, wallet);
-              },
+      delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
+        final wallet = walletProvider.wallets[index];
+        return Card(
+          margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: ListTile(
+            leading: Icon(Icons.credit_card),
+            title: Text(wallet.name),
+            trailing: Icon(
+              defaultTargetPlatform == TargetPlatform.android
+                  ? Icons.arrow_forward
+                  : Icons.arrow_forward_ios, // Già adattato
             ),
-          );
-        },
-        childCount: walletProvider.wallets.length,
-      ),
+            onTap: () {
+              print('Tapped on ${wallet.name}');
+            },
+            onLongPress: () {
+              print('Richiesta eliminazione per ${wallet.name}');
+              walletProvider.deleteWallet(context, wallet);
+            },
+          ),
+        );
+      }, childCount: walletProvider.wallets.length),
     );
   }
 
@@ -145,11 +191,15 @@ class _LandingPageState extends State<LandingPage> {
         slivers: [
           SliverAppBar(
             floating: true,
+            pinned: true, 
             title: Row(
               children: [
                 Icon(Icons.account_balance_wallet),
                 SizedBox(width: 8),
-                Text("Key Wallet", style: TextStyle(fontWeight: FontWeight.bold)),
+                Text(
+                  "Key Wallet",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
               ],
             ),
             actions: [
@@ -166,17 +216,24 @@ class _LandingPageState extends State<LandingPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
-          final user = _authService.currentUser; 
+          final user = _authService.currentUser;
           if (user == null) {
             ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(content: Text("Devi essere loggato per creare un wallet.")),
+              const SnackBar(
+                content: Text("Devi essere loggato per creare un wallet."),
+              ),
             );
             return;
           }
-          
+
           String? newWalletName = await _askWalletNameDialog(context);
           if (newWalletName != null && newWalletName.isNotEmpty) {
-            context.read<WalletProvider>().generateAndAddWallet(user.uid, newWalletName);
+
+            context.read<WalletProvider>().generateAndAddWallet(
+              user.uid,
+              newWalletName,
+            );
+
           }
         },
         child: Icon(Icons.add),
