@@ -42,6 +42,7 @@ dependencies:
   web3dart: ^2.7.3
   pointycastle: ^3.9.1
   convert: ^3.1.2
+  provider: ^6.1.5+1
 
 dev_dependencies:
   flutter_test:

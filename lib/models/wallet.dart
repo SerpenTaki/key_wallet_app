@@ -34,5 +34,7 @@ class Wallet {
       privateKey: privateKeyString,
       publicKey: publicKeyString,
     );
+
+
   }
 }

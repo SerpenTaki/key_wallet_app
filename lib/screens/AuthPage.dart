@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:key_wallet_app/services/validators.dart';
-import 'package:key_wallet_app/providers/auth.dart';
+import 'package:key_wallet_app/services/auth.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});

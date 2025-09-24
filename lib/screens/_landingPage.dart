@@ -1,6 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:key_wallet_app/providers/auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:key_wallet_app/services/auth.dart';
+import 'package:key_wallet_app/providers/wallet_provider.dart';
+import 'package:provider/provider.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -10,12 +13,15 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
+
   Future<void> signOut() async {
     await Auth().signOut();
   }
 
   @override
   Widget build(BuildContext context) {
+    final walletProvider = context.watch<WalletProvider>();
+
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -25,7 +31,7 @@ class _LandingPageState extends State<LandingPage> {
               children: [
                 Icon(Icons.account_balance_wallet),
                 SizedBox(width: 8),
-                Text("Wallet", style: TextStyle(fontWeight: FontWeight.bold)),
+                Text("Key Wallet", style: TextStyle(fontWeight: FontWeight.bold)),
               ],
             ),
             actions: [
@@ -40,20 +46,24 @@ class _LandingPageState extends State<LandingPage> {
           SliverList(
             delegate: SliverChildBuilderDelegate(
               (BuildContext context, int index) {
+                final wallet = walletProvider.wallets[index];
                 return Card(
                   margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                   child: ListTile(
                     leading: Icon(Icons.credit_card),
-                    title: Text('Card ${index + 1}'),
-                    subtitle: Text('This is a sample card item.'),
+                    title: Text(wallet.name),
                     trailing: Icon(TargetPlatform.android == defaultTargetPlatform ? Icons.arrow_forward : Icons.arrow_forward_ios),
                     onTap: () {
-                      // Handle card tap
+                      print('Tapped on ${wallet.name}');
+                    },
+                    onLongPress: (){
+                       print('Richiesta eliminazione per ${wallet.name}');
+                       walletProvider.deleteWallet(context, wallet);
                     },
                   ),
                 );
               },
-              childCount: 10, // Replace with your actual item count
+              childCount: walletProvider.wallets.length,
             ),
           ),
         ],
@@ -61,7 +71,7 @@ class _LandingPageState extends State<LandingPage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-
+          walletProvider.generateAndAddWallet();
         },
         child: Icon(Icons.add),
         backgroundColor: Theme.of(context).colorScheme.primary,
