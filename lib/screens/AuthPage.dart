@@ -122,7 +122,7 @@ class _AuthPageState extends State<AuthPage> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(20.0),
+                    padding: const EdgeInsets.all(11.0),
                     child: ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
