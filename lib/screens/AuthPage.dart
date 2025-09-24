@@ -23,9 +23,9 @@ class _AuthPageState extends State<AuthPage> {
         password: _password.text,
       );
     } on FirebaseAuthException {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Credenziali errate")),
-      );
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text("Credenziali errate")));
     }
   }
 
