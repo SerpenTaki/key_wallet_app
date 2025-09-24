@@ -5,7 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:key_wallet_app/services/auth.dart';
 import 'package:key_wallet_app/providers/wallet_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_auth/firebase_auth.dart'; 
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -167,7 +167,7 @@ class _LandingPageState extends State<LandingPage> {
             trailing: Icon(
               defaultTargetPlatform == TargetPlatform.android
                   ? Icons.arrow_forward
-                  : Icons.arrow_forward_ios, // Già adattato
+                  : Icons.arrow_forward_ios,
             ),
             onTap: () {
               print('Tapped on ${wallet.name}');
@@ -191,7 +191,6 @@ class _LandingPageState extends State<LandingPage> {
         slivers: [
           SliverAppBar(
             floating: true,
-            pinned: true, 
             title: Row(
               children: [
                 Icon(Icons.account_balance_wallet),
