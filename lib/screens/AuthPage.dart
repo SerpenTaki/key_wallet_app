@@ -22,7 +22,11 @@ class _AuthPageState extends State<AuthPage> {
         email: _email.text,
         password: _password.text,
       );
-    } on FirebaseAuthException {}
+    } on FirebaseAuthException {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Credenziali errate")),
+      );
+    }
   }
 
   Future<void> createUser() async {
@@ -31,7 +35,14 @@ class _AuthPageState extends State<AuthPage> {
         email: _email.text,
         password: _password.text,
       );
-    } on FirebaseAuthException {}
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Utente registrato con successo")),
+      );
+    } on FirebaseAuthException {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Errore durante la registrazione")),
+      );
+    }
   }
 
   @override
