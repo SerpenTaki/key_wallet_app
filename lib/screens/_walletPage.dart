@@ -96,35 +96,30 @@ class WalletPage extends StatelessWidget {
       return Scaffold(
         body: Center(
           child: Column(
+            spacing: 20,
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                'Chiave privata non presente nel dispositivo',
+                'Chiave privata non trovata!',
                 textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  "Riprova dal dispositivo dove hai creato il wallet",
-                  textAlign: TextAlign.center,
-                ),
+              Text(
+                "Riprova da un altro dispositivo",
+                textAlign: TextAlign.center,
               ),
-              Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (Navigator.canPop(context)) {
-                      Navigator.pop(context);
-                    }
-                  },
-                  child: Text("Torna indietro"),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Theme.of(context).colorScheme.primary,
-                    foregroundColor: Theme.of(context).colorScheme.inversePrimary,
-                  ),
+              ElevatedButton(
+                onPressed: () {
+                  if (Navigator.canPop(context)) {
+                    Navigator.pop(context);
+                  }
+                },
+                child: Text("Torna indietro"),
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  foregroundColor: Theme.of(context).colorScheme.inversePrimary,
                 ),
               ),
             ],
@@ -167,7 +162,13 @@ class WalletPage extends StatelessWidget {
           ],
         ),
         body: Column(
-
+          spacing: 20,
+          children: [
+            Text("localKeyIdentifier: ${wallet.localKeyIdentifier}"),
+            TextField(
+              
+            )
+          ],
         )
       );
     }
