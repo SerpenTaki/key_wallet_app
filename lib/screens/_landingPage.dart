@@ -211,12 +211,7 @@ class _LandingPageState extends State<LandingPage> {
 
           String? newWalletName = await _askWalletNameDialog(context);
           if (newWalletName != null && newWalletName.isNotEmpty) {
-
-            context.read<WalletProvider>().generateAndAddWallet(
-              user.uid,
-              newWalletName,
-            );
-
+            context.read<WalletProvider>().generateAndAddWallet(user.uid, newWalletName,);
           }
         },
         backgroundColor: Theme.of(context).colorScheme.primary,
