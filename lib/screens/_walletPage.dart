@@ -1,9 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:key_wallet_app/models/wallet.dart';
 import 'package:key_wallet_app/services/secureStorage.dart';
 import 'package:key_wallet_app/providers/wallet_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
+import 'package:flutter/cupertino.dart';
 
 class WalletPage extends StatefulWidget {
   const WalletPage({super.key, required this.wallet});
@@ -133,44 +135,65 @@ class _WalletPageState extends State<WalletPage> {
     } else {
       return Scaffold(
           appBar: AppBar(
-            title: Text(
-              widget.wallet.name,
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            backgroundColor: Theme
-                .of(context)
-                .colorScheme
-                .primary,
-            foregroundColor: Theme
-                .of(context)
-                .colorScheme
-                .inversePrimary,
+            title: Text(widget.wallet.name, style: TextStyle(fontWeight: FontWeight.bold),),
+            backgroundColor: Theme.of(context).colorScheme.primary,
+            foregroundColor: Theme.of(context).colorScheme.inversePrimary,
             centerTitle: true,
             actions: [
               IconButton(
                 icon: Icon(Icons.delete),
                 onPressed: () async {
-                  try {
-                    // 1. Elimina da Secure Storage
-                    await _secureStorage.deleteSecureData(
-                        widget.wallet.localKeyIdentifier);
-                    // 2. Elimina da Firestore (tramite Provider)
-                    await Provider
-                        .of<WalletProvider>(context, listen: false)
-                        .deleteWallet(context, widget.wallet);
-                    // 3. Torna alla schermata precedente
-                    if (Navigator.canPop(context)) {
-                      Navigator.pop(context);
+                    final bool confirmDelete = await showDialog(
+                      context: context,
+                      builder: (BuildContext dialogContext) {
+                        if (defaultTargetPlatform == TargetPlatform.iOS){
+                          return CupertinoAlertDialog(
+                            title: const Text('Conferma Eliminazione'),
+                            content: Text('Sei sicuro di voler eliminare il wallet "${widget.wallet.name}"?'),
+                            actions: <Widget>[
+                              CupertinoDialogAction(
+                                child: const Text('Annulla'),
+                                onPressed: () => Navigator.of(dialogContext).pop(false),
+                              ),
+                              CupertinoDialogAction(
+                                isDestructiveAction: true,
+                                child: const Text('Elimina'),
+                                onPressed: () => Navigator.of(dialogContext).pop(true),
+                              ),
+                            ],
+                          );
+                        } else {
+                          return AlertDialog(
+                            title: const Text('Conferma Eliminazione'),
+                            content: Text('Sei sicuro di voler eliminare il wallet "${widget.wallet.name}"?'),
+                            actions: <Widget>[
+                              TextButton(
+                                child: const Text('Annulla'),
+                                onPressed: () => Navigator.of(dialogContext).pop(false),
+                              ),
+                              TextButton(
+                                child: const Text('Elimina', style: TextStyle(color: Colors.red)),
+                                onPressed: () => Navigator.of(dialogContext).pop(true),
+                              ),
+                            ],
+                          );
+                        }
+                      },
+                    ) ?? false;
+
+                    if (confirmDelete) {
+                      // 1. Elimina da Secure Storage
+                      await _secureStorage.deleteSecureData(
+                          widget.wallet.localKeyIdentifier);
+                      // 2. Elimina da Firestore (tramite Provider)
+                      await Provider.of<WalletProvider>(context, listen: false).deleteWallet(widget.wallet);
+                      // 3. Torna alla schermata precedente
+                      if (Navigator.canPop(context)) {
+                        Navigator.pop(context);
+                      }
+
                     }
-                  } catch (e) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text('Errore durante l\'eliminazione: $e'),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
                   }
-                },
               ),
             ],
           ),
@@ -200,17 +223,6 @@ class _WalletPageState extends State<WalletPage> {
                             child: showPublicKey ? const Text("Nascondi la chiave pubblica") : const Text("Mostra la chiave pubblica"))
                       ],
                     ),
-                    SizedBox(height: 8),
-                    if (showPublicKey)
-                      PrettyQrView.data(
-                        data: widget.wallet.publicKey,
-                        decoration: const PrettyQrDecoration(
-                          image: PrettyQrDecorationImage(
-                            image: AssetImage('images/logo.png'),
-                          ),
-                          quietZone: PrettyQrQuietZone.standart,
-                        ),
-                      ),
                     Row(
                       spacing: 20,
                       children: [
@@ -226,6 +238,17 @@ class _WalletPageState extends State<WalletPage> {
                       ],
                     ),
                     SizedBox(height: 8),
+                    if (showPublicKey)
+                      PrettyQrView.data(
+                        data: widget.wallet.publicKey,
+                        decoration: const PrettyQrDecoration(
+                          image: PrettyQrDecorationImage(
+                            image: AssetImage('images/logo.png'),
+                          ),
+                          quietZone: PrettyQrQuietZone.standart,
+                        ),
+                      ),
+                    SizedBox(height: 8),
                     if (showPrivateKey)
                       SelectableText(privateKeyValue),
                   ],
@@ -237,3 +260,4 @@ class _WalletPageState extends State<WalletPage> {
     }
   }
 }
+
