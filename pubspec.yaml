@@ -43,7 +43,8 @@ dependencies:
   pointycastle: ^3.9.1
   convert: ^3.1.2
   provider: ^6.1.5+1
-  flutter_secure_storage: ^9.0.0
+  flutter_secure_storage: ^10.0.0-beta.4
+  flutter_launcher_icons: ^0.14.4
 
 dev_dependencies:
   flutter_test:
