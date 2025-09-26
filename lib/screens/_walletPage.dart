@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
 
 class WalletPage extends StatefulWidget {
-  WalletPage({super.key, required this.wallet});
+  const WalletPage({super.key, required this.wallet});
 
   final Wallet wallet;
 
@@ -90,7 +90,7 @@ class _WalletPageState extends State<WalletPage> {
 
   Widget _buildErrorScaffold(BuildContext context, String errorMessage) {
     return Scaffold(
-      appBar: AppBar(title: Text("Errore")),
+      appBar: AppBar(title: const Text("Errore")),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -112,32 +112,19 @@ class _WalletPageState extends State<WalletPage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: MainAxisSize.min,
             children: [
-              Text(
-                'Chiave privata non trovata!',
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                "Riprova da un altro dispositivo",
-                textAlign: TextAlign.center,
-              ),
+              const Text('Chiave privata non trovata!', textAlign: TextAlign.center, style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
+              const Text("Riprova da un altro dispositivo", textAlign: TextAlign.center,),
               ElevatedButton(
                 onPressed: () {
                   if (Navigator.canPop(context)) {
                     Navigator.pop(context);
                   }
                 },
-                child: Text("Torna indietro"),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme
-                      .of(context)
-                      .colorScheme
-                      .primary,
-                  foregroundColor: Theme
-                      .of(context)
-                      .colorScheme
-                      .inversePrimary,
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  foregroundColor: Theme.of(context).colorScheme.inversePrimary,
                 ),
+                child: const Text("Torna indietro"),
               ),
             ],
           ),
@@ -199,22 +186,18 @@ class _WalletPageState extends State<WalletPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Visualizza qui le tue chiavi", style: TextStyle(
-                        fontSize: 18, fontWeight: FontWeight.bold)),
+                    const Text("Visualizza qui le tue chiavi", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                     SizedBox(height: 16),
                     Row(
                       spacing: 20,
                       children: [
-                        Text("Chiave pubblica", style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold)),
+                        const Text("Chiave pubblica", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                         ElevatedButton(onPressed: () {
                           setState(() => showPublicKey = !showPublicKey);
                           if (showPrivateKey == true) {
                             setState(() => showPrivateKey = false);
                           }},
-                            child: showPublicKey ? Text(
-                                "Nascondi la chiave pubblica") : Text(
-                                "Mostra la chiave pubblica"))
+                            child: showPublicKey ? const Text("Nascondi la chiave pubblica") : const Text("Mostra la chiave pubblica"))
                       ],
                     ),
                     SizedBox(height: 8),
@@ -231,7 +214,7 @@ class _WalletPageState extends State<WalletPage> {
                     Row(
                       spacing: 20,
                       children: [
-                        Text("Chiave privata", style: TextStyle(
+                        const Text("Chiave privata", style: TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold)),
                         ElevatedButton(onPressed: () {
                           setState(() => showPrivateKey = !showPrivateKey);
@@ -239,9 +222,7 @@ class _WalletPageState extends State<WalletPage> {
                             setState(() => showPublicKey = false);
                           }
                         },
-                            child: showPrivateKey ? Text(
-                                "Nascondi la chiave privata") : Text(
-                                "Mostra la chiave privata"))
+                            child: showPrivateKey ? const Text("Nascondi la chiave privata") : const Text("Mostra la chiave privata"))
                       ],
                     ),
                     SizedBox(height: 8),

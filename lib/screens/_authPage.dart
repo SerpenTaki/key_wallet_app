@@ -67,9 +67,7 @@ class AuthPageState extends State<AuthPage> {
               children: [
                 Image.asset("images/logo.png", width: 50, height: 50),
                 SizedBox(width: 10), // Optional spacing between image and text
-                Text(
-                  "key wallet app",
-                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                const Text("key wallet app", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
@@ -91,7 +89,7 @@ class AuthPageState extends State<AuthPage> {
                         return emailValidator(value);
                       },
                       decoration: InputDecoration(
-                        label: Text("Email"),
+                        label: const Text("Email"),
                         fillColor: Colors.grey[200],
                         filled: true,
                         border: OutlineInputBorder(
@@ -113,7 +111,7 @@ class AuthPageState extends State<AuthPage> {
                       obscureText: true,
                       textInputAction: TextInputAction.done,
                       decoration: InputDecoration(
-                        label: Text("Password"),
+                        label: const Text("Password"),
                         fillColor: Colors.grey[200],
                         filled: true,
                         border: OutlineInputBorder(
