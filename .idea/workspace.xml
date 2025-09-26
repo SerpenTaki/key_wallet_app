@@ -5,13 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fd9f324-4b81-479f-be21-42b0a387615a" name="Changes" comment="Primo commit">
-      <change afterPath="$PROJECT_DIR$/lib/screens/_walletPage.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/services/secureStorage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/providers/wallet_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/providers/wallet_provider.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/AuthPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/AuthPage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/_landingPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/_landingPage.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/RouteGenerator.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/RouteGenerator.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/_walletPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/_walletPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/secureStorage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/secureStorage.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
