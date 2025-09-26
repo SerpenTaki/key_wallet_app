@@ -33,7 +33,7 @@ pointy.SecureRandom getSecureRandom() {
 String publicKeyToString(pointy.RSAPublicKey publicKey) {
   final modulusHex = hex.encode(publicKey.modulus!.toRadixString(16).codeUnits);
   final exponentHex = hex.encode(publicKey.exponent!.toRadixString(16).codeUnits);
-  return 'modulus:${modulusHex}_exponent:${exponentHex}';
+  return 'modulus:${modulusHex}_exponent:$exponentHex';
 }
 
 // Converts an RSA private key to a string representation.
@@ -42,5 +42,5 @@ String publicKeyToString(pointy.RSAPublicKey publicKey) {
 String privateKeyToString(pointy.RSAPrivateKey privateKey) {
   final modulusHex = hex.encode(privateKey.modulus!.toRadixString(16).codeUnits);
   final privateExponentHex = hex.encode(privateKey.privateExponent!.toRadixString(16).codeUnits);
-  return 'modulus:${modulusHex}_privateExponent:${privateExponentHex}';
+  return 'modulus:${modulusHex}_privateExponent:$privateExponentHex';
 }

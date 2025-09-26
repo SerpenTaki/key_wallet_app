@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:key_wallet_app/models/wallet.dart'; // Importa il modello Wallet
 import 'package:key_wallet_app/screens/_landingPage.dart';
-import 'package:key_wallet_app/screens/AuthPage.dart';
+import 'package:key_wallet_app/screens/_authPage.dart';
 import 'package:key_wallet_app/screens/_walletPage.dart'; // Assicurati che WalletPage sia importata
 
 //Per mandare dati dinamici
