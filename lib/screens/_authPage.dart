@@ -62,72 +62,64 @@ class AuthPageState extends State<AuthPage> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Image.asset("images/logo.png", width: 50, height: 50),
-                  SizedBox(width: 10), // Optional spacing between image and text
-                  Text(
-                    "key wallet app",
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset("images/logo.png", width: 50, height: 50),
+                SizedBox(width: 10), // Optional spacing between image and text
+                Text(
+                  "key wallet app",
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Form(
                 key: _formKey,
                 child: Column(
+                  spacing: 20,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: TextFormField(
-                        controller: _email,
-                        keyboardType: TextInputType.emailAddress,
-                        textInputAction: TextInputAction.next,
-                        validator: (value) {
-                          if (emailValidator(value) == null) {
-                            return null;
-                          }
-                          return emailValidator(value);
-                        },
-                        decoration: InputDecoration(
-                          label: Text("Email"),
-                          fillColor: Colors.grey[200],
-                          filled: true,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
+                    TextFormField(
+                      controller: _email,
+                      keyboardType: TextInputType.emailAddress,
+                      textInputAction: TextInputAction.next,
+                      validator: (value) {
+                        if (emailValidator(value) == null) {
+                          return null;
+                        }
+                        return emailValidator(value);
+                      },
+                      decoration: InputDecoration(
+                        label: Text("Email"),
+                        fillColor: Colors.grey[200],
+                        filled: true,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            color: Theme.of(context).colorScheme.primary,
                           ),
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: TextFormField(
-                        validator: (value) {
-                          if (passwordValidator(value) == null) {
-                            return null;
-                          }
-                          return passwordValidator(value);
-                        },
-                        controller: _password,
-                        obscureText: true,
-                        textInputAction: TextInputAction.done,
-                        decoration: InputDecoration(
-                          label: Text("Password"),
-                          fillColor: Colors.grey[200],
-                          filled: true,
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
+                    TextFormField(
+                      validator: (value) {
+                        if (passwordValidator(value) == null) {
+                          return null;
+                        }
+                        return passwordValidator(value);
+                      },
+                      controller: _password,
+                      obscureText: true,
+                      textInputAction: TextInputAction.done,
+                      decoration: InputDecoration(
+                        label: Text("Password"),
+                        fillColor: Colors.grey[200],
+                        filled: true,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(
+                            color: Theme.of(context).colorScheme.primary,
                           ),
                         ),
                       ),
