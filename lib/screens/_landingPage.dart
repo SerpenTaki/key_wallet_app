@@ -173,7 +173,7 @@ class _LandingPageState extends State<LandingPage> {
               Navigator.pushNamed(context, '/WalletPage', arguments: wallet);
             },
             onLongPress: () {
-              walletProvider.deleteWallet(context, wallet); // Pop up dell'eliminazione
+               // Pop up dell'eliminazione
             },
           ),
         );
