@@ -170,11 +170,10 @@ class _LandingPageState extends State<LandingPage> {
                   : Icons.arrow_forward_ios,
             ),
             onTap: () {
-              print('Tapped on ${wallet.name}');
+              Navigator.pushNamed(context, '/WalletPage', arguments: wallet);
             },
             onLongPress: () {
-              print('Richiesta eliminazione per ${wallet.name}');
-              walletProvider.deleteWallet(context, wallet);
+              walletProvider.deleteWallet(context, wallet); // Pop up dell'eliminazione
             },
           ),
         );
