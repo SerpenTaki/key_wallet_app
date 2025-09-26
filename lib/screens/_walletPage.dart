@@ -3,19 +3,29 @@ import 'package:key_wallet_app/models/wallet.dart';
 import 'package:key_wallet_app/services/secureStorage.dart';
 import 'package:key_wallet_app/providers/wallet_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:pretty_qr_code/pretty_qr_code.dart';
 
-class WalletPage extends StatelessWidget {
+class WalletPage extends StatefulWidget {
   WalletPage({super.key, required this.wallet});
 
   final Wallet wallet;
+
+  @override
+  State<WalletPage> createState() => _WalletPageState();
+}
+
+class _WalletPageState extends State<WalletPage> {
   final SecureStorage _secureStorage = SecureStorage();
+
+  late bool showPublicKey = false;
+
+  late bool showPrivateKey = false;
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<dynamic>(
-      future: _secureStorage.readSecureData(wallet.localKeyIdentifier),
+      future: _secureStorage.readSecureData(widget.wallet.localKeyIdentifier),
       builder: (BuildContext context, AsyncSnapshot<dynamic> mainSnapshot) {
-
         if (mainSnapshot.connectionState == ConnectionState.waiting) {
           return _buildLoadingScaffold(context, "Caricamento dati sicuri...");
         } else if (mainSnapshot.hasError) {
@@ -31,13 +41,16 @@ class WalletPage extends StatelessWidget {
               future: dataFromMainFuture as Future<String?>,
               builder: (context, innerSnapshot) {
                 if (innerSnapshot.connectionState == ConnectionState.waiting) {
-                  return _buildLoadingScaffold(context, "Caricamento chiave privata (interno)...",);
+                  return _buildLoadingScaffold(
+                    context, "Caricamento chiave privata (interno)...",);
                 } else if (innerSnapshot.hasError) {
-                  return _buildErrorScaffold(context, "Errore interno: ${innerSnapshot.error}");
+                  return _buildErrorScaffold(
+                      context, "Errore interno: ${innerSnapshot.error}");
                 } else {
                   final String? privateKeyValue = innerSnapshot.data;
                   if (privateKeyValue != null && privateKeyValue.isNotEmpty) {
-                    return _buildWalletDetailsScaffold(context,privateKeyValue);
+                    return _buildWalletDetailsScaffold(
+                        context, privateKeyValue);
                   } else {
                     return _buildWalletDetailsScaffold(context, null);
                   }
@@ -61,7 +74,7 @@ class WalletPage extends StatelessWidget {
 
   Widget _buildLoadingScaffold(BuildContext context, String message) {
     return Scaffold(
-      appBar: AppBar(title: Text(wallet.name)),
+      appBar: AppBar(title: Text(widget.wallet.name)),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -87,10 +100,8 @@ class WalletPage extends StatelessWidget {
     );
   }
 
-  Widget _buildWalletDetailsScaffold(
-    BuildContext context,
-    String? privateKeyValue,
-  ) {
+  Widget _buildWalletDetailsScaffold(BuildContext context,
+      String? privateKeyValue,) {
     // Logica per determinare il contenuto del body in base a privateKeyValue
     if (privateKeyValue == null) {
       return Scaffold(
@@ -118,8 +129,14 @@ class WalletPage extends StatelessWidget {
                 },
                 child: Text("Torna indietro"),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                  foregroundColor: Theme.of(context).colorScheme.inversePrimary,
+                  backgroundColor: Theme
+                      .of(context)
+                      .colorScheme
+                      .primary,
+                  foregroundColor: Theme
+                      .of(context)
+                      .colorScheme
+                      .inversePrimary,
                 ),
               ),
             ],
@@ -128,48 +145,113 @@ class WalletPage extends StatelessWidget {
       );
     } else {
       return Scaffold(
-        appBar: AppBar(
-          title: Text(
-            wallet.name,
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          backgroundColor: Theme.of(context).colorScheme.primary,
-          foregroundColor: Theme.of(context).colorScheme.inversePrimary,
-          centerTitle: true,
-          actions: [
-            IconButton(
-              icon: Icon(Icons.delete),
-              onPressed: () async {
-                try {
-                  // 1. Elimina da Secure Storage
-                  await _secureStorage.deleteSecureData(wallet.localKeyIdentifier);
-                  // 2. Elimina da Firestore (tramite Provider)
-                  await Provider.of<WalletProvider>(context, listen: false).deleteWallet(context, wallet);
-                  // 3. Torna alla schermata precedente
-                  if (Navigator.canPop(context)) {
-                    Navigator.pop(context);
-                  }
-                } catch (e) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text('Errore durante l\'eliminazione: $e'),
-                      backgroundColor: Colors.red,
-                    ),
-                  );
-                }
-              },
+          appBar: AppBar(
+            title: Text(
+              widget.wallet.name,
+              style: TextStyle(fontWeight: FontWeight.bold),
             ),
-          ],
-        ),
-        body: Column(
-          spacing: 20,
-          children: [
-            Text("localKeyIdentifier: ${wallet.localKeyIdentifier}"),
-            TextField(
-              
-            )
-          ],
-        )
+            backgroundColor: Theme
+                .of(context)
+                .colorScheme
+                .primary,
+            foregroundColor: Theme
+                .of(context)
+                .colorScheme
+                .inversePrimary,
+            centerTitle: true,
+            actions: [
+              IconButton(
+                icon: Icon(Icons.delete),
+                onPressed: () async {
+                  try {
+                    // 1. Elimina da Secure Storage
+                    await _secureStorage.deleteSecureData(
+                        widget.wallet.localKeyIdentifier);
+                    // 2. Elimina da Firestore (tramite Provider)
+                    await Provider
+                        .of<WalletProvider>(context, listen: false)
+                        .deleteWallet(context, widget.wallet);
+                    // 3. Torna alla schermata precedente
+                    if (Navigator.canPop(context)) {
+                      Navigator.pop(context);
+                    }
+                  } catch (e) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('Errore durante l\'eliminazione: $e'),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+                  }
+                },
+              ),
+            ],
+          ),
+          body: Scrollbar(
+            thumbVisibility: true,
+            trackVisibility: true,
+            thickness: 10,
+            interactive: true,
+            scrollbarOrientation: ScrollbarOrientation.right,
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("Visualizza qui le tue chiavi", style: TextStyle(
+                        fontSize: 18, fontWeight: FontWeight.bold)),
+                    SizedBox(height: 16),
+                    Row(
+                      spacing: 20,
+                      children: [
+                        Text("Chiave pubblica", style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold)),
+                        ElevatedButton(onPressed: () {
+                          setState(() => showPublicKey = !showPublicKey);
+                          if (showPrivateKey == true) {
+                            setState(() => showPrivateKey = false);
+                          }},
+                            child: showPublicKey ? Text(
+                                "Nascondi la chiave pubblica") : Text(
+                                "Mostra la chiave pubblica"))
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    if (showPublicKey)
+                      PrettyQrView.data(
+                        data: widget.wallet.publicKey,
+                        decoration: const PrettyQrDecoration(
+                          image: PrettyQrDecorationImage(
+                            image: AssetImage('images/logo.png'),
+                          ),
+                          quietZone: PrettyQrQuietZone.standart,
+                        ),
+                      ),
+                    Row(
+                      spacing: 20,
+                      children: [
+                        Text("Chiave privata", style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold)),
+                        ElevatedButton(onPressed: () {
+                          setState(() => showPrivateKey = !showPrivateKey);
+                          if (showPublicKey == true) {
+                            setState(() => showPublicKey = false);
+                          }
+                        },
+                            child: showPrivateKey ? Text(
+                                "Nascondi la chiave privata") : Text(
+                                "Mostra la chiave privata"))
+                      ],
+                    ),
+                    SizedBox(height: 8),
+                    if (showPrivateKey)
+                      SelectableText(privateKeyValue),
+                  ],
+                ),
+              ),
+            ),
+          )
       );
     }
   }
