@@ -89,10 +89,10 @@ class WalletProvider with ChangeNotifier {
 
       _wallets.insert(0, finalWallet);
       notifyListeners();
-      print("WalletProvider: Wallet aggiunto con successo. ID: ${finalWallet.id}, Nome: ${finalWallet.name}");
+      //print("WalletProvider: Wallet aggiunto con successo. ID: ${finalWallet.id}, Nome: ${finalWallet.name}");
 
     } catch (e) {
-      print("WalletProvider: Errore durante la generazione e salvataggio del wallet: $e");
+      //print("WalletProvider: Errore durante la generazione e salvataggio del wallet: $e");
     }
   }
 
@@ -155,7 +155,6 @@ class WalletProvider with ChangeNotifier {
           ),
         );
       } catch (e) {
-        print("WalletProvider: Errore durante l'eliminazione del wallet: $e");
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
             content: Text('Errore durante l\'eliminazione del wallet: ${e.toString()}'),

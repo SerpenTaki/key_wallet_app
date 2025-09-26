@@ -28,15 +28,9 @@ class _LandingPageState extends State<LandingPage> {
         listen: false,
       );
       if (user != null) {
-        print(
-          "LandingPage: Utente autenticato con UID: ${user.uid}. Recupero wallets...",
-        );
         walletProvider.fetchUserWallets(user.uid);
       } else {
-        print("LandingPage: Utente non autenticato. Pulizia wallets...");
-        walletProvider.fetchUserWallets(
-          "",
-        );
+        walletProvider.fetchUserWallets("",);
       }
     });
   }
@@ -72,13 +66,13 @@ class _LandingPageState extends State<LandingPage> {
                 },
               ),
               CupertinoDialogAction(
-                child: const Text('Crea'),
                 isDefaultAction: true,
                 onPressed: () {
                   if (controller.text.trim().isNotEmpty) {
                     Navigator.of(dialogContext).pop(controller.text.trim());
                   }
                 },
+                child: const Text('Crea'),
               ),
             ],
           );
@@ -159,7 +153,7 @@ class _LandingPageState extends State<LandingPage> {
         return Card(
           margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: ListTile(
-            leading: Icon(Icons.credit_card),
+            leading: Icon(Icons.wallet_rounded),
             title: Text(wallet.name),
             trailing: Icon(
               defaultTargetPlatform == TargetPlatform.android
@@ -228,9 +222,9 @@ class _LandingPageState extends State<LandingPage> {
 
           }
         },
-        child: Icon(Icons.add),
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Theme.of(context).colorScheme.onPrimary,
+        child: Icon(Icons.add),
       ),
     );
   }

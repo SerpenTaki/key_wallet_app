@@ -92,7 +92,6 @@ class WalletPage extends StatelessWidget {
     String? privateKeyValue,
   ) {
     // Logica per determinare il contenuto del body in base a privateKeyValue
-    Widget bodyContent;
     if (privateKeyValue == null) {
       return Scaffold(
         body: Center(
@@ -156,7 +155,6 @@ class WalletPage extends StatelessWidget {
                     Navigator.pop(context);
                   }
                 } catch (e) {
-                  print("Errore durante l'eliminazione diretta del wallet: $e");
                   ScaffoldMessenger.of(context).showSnackBar(
                     SnackBar(
                       content: Text('Errore durante l\'eliminazione: $e'),

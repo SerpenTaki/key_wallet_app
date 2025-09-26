@@ -7,10 +7,10 @@ class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
 
   @override
-  State<AuthPage> createState() => _AuthPageState();
+  State<AuthPage> createState() => AuthPageState();
 }
 
-class _AuthPageState extends State<AuthPage> {
+class AuthPageState extends State<AuthPage> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
   bool isLogin = true;
@@ -71,7 +71,7 @@ class _AuthPageState extends State<AuthPage> {
                   SizedBox(width: 10), // Optional spacing between image and text
                   Text(
                     "key wallet app",
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),

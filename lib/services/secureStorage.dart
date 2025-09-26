@@ -5,7 +5,7 @@ class SecureStorage {
 
   Future<void> writeSecureData(String key, String value) async {
     await storage.write(key: key, value: value);
-    print("Dato salvata correttamente");
+    //print("Dato salvata correttamente");
   }
 
   Future<String?> readSecureData(String key) async {
@@ -15,6 +15,6 @@ class SecureStorage {
 
   Future<void> deleteSecureData(String key) async {
     await storage.delete(key: key);
-    print("Dato eliminata correttamente");
+    //print("Dato eliminata correttamente");
   }
 }
