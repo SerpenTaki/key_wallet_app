@@ -188,10 +188,11 @@ class _WalletPageState extends State<WalletPage> {
                       // 2. Elimina da Firestore (tramite Provider)
                       await Provider.of<WalletProvider>(context, listen: false).deleteWallet(widget.wallet);
                       // 3. Torna alla schermata precedente
-                      if (Navigator.canPop(context)) {
-                        Navigator.pop(context);
-                      }
 
+                      if (Navigator.canPop(context)) {
+                        Navigator.pop(context); // Chiude il dialog
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Wallet eliminato con successo!"), backgroundColor: Colors.green,));
+                      }
                     }
                   }
               ),

@@ -73,8 +73,7 @@ class WalletProvider with ChangeNotifier {
       _wallets.insert(0, finalWallet);
       notifyListeners();
     } catch (e) {
-      print("Errore durante la generazione e salvataggio del wallet: $e");
-      // Potresti voler rilanciare l'errore o gestirlo in modo più specifico
+      throw e;
     }
   }
 
