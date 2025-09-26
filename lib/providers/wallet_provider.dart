@@ -3,12 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:key_wallet_app/models/wallet.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:key_wallet_app/services/secureStorage.dart';
 
 class WalletProvider with ChangeNotifier {
   final List<Wallet> _wallets = [];
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final FlutterSecureStorage _secureStorage = const FlutterSecureStorage();
 
   bool _isLoading = false; // Nuovo stato di caricamento
   bool get isLoading => _isLoading; // Getter per lo stato di caricamento
@@ -16,7 +15,7 @@ class WalletProvider with ChangeNotifier {
   List<Wallet> get wallets => List.unmodifiable(_wallets);
 
   Future<void> fetchUserWallets(String userId) async {
-    print("WalletProvider: Inizio recupero wallets per l'utente: $userId");
+    //print("WalletProvider: Inizio recupero wallets per l'utente: $userId");
     _isLoading = true;
     notifyListeners();
 
@@ -29,43 +28,41 @@ class WalletProvider with ChangeNotifier {
 
       _wallets.clear(); // Aggiornamento della precedente lista wallet nel caso vengano creati nuovi wallet
       
-      if (walletSnapshot.docs.isEmpty) {
-        print("WalletProvider: Nessun wallet trovato in Firestore per l'utente $userId.");
-      } else {
-        print("WalletProvider: Trovati ${walletSnapshot.docs.length} wallets in Firestore per l'utente $userId.");
-      }
+      //if (walletSnapshot.docs.isEmpty) {
+      //  print("WalletProvider: Nessun wallet trovato in Firestore per l'utente $userId.");
+      //} else {
+      //  print("WalletProvider: Trovati ${walletSnapshot.docs.length} wallets in Firestore per l'utente $userId.");
+      //}
 
       for (var doc in walletSnapshot.docs) {
-        print("WalletProvider: Aggiungo wallet da Firestore: ${doc.id}");
+        //print("WalletProvider: Aggiungo wallet da Firestore: ${doc.id}");
         _wallets.add(Wallet.fromFirestore(doc));
       }
       
     } catch (e) {
-      print("WalletProvider: Errore durante il recupero dei wallets da Firestore: $e");
+      //print("WalletProvider: Errore durante il recupero dei wallets da Firestore: $e");
       _wallets.clear(); // Pulizia della lista in caso di errore
     } finally {
       _isLoading = false;
       notifyListeners(); // Notifica che il caricamento è finito e i dati (o l'errore) sono pronti
-      print("WalletProvider: Lista wallets aggiornata, ${wallets.length} wallets caricati in memoria. Caricamento terminato.");
+     // print("WalletProvider: Lista wallets aggiornata, ${wallets.length} wallets caricati in memoria. Caricamento terminato.");
     }
   }
   
   Future<void> generateAndAddWallet(String userId, String walletName) async {
     if (userId.isEmpty) {
-      print("WalletProvider: Impossibile generare wallet, userId vuoto.");
+      //print("WalletProvider: Impossibile generare wallet, userId vuoto.");
       return;
     }
 
-    print("WalletProvider: Inizio generazione nuovo wallet per l'utente $userId con nome: $walletName");
+   // print("WalletProvider: Inizio generazione nuovo wallet per l'utente $userId con nome: $walletName");
     try {
       Wallet tempWallet = await Wallet.generateNew(walletName);
 
-      await _secureStorage.write(
-        key: tempWallet.localKeyIdentifier,
-        value: tempWallet.transientRawPrivateKey,
-      );
+      await SecureStorage().writeSecureData(tempWallet.localKeyIdentifier, tempWallet.transientRawPrivateKey!);
 
-      print("WalletProvider: Chiave privata salvata in Secure Storage con identificatore: ${tempWallet.localKeyIdentifier}");
+
+     // print("WalletProvider: Chiave privata salvata in Secure Storage con identificatore: ${tempWallet.localKeyIdentifier}");
       tempWallet.transientRawPrivateKey = null; // Eliminazione della chiave privata temporanea
       // Qui salviamo la chiave privata sul dispositivo
 
@@ -81,7 +78,7 @@ class WalletProvider with ChangeNotifier {
       };
 
       DocumentReference docRef = await _firestore.collection('wallets').add(walletDataForFirestore); // Aggiunta a Firestore
-      print("WalletProvider: Metadati wallet salvati in Firestore con ID: ${docRef.id}");
+      //print("WalletProvider: Metadati wallet salvati in Firestore con ID: ${docRef.id}");
 
       final Wallet finalWallet = Wallet(
         id: docRef.id,
@@ -113,8 +110,8 @@ class WalletProvider with ChangeNotifier {
                 onPressed: () => Navigator.of(dialogContext).pop(false),
               ),
               CupertinoDialogAction(
-                child: const Text('Elimina'),
                 isDestructiveAction: true,
+                child: const Text('Elimina'),
                 onPressed: () => Navigator.of(dialogContext).pop(true),
               ),
             ],
@@ -139,13 +136,14 @@ class WalletProvider with ChangeNotifier {
     ) ?? false; //Se nullo esco dal dialog torna false
 
     if (confirmDelete) {
-      print("WalletProvider: Inizio eliminazione wallet ID: ${wallet.id}");
+      //print("WalletProvider: Inizio eliminazione wallet ID: ${wallet.id}");
       try {
-        await _secureStorage.delete(key: wallet.localKeyIdentifier);
-        print("WalletProvider: Chiave privata eliminata da Secure Storage per localKeyIdentifier: ${wallet.localKeyIdentifier}");
+
+        await SecureStorage().deleteSecureData(wallet.localKeyIdentifier);
+        //print("WalletProvider: Chiave privata eliminata da Secure Storage per localKeyIdentifier: ${wallet.localKeyIdentifier}");
 
         await _firestore.collection('wallets').doc(wallet.id).delete();
-        print("WalletProvider: Documento wallet eliminato da Firestore: ${wallet.id}");
+        //print("WalletProvider: Documento wallet eliminato da Firestore: ${wallet.id}");
 
         _wallets.removeWhere((w) => w.id == wallet.id); // Rimuoviamo dalla lista locale mostrata in _landingPage
         notifyListeners();
