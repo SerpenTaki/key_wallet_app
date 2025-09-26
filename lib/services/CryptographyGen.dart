@@ -15,6 +15,7 @@ pointy.AsymmetricKeyPair<pointy.PublicKey, pointy.PrivateKey> generateRSAkeyPair
       pair.publicKey as pointy.RSAPublicKey,
       pair.privateKey as pointy.RSAPrivateKey);
 }
+//Ritorna una mappa con chiave pubblica e privata.
 
 pointy.SecureRandom getSecureRandom() {
   final secureRandom = pointy.FortunaRandom();

@@ -26,7 +26,7 @@ String? passwordValidator(String? value, {int minLength = 6}) {
     return 'Inserisci una password';
   }
   if (value.length < minLength) {
-    return 'La password deve contenere almeno $minLength caratteri';
+    return 'La password non valida';
   }
   return null;
 }

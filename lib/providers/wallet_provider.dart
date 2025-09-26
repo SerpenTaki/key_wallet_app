@@ -2,8 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:key_wallet_app/models/wallet.dart';
-import 'package:cloud_firestore/cloud_firestore.dart'; // Import per Firestore
-import 'package:flutter_secure_storage/flutter_secure_storage.dart'; // Import per Secure Storage
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class WalletProvider with ChangeNotifier {
   final List<Wallet> _wallets = [];
@@ -16,17 +16,9 @@ class WalletProvider with ChangeNotifier {
   List<Wallet> get wallets => List.unmodifiable(_wallets);
 
   Future<void> fetchUserWallets(String userId) async {
-    if (userId.isEmpty) {
-      _wallets.clear();
-      _isLoading = false; // Assicurati che isLoading sia false anche qui
-      notifyListeners();
-      print("WalletProvider: Utente sloggato o ID utente vuoto, lista wallet pulita.");
-      return;
-    }
-
     print("WalletProvider: Inizio recupero wallets per l'utente: $userId");
     _isLoading = true;
-    notifyListeners(); // Notifica che il caricamento è iniziato
+    notifyListeners();
 
     try {
       QuerySnapshot<Map<String, dynamic>> walletSnapshot = await _firestore
@@ -35,7 +27,7 @@ class WalletProvider with ChangeNotifier {
           .orderBy('createdAt', descending: true)
           .get();
 
-      _wallets.clear();
+      _wallets.clear(); // Aggiornamento della precedente lista wallet nel caso vengano creati nuovi wallet
       
       if (walletSnapshot.docs.isEmpty) {
         print("WalletProvider: Nessun wallet trovato in Firestore per l'utente $userId.");
@@ -50,7 +42,7 @@ class WalletProvider with ChangeNotifier {
       
     } catch (e) {
       print("WalletProvider: Errore durante il recupero dei wallets da Firestore: $e");
-      _wallets.clear(); // Pulisci in caso di errore
+      _wallets.clear(); // Pulizia della lista in caso di errore
     } finally {
       _isLoading = false;
       notifyListeners(); // Notifica che il caricamento è finito e i dati (o l'errore) sono pronti
@@ -63,28 +55,21 @@ class WalletProvider with ChangeNotifier {
       print("WalletProvider: Impossibile generare wallet, userId vuoto.");
       return;
     }
-    if (walletName.isEmpty) {
-      print("WalletProvider: Impossibile generare wallet, nome del wallet vuoto.");
-      return;
-    }
-    // Non modifichiamo isLoading qui, perché fetchUserWallets dovrebbe essere richiamato se necessario
-    // oppure la UI si aggiornerà aggiungendo direttamente il wallet.
-    // Se la creazione fosse molto lunga, potremmo aggiungere uno stato di "isCreating".
 
     print("WalletProvider: Inizio generazione nuovo wallet per l'utente $userId con nome: $walletName");
     try {
       Wallet tempWallet = await Wallet.generateNew(walletName);
 
-      if (tempWallet.transientRawPrivateKey == null || tempWallet.transientRawPrivateKey!.isEmpty) {
-        throw Exception("La chiave privata generata è nulla o vuota.");
-      }
       await _secureStorage.write(
         key: tempWallet.localKeyIdentifier,
         value: tempWallet.transientRawPrivateKey,
       );
-      print("WalletProvider: Chiave privata salvata in Secure Storage con identificatore: ${tempWallet.localKeyIdentifier}");
-      tempWallet.transientRawPrivateKey = null;
 
+      print("WalletProvider: Chiave privata salvata in Secure Storage con identificatore: ${tempWallet.localKeyIdentifier}");
+      tempWallet.transientRawPrivateKey = null; // Eliminazione della chiave privata temporanea
+      // Qui salviamo la chiave privata sul dispositivo
+
+      //Dati da mandare a firebase
       Map<String, dynamic> walletDataForFirestore = {
         'userId': userId,
         'name': tempWallet.name,
@@ -95,7 +80,7 @@ class WalletProvider with ChangeNotifier {
         'backedUp': false,
       };
 
-      DocumentReference docRef = await _firestore.collection('wallets').add(walletDataForFirestore);
+      DocumentReference docRef = await _firestore.collection('wallets').add(walletDataForFirestore); // Aggiunta a Firestore
       print("WalletProvider: Metadati wallet salvati in Firestore con ID: ${docRef.id}");
 
       final Wallet finalWallet = Wallet(
@@ -103,7 +88,7 @@ class WalletProvider with ChangeNotifier {
         name: tempWallet.name,
         publicKey: tempWallet.publicKey,
         localKeyIdentifier: tempWallet.localKeyIdentifier,
-      );
+      ); //Creo un wallet per mandarlo alla lista da mostrare in _landingPage
 
       _wallets.insert(0, finalWallet);
       notifyListeners();
@@ -118,8 +103,7 @@ class WalletProvider with ChangeNotifier {
     final bool confirmDelete = await showDialog(
       context: context,
       builder: (BuildContext dialogContext) {
-        // ... (codice del dialogo invariato) ...
-        if (defaultTargetPlatform == TargetPlatform.iOS) {
+        if (defaultTargetPlatform == TargetPlatform.iOS){
           return CupertinoAlertDialog(
             title: const Text('Conferma Eliminazione'),
             content: Text('Sei sicuro di voler eliminare il wallet "${wallet.name}"?'),
@@ -152,11 +136,10 @@ class WalletProvider with ChangeNotifier {
           );
         }
       },
-    ) ?? false;
+    ) ?? false; //Se nullo esco dal dialog torna false
 
     if (confirmDelete) {
       print("WalletProvider: Inizio eliminazione wallet ID: ${wallet.id}");
-      // Potremmo aggiungere uno stato _isDeleting se l'operazione fosse lunga
       try {
         await _secureStorage.delete(key: wallet.localKeyIdentifier);
         print("WalletProvider: Chiave privata eliminata da Secure Storage per localKeyIdentifier: ${wallet.localKeyIdentifier}");
@@ -164,12 +147,11 @@ class WalletProvider with ChangeNotifier {
         await _firestore.collection('wallets').doc(wallet.id).delete();
         print("WalletProvider: Documento wallet eliminato da Firestore: ${wallet.id}");
 
-        _wallets.removeWhere((w) => w.id == wallet.id);
+        _wallets.removeWhere((w) => w.id == wallet.id); // Rimuoviamo dalla lista locale mostrata in _landingPage
         notifyListeners();
 
-        print("WalletProvider: Wallet ID: ${wallet.id} eliminato con successo.");
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
+          SnackBar( // Avviso all'utente
             content: Text('Wallet: "${wallet.name}" eliminato con successo!'),
             backgroundColor: Colors.green,
           ),

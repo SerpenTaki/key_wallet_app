@@ -60,7 +60,7 @@ class _LandingPageState extends State<LandingPage> {
           return CupertinoAlertDialog(
             title: const Text('Crea Nuovo Wallet'),
             content: Padding(
-              padding: const EdgeInsets.only(top: 8.0),
+              padding: const EdgeInsets.only(top: 0.0),
               child: CupertinoTextField(
                 controller: controller,
                 autofocus: true,
