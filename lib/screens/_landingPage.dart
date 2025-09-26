@@ -182,10 +182,7 @@ class _LandingPageState extends State<LandingPage> {
               children: [
                 Icon(Icons.account_balance_wallet),
                 SizedBox(width: 8),
-                Text(
-                  "Key Wallet",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
+                const Text("Key Wallet", style: TextStyle(fontWeight: FontWeight.bold),),
               ],
             ),
             actions: [
@@ -224,7 +221,7 @@ class _LandingPageState extends State<LandingPage> {
         },
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Theme.of(context).colorScheme.onPrimary,
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
