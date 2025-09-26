@@ -59,13 +59,10 @@ class _LandingPageState extends State<LandingPage> {
         builder: (BuildContext dialogContext) {
           return CupertinoAlertDialog(
             title: const Text('Crea Nuovo Wallet'),
-            content: Padding(
-              padding: const EdgeInsets.only(top: 0.0),
-              child: CupertinoTextField(
-                controller: controller,
-                autofocus: true,
-                placeholder: 'Nome del Wallet',
-              ),
+            content: CupertinoTextField(
+              controller: controller,
+              autofocus: true,
+              placeholder: 'Nome del Wallet',
             ),
             actions: <CupertinoDialogAction>[
               CupertinoDialogAction(
@@ -171,9 +168,6 @@ class _LandingPageState extends State<LandingPage> {
             ),
             onTap: () {
               Navigator.pushNamed(context, '/WalletPage', arguments: wallet);
-            },
-            onLongPress: () {
-               // Pop up dell'eliminazione
             },
           ),
         );

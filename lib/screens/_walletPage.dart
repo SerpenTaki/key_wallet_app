@@ -12,27 +12,9 @@ class WalletPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("WalletPage build: Mostrando dettagli per wallet: ${wallet.name}");
-    print("Chiave pubblica (da wallet object): ${wallet.publicKey}");
-
     return FutureBuilder<dynamic>(
       future: _secureStorage.readSecureData(wallet.localKeyIdentifier),
       builder: (BuildContext context, AsyncSnapshot<dynamic> mainSnapshot) {
-        print(
-          '[MainFutureBuilder] ConnectionState: ${mainSnapshot.connectionState}',
-        );
-        if (mainSnapshot.hasData) {
-          print(
-            '[MainFutureBuilder] HasData: true, Data type: ${mainSnapshot.data.runtimeType}, Data: ${mainSnapshot.data}',
-          );
-        } else {
-          print('[MainFutureBuilder] HasData: false');
-        }
-        if (mainSnapshot.hasError) {
-          print(
-            '[MainFutureBuilder] HasError: true, Error: ${mainSnapshot.error}',
-          );
-        }
 
         if (mainSnapshot.connectionState == ConnectionState.waiting) {
           return _buildLoadingScaffold(context, "Caricamento dati sicuri...");
@@ -45,53 +27,18 @@ class WalletPage extends StatelessWidget {
           final dynamic dataFromMainFuture = mainSnapshot.data;
 
           if (dataFromMainFuture is Future) {
-            print(
-              '[MainFutureBuilder] Rilevato Future annidato. Uso FutureBuilder secondario.',
-            );
             return FutureBuilder<String?>(
               future: dataFromMainFuture as Future<String?>,
               builder: (context, innerSnapshot) {
-                print(
-                  '  [InnerFutureBuilder] ConnectionState: ${innerSnapshot.connectionState}',
-                );
-                if (innerSnapshot.hasData) {
-                  print(
-                    '  [InnerFutureBuilder] HasData: true, Data: ${innerSnapshot.data}',
-                  );
-                } else {
-                  print('  [InnerFutureBuilder] HasData: false');
-                }
-                if (innerSnapshot.hasError) {
-                  print(
-                    '  [InnerFutureBuilder] HasError: true, Error: ${innerSnapshot.error}',
-                  );
-                }
-
                 if (innerSnapshot.connectionState == ConnectionState.waiting) {
-                  return _buildLoadingScaffold(
-                    context,
-                    "Caricamento chiave privata (interno)...",
-                  );
+                  return _buildLoadingScaffold(context, "Caricamento chiave privata (interno)...",);
                 } else if (innerSnapshot.hasError) {
-                  return _buildErrorScaffold(
-                    context,
-                    "Errore interno: ${innerSnapshot.error}",
-                  );
+                  return _buildErrorScaffold(context, "Errore interno: ${innerSnapshot.error}");
                 } else {
                   final String? privateKeyValue = innerSnapshot.data;
                   if (privateKeyValue != null && privateKeyValue.isNotEmpty) {
-                    print(
-                      '  [InnerFutureBuilder] Chiave privata recuperata (da Future annidato): $privateKeyValue',
-                    );
-                    return _buildWalletDetailsScaffold(
-                      context,
-                      privateKeyValue,
-                    );
+                    return _buildWalletDetailsScaffold(context,privateKeyValue);
                   } else {
-                    print(
-                      '  [InnerFutureBuilder] Chiave privata (da Future annidato) è null o vuota.',
-                    );
-                    print("ASssakjbdshjabjhdbhjab");
                     return _buildWalletDetailsScaffold(context, null);
                   }
                 }
@@ -100,23 +47,12 @@ class WalletPage extends StatelessWidget {
           } else {
             final String? privateKeyValue = dataFromMainFuture as String?;
             if (privateKeyValue != null && privateKeyValue.isNotEmpty) {
-              print(
-                '[MainFutureBuilder] Chiave privata recuperata (direttamente): $privateKeyValue',
-              );
               return _buildWalletDetailsScaffold(context, privateKeyValue);
             } else {
-              print(
-                '[MainFutureBuilder] Chiave privata (direttamente) è null o vuota.',
-              );
-              print("ASssakjbdshjabjhdbhjab");
               return _buildWalletDetailsScaffold(context, null);
             }
           }
         } else {
-          print(
-            '[MainFutureBuilder] Nessun dato, nessuno stato di errore/attesa. Chiave considerata non trovata.',
-          );
-          print("ASssakjbdshjabjhdbhjab");
           return _buildWalletDetailsScaffold(context, null);
         }
       },
@@ -197,41 +133,6 @@ class WalletPage extends StatelessWidget {
         ),
       );
     } else {
-      // CASO: CHIAVE PRIVATA TROVATA
-      bodyContent = Scrollbar(
-        child: Center(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text('Nome: ${wallet.name}'),
-                SizedBox(height: 8),
-                Text('ID: ${wallet.id}'),
-                SizedBox(height: 8),
-                Text('Chiave Pubblica: ${wallet.publicKey}'),
-                SizedBox(height: 8),
-                Text('Identificatore Locale: ${wallet.localKeyIdentifier}'),
-                SizedBox(height: 8),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text('Chiave Privata: '),
-                    Expanded(
-                      child: SelectableText( 
-                        privateKeyValue,
-                        style: TextStyle(fontFamily: 'monospace'),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-        ),
-      );
-      
       return Scaffold(
         appBar: AppBar(
           title: Text(
@@ -267,7 +168,9 @@ class WalletPage extends StatelessWidget {
             ),
           ],
         ),
-        body: bodyContent,
+        body: Column(
+
+        )
       );
     }
   }
