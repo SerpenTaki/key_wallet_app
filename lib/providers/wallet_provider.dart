@@ -4,8 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:key_wallet_app/models/wallet.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:key_wallet_app/services/secure_storage.dart';
-// SecureStorage non è più usato direttamente in questo provider per l'eliminazione
-// import 'package:key_wallet_app/services/secure_storage.dart';
 
 class WalletProvider with ChangeNotifier {
   final List<Wallet> _wallets = [];
