@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:key_wallet_app/models/wallet.dart';
 import 'package:key_wallet_app/services/secure_storage.dart';
 import 'package:key_wallet_app/ErrorScreens/key_not_found.dart';
-import 'package:key_wallet_app/widgets/keys_page.dart';
+import 'package:key_wallet_app/screens/keys_page.dart';
 
 class WalletPage extends StatefulWidget {
   const WalletPage({super.key, required this.wallet});
