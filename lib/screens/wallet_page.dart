@@ -5,7 +5,7 @@ import 'package:key_wallet_app/ErrorScreens/key_not_found.dart';
 import 'package:key_wallet_app/screens/keys_page.dart';
 import 'package:key_wallet_app/widgets/delete_apple_wallet_alert.dart';
 import 'package:key_wallet_app/widgets/delete_wallet_alert.dart';
-import 'package:key_wallet_app/screens/chat_page.dart';
+import 'package:key_wallet_app/screens/rsa_test_page.dart'; 
 import 'package:key_wallet_app/screens/docs_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
@@ -24,7 +24,6 @@ class WalletPage extends StatefulWidget {
 class _WalletPageState extends State<WalletPage> {
   final SecureStorage _secureStorage = SecureStorage();
 
-
   @override
   void initState() {
     super.initState();
@@ -38,7 +37,6 @@ class _WalletPageState extends State<WalletPage> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<dynamic>(
-
       future: _secureStorage.readSecureData(widget.wallet.localKeyIdentifier),
       builder: (BuildContext context, AsyncSnapshot<dynamic> mainSnapshot) {
         if (mainSnapshot.connectionState == ConnectionState.waiting) {
@@ -46,17 +44,14 @@ class _WalletPageState extends State<WalletPage> {
         } else if (mainSnapshot.hasError) {
           return _buildErrorScaffold(
             context,
-            "Errore durante il caricamento della chiave: ${mainSnapshot.error
-                .toString()}",
+            "Errore durante il caricamento della chiave: ${mainSnapshot.error.toString()}",
           );
         } else if (mainSnapshot.hasData) {
-          // Gestisci il caso in cui dataFromMainFuture sia Future o String?
           final dynamic dataFromMainFuture = mainSnapshot.data;
 
           if (dataFromMainFuture is Future) {
-            // Questo blocco gestisce se readSecureData restituisce un Future<String?>
             return FutureBuilder<String?>(
-              future: dataFromMainFuture as Future<String?>, // Cast esplicito
+              future: dataFromMainFuture as Future<String?>, 
               builder: (context, innerSnapshot) {
                 if (innerSnapshot.connectionState == ConnectionState.waiting) {
                   return _buildLoadingScaffold(
@@ -64,23 +59,18 @@ class _WalletPageState extends State<WalletPage> {
                 } else if (innerSnapshot.hasError) {
                   return _buildErrorScaffold(
                       context,
-                      "Errore interno caricamento chiave: ${innerSnapshot.error
-                          .toString()}");
+                      "Errore interno caricamento chiave: ${innerSnapshot.error.toString()}");
                 } else {
-                  // innerSnapshot.data è String?
                   return _buildWalletDetailsScaffold(
                       context, innerSnapshot.data);
                 }
               },
             );
           } else {
-            // Questo blocco gestisce se readSecureData restituisce direttamente String?
-            // (o un altro tipo che puoi castare a String?)
             final String? privateKeyValue = dataFromMainFuture as String?;
             return _buildWalletDetailsScaffold(context, privateKeyValue);
           }
         } else {
-          // Nessun dato e nessuno stato di errore/attesa => chiave non trovata
           return _buildWalletDetailsScaffold(context, null);
         }
       },
@@ -122,7 +112,10 @@ class _WalletPageState extends State<WalletPage> {
     if (privateKeyValue == null || privateKeyValue.isEmpty) {
       return KeyNotFound();
     } else {
-      return DefaultTabController(length: 3,
+      // NOTA: La label per la tab di RsaTestPage era "Chat" nel codice precedente.
+      // Potresti volerla cambiare in "Test RSA" o qualcosa di simile.
+      // Per ora mantengo le label come erano, ma la lunghezza e i children sono aggiornati.
+      return DefaultTabController(length: 3, // Lunghezza rimane 3 se RsaTestPage sostituisce ChatPage
           child: Scaffold(
             appBar: AppBar(
               title: Text(
@@ -133,7 +126,8 @@ class _WalletPageState extends State<WalletPage> {
               foregroundColor: Theme.of(context).colorScheme.inversePrimary,
               centerTitle: true,
               actions: [
-                IconButton(
+                // IconButton per RSA Test Page rimosso, ora è una tab
+                IconButton( // Pulsante Elimina Esistente
                   icon: Icon(Icons.delete),
                   onPressed: () async {
                     final bool? confirmDelete = await showDialog<bool>(
@@ -144,7 +138,7 @@ class _WalletPageState extends State<WalletPage> {
                         } else {
                           return DeleteWalletAlert(walletName: widget.wallet.name, dialogContext: dialogContext);
                         }
-                      }, //Dialog per Elimina
+                      },
                     );
                     if (confirmDelete == true) {
                       try {
@@ -181,14 +175,15 @@ class _WalletPageState extends State<WalletPage> {
                       }
                     }
                   },
-                ), //Icona Elimina
+                ),
               ],
               bottom: const TabBar(
                 labelColor: Colors.white,
                 unselectedLabelColor: Colors.grey,
                 automaticIndicatorColorAdjustment: true,
                 tabs: [
-                  Tab(text:"Chat", icon: Icon(Icons.contacts),),
+                  // Se RsaTestPage sostituisce ChatPage, la label va aggiornata
+                  Tab(text:"Test RSA", icon: Icon(Icons.science_outlined),), // Modificata label e icona
                   Tab(text: 'Lista Documenti', icon: Icon(Icons.contact_mail_outlined),),
                   Tab(text: 'Chiavi', icon: Icon(Icons.key),),
                 ],
@@ -196,7 +191,11 @@ class _WalletPageState extends State<WalletPage> {
             ),
             body: TabBarView(
               children: [
-                ChatPage(),
+                // RsaTestPage ora riceve le chiavi
+                RsaTestPage(
+                  initialPrivateKeyString: privateKeyValue,
+                  initialPublicKeyString: widget.wallet.publicKey,
+                ),
                 DocsPage(),
                 KeysPage(
                   wallet: widget.wallet,
@@ -210,4 +209,3 @@ class _WalletPageState extends State<WalletPage> {
     }
   }
 }
-
