@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:key_wallet_app/services/RouteGenerator.dart';
+import 'package:key_wallet_app/services/Route_generator.dart';
 import 'package:key_wallet_app/services/auth.dart';
-import 'package:key_wallet_app/screens/_landingPage.dart';
-import 'package:key_wallet_app/screens/_authPage.dart';
+import 'package:key_wallet_app/screens/_landing_page.dart';
+import 'package:key_wallet_app/screens/_auth_page.dart';
 import 'services/firebase_options.dart';
 import 'package:provider/provider.dart';
 import 'package:key_wallet_app/providers/wallet_provider.dart';

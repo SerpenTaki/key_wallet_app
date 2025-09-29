@@ -1,5 +1,5 @@
 import 'package:uuid/uuid.dart';
-import 'package:key_wallet_app/services/CryptographyGen.dart';
+import 'package:key_wallet_app/services/cryptography_gen.dart';
 import 'package:pointycastle/asymmetric/api.dart' as pointy;
 import 'package:cloud_firestore/cloud_firestore.dart';
 
