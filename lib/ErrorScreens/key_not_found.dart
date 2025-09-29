@@ -30,6 +30,6 @@ class KeyNotFound extends StatelessWidget {
           ],
         ),
       ),
-    );;
+    );
   }
 }

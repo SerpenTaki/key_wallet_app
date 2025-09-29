@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:key_wallet_app/services/Route_generator.dart';
+import 'package:key_wallet_app/services/route_generator.dart';
 import 'package:key_wallet_app/services/auth.dart';
 import 'package:key_wallet_app/screens/_landing_page.dart';
 import 'package:key_wallet_app/screens/_auth_page.dart';
