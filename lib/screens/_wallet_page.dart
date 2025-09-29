@@ -3,11 +3,16 @@ import 'package:key_wallet_app/models/wallet.dart';
 import 'package:key_wallet_app/services/secure_storage.dart';
 import 'package:key_wallet_app/ErrorScreens/key_not_found.dart';
 import 'package:key_wallet_app/screens/keys_page.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
+import 'package:provider/provider.dart';
+import 'package:key_wallet_app/providers/wallet_provider.dart';
 
 class WalletPage extends StatefulWidget {
-  const WalletPage({super.key, required this.wallet});
+  WalletPage({super.key, required this.wallet});
 
   final Wallet wallet;
+  final SecureStorage _secureStorage = SecureStorage();
 
   @override
   State<WalletPage> createState() => _WalletPageState();
@@ -38,7 +43,8 @@ class _WalletPageState extends State<WalletPage> {
         } else if (mainSnapshot.hasError) {
           return _buildErrorScaffold(
             context,
-            "Errore durante il caricamento della chiave: ${mainSnapshot.error.toString()}",
+            "Errore durante il caricamento della chiave: ${mainSnapshot.error
+                .toString()}",
           );
         } else if (mainSnapshot.hasData) {
           // Gestisci il caso in cui dataFromMainFuture sia Future o String?
@@ -54,10 +60,13 @@ class _WalletPageState extends State<WalletPage> {
                     context, "Caricamento chiave privata (interno)...",);
                 } else if (innerSnapshot.hasError) {
                   return _buildErrorScaffold(
-                      context, "Errore interno caricamento chiave: ${innerSnapshot.error.toString()}");
+                      context,
+                      "Errore interno caricamento chiave: ${innerSnapshot.error
+                          .toString()}");
                 } else {
                   // innerSnapshot.data è String?
-                  return _buildWalletDetailsScaffold(context, innerSnapshot.data);
+                  return _buildWalletDetailsScaffold(
+                      context, innerSnapshot.data);
                 }
               },
             );
@@ -97,7 +106,9 @@ class _WalletPageState extends State<WalletPage> {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Text(errorMessage, style: TextStyle(color: Colors.red, fontSize: 16), textAlign: TextAlign.center,),
+          child: Text(
+            errorMessage, style: TextStyle(color: Colors.red, fontSize: 16),
+            textAlign: TextAlign.center,),
         ),
       ),
     );
@@ -108,11 +119,118 @@ class _WalletPageState extends State<WalletPage> {
     if (privateKeyValue == null || privateKeyValue.isEmpty) {
       return KeyNotFound();
     } else {
-      return KeysPage(
-        wallet: widget.wallet,
-        privateKeyValue: privateKeyValue,
-        secureStorage: _secureStorage,
+      return DefaultTabController(length: 2,
+          child: Scaffold(
+            appBar: AppBar(
+              title: Text(
+                widget.wallet.name,
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              foregroundColor: Theme.of(context).colorScheme.inversePrimary,
+              centerTitle: true,
+              actions: [
+                IconButton(
+                  icon: Icon(Icons.delete),
+                  onPressed: () async {
+                    final bool? confirmDelete = await showDialog<bool>(
+                      context: context,
+                      builder: (BuildContext dialogContext) {
+                        if (defaultTargetPlatform == TargetPlatform.iOS) {
+                          return CupertinoAlertDialog(
+                            title: const Text('Conferma Eliminazione'),
+                            content: Text(
+                              'Sei sicuro di voler eliminare il wallet "${widget.wallet.name}"? Questa azione è irreversibile e la chiave privata verrà rimossa da questo dispositivo.',
+                            ),
+                            actions: <Widget>[
+                              CupertinoDialogAction(
+                                child: const Text('Annulla'),
+                                onPressed: () =>
+                                    Navigator.of(dialogContext).pop(false),
+                              ),
+                              CupertinoDialogAction(
+                                isDestructiveAction: true,
+                                child: const Text('Elimina'),
+                                onPressed: () =>
+                                    Navigator.of(dialogContext).pop(true),
+                              ),
+                            ],
+                          );
+                        } else {
+                          return AlertDialog(
+                            title: const Text('Conferma Eliminazione'),
+                            content: Text(
+                              'Sei sicuro di voler eliminare il wallet "${widget.wallet.name}"? Questa azione è irreversibile e la chiave privata verrà rimossa da questo dispositivo.',
+                            ),
+                            actions: <Widget>[
+                              TextButton(
+                                child: const Text('Annulla'),
+                                onPressed: () =>
+                                    Navigator.of(dialogContext).pop(false),
+                              ),
+                              TextButton(
+                                child: const Text(
+                                  'Elimina',
+                                  style: TextStyle(color: Colors.red),
+                                ),
+                                onPressed: () =>
+                                    Navigator.of(dialogContext).pop(true),
+                              ),
+                            ],
+                          );
+                        }
+                      },
+                    );
+
+                    if (confirmDelete == true) {
+                      try {
+                        await widget._secureStorage.deleteSecureData(
+                          widget.wallet.localKeyIdentifier,
+                        );
+                        await Provider.of<WalletProvider>(
+                          context,
+                          listen: false,
+                        ).deleteWallet(widget.wallet);
+
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Wallet "${widget.wallet.name}" eliminato con successo!',
+                            ),
+                            backgroundColor: Colors.green,
+                          ),
+                        );
+                        if (Navigator.canPop(context)) {
+                          Navigator.pop(
+                            context,
+                          );
+                        }
+                      } catch (e) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              'Errore durante l\'eliminazione: ${e.toString()}',
+                            ),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
+                    }
+                  },
+                ),
+              ],
+            ),
+            body: KeysPage(
+              wallet: widget.wallet,
+              privateKeyValue: privateKeyValue,
+              secureStorage: _secureStorage,
+            ),
+          )
       );
     }
   }
 }
+
+
+
+
