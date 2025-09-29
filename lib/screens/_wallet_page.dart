@@ -6,6 +6,7 @@ import 'package:key_wallet_app/providers/wallet_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:key_wallet_app/ErrorScreens/key_not_found.dart';
 
 class WalletPage extends StatefulWidget {
   const WalletPage({super.key, required this.wallet});
@@ -106,32 +107,7 @@ class _WalletPageState extends State<WalletPage> {
       String? privateKeyValue,) {
     // Logica per determinare il contenuto del body in base a privateKeyValue
     if (privateKeyValue == null) {
-      return Scaffold(
-        body: Center(
-          child: Column(
-            spacing: 20,
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const Text('Chiave privata non trovata!', textAlign: TextAlign.center, style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),),
-              const Text("Riprova da un altro dispositivo", textAlign: TextAlign.center,),
-              ElevatedButton(
-                onPressed: () {
-                  if (Navigator.canPop(context)) {
-                    Navigator.pop(context);
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Theme.of(context).colorScheme.primary,
-                  foregroundColor: Theme.of(context).colorScheme.inversePrimary,
-                ),
-                child: const Text("Torna indietro"),
-              ),
-            ],
-          ),
-        ),
-      );
+      return KeyNotFound();
     } else {
       return Scaffold(
           appBar: AppBar(
