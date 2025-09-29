@@ -35,6 +35,13 @@ class _LandingPageState extends State<LandingPage> {
     });
   }
 
+  Future<void> _refreshData() async{
+    final user = _authService.currentUser;
+    if (user != null) {
+      await Provider.of<WalletProvider>(context, listen: false).fetchUserWallets(user.uid);
+    }
+  }
+
   @override
   void dispose() {
     _authSubscription?.cancel();
@@ -185,17 +192,12 @@ class _LandingPageState extends State<LandingPage> {
               ),
               actions: [
                 IconButton(
-                  onPressed: signOut,
-                  icon: Icon(Icons.logout, size: 25),
+                  icon: Icon(Icons.refresh),
+                  onPressed: _refreshData,
                 ),
                 IconButton(
-                  icon: Icon(Icons.refresh),
-                  onPressed: () async {
-                    final user = _authService.currentUser;
-                    if (user != null) {
-                      await Provider.of<WalletProvider>(context, listen: false).fetchUserWallets(user.uid);
-                    }
-                  },
+                  onPressed: signOut,
+                  icon: Icon(Icons.logout, size: 25),
                 ),
               ],
               backgroundColor: Theme.of(context).colorScheme.primary,
