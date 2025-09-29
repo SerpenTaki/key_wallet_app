@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:key_wallet_app/models/wallet.dart';
-import 'package:key_wallet_app/services/secureStorage.dart';
+import 'package:key_wallet_app/services/secure_storage.dart';
 import 'package:key_wallet_app/providers/wallet_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';

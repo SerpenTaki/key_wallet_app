@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:key_wallet_app/models/wallet.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:key_wallet_app/services/secureStorage.dart';
+import 'package:key_wallet_app/services/secure_storage.dart';
 // SecureStorage non è più usato direttamente in questo provider per l'eliminazione
-// import 'package:key_wallet_app/services/secureStorage.dart'; 
+// import 'package:key_wallet_app/services/secure_storage.dart';
 
 class WalletProvider with ChangeNotifier {
   final List<Wallet> _wallets = [];
@@ -48,7 +48,7 @@ class WalletProvider with ChangeNotifier {
     try {
       Wallet tempWallet = await Wallet.generateNew(walletName);
       // Assicurati che SecureStorage sia importato se questo codice è attivo
-      // import 'package:key_wallet_app/services/secureStorage.dart';
+      // import 'package:key_wallet_app/services/secure_storage.dart';
       await secureStorage.writeSecureData(tempWallet.localKeyIdentifier, tempWallet.transientRawPrivateKey!);
       tempWallet.transientRawPrivateKey = null; 
 

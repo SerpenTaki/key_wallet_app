@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:key_wallet_app/models/wallet.dart'; // Importa il modello Wallet
-import 'package:key_wallet_app/screens/_landingPage.dart';
-import 'package:key_wallet_app/screens/_authPage.dart';
-import 'package:key_wallet_app/screens/_walletPage.dart';
+import 'package:key_wallet_app/screens/_landing_page.dart';
+import 'package:key_wallet_app/screens/_auth_page.dart';
+import 'package:key_wallet_app/screens/_wallet_page.dart';
 
 //Per mandare dati dinamici
 class RouteGenerator {
