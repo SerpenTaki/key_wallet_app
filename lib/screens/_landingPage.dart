@@ -156,9 +156,7 @@ class _LandingPageState extends State<LandingPage> {
             leading: Icon(Icons.wallet_rounded),
             title: Text(wallet.name),
             trailing: Icon(
-              defaultTargetPlatform == TargetPlatform.android
-                  ? Icons.arrow_forward
-                  : Icons.arrow_forward_ios,
+              defaultTargetPlatform == TargetPlatform.android ? Icons.arrow_forward : Icons.arrow_forward_ios,
             ),
             onTap: () {
               Navigator.pushNamed(context, '/WalletPage', arguments: wallet);
@@ -178,23 +176,33 @@ class _LandingPageState extends State<LandingPage> {
         slivers: [
           SliverAppBar(
             floating: true,
-            title: Row(
-              children: [
-                Icon(Icons.account_balance_wallet),
-                SizedBox(width: 8),
-                const Text("Key Wallet", style: TextStyle(fontWeight: FontWeight.bold),),
-              ],
-            ),
-            actions: [
-              IconButton(
-                onPressed: signOut,
-                icon: Icon(Icons.logout, size: 25),
+              title: Row(
+                children: [
+                  Icon(Icons.account_balance_wallet),
+                  SizedBox(width: 8),
+                  const Text("Key Wallet", style: TextStyle(fontWeight: FontWeight.bold),),
+                ],
               ),
-            ],
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            foregroundColor: Theme.of(context).colorScheme.inversePrimary,
-          ),
-          _buildBody(context, walletProvider),
+              actions: [
+                IconButton(
+                  onPressed: signOut,
+                  icon: Icon(Icons.logout, size: 25),
+                ),
+                IconButton(
+                  icon: Icon(Icons.refresh),
+                  onPressed: () async {
+                    final user = _authService.currentUser;
+                    if (user != null) {
+                      await Provider.of<WalletProvider>(context, listen: false).fetchUserWallets(user.uid);
+                    }
+                  },
+                ),
+              ],
+              backgroundColor: Theme.of(context).colorScheme.primary,
+              foregroundColor: Theme.of(context).colorScheme.inversePrimary,
+            ),
+
+          _buildBody(context, walletProvider)
         ],
       ),
       floatingActionButton: FloatingActionButton(
