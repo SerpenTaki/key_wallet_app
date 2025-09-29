@@ -3,7 +3,8 @@ import 'package:key_wallet_app/models/wallet.dart';
 import 'package:key_wallet_app/services/secure_storage.dart';
 import 'package:key_wallet_app/ErrorScreens/key_not_found.dart';
 import 'package:key_wallet_app/screens/keys_page.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:key_wallet_app/widgets/delete_apple_wallet_alert.dart';
+import 'package:key_wallet_app/widgets/delete_wallet_alert.dart';
 import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 import 'package:key_wallet_app/providers/wallet_provider.dart';
@@ -137,51 +138,12 @@ class _WalletPageState extends State<WalletPage> {
                       context: context,
                       builder: (BuildContext dialogContext) {
                         if (defaultTargetPlatform == TargetPlatform.iOS) {
-                          return CupertinoAlertDialog(
-                            title: const Text('Conferma Eliminazione'),
-                            content: Text(
-                              'Sei sicuro di voler eliminare il wallet "${widget.wallet.name}"? Questa azione è irreversibile e la chiave privata verrà rimossa da questo dispositivo.',
-                            ),
-                            actions: <Widget>[
-                              CupertinoDialogAction(
-                                child: const Text('Annulla'),
-                                onPressed: () =>
-                                    Navigator.of(dialogContext).pop(false),
-                              ),
-                              CupertinoDialogAction(
-                                isDestructiveAction: true,
-                                child: const Text('Elimina'),
-                                onPressed: () =>
-                                    Navigator.of(dialogContext).pop(true),
-                              ),
-                            ],
-                          );
+                          return DeleteAppleWalletAlert(walletName: widget.wallet.name, dialogContext: dialogContext);
                         } else {
-                          return AlertDialog(
-                            title: const Text('Conferma Eliminazione'),
-                            content: Text(
-                              'Sei sicuro di voler eliminare il wallet "${widget.wallet.name}"? Questa azione è irreversibile e la chiave privata verrà rimossa da questo dispositivo.',
-                            ),
-                            actions: <Widget>[
-                              TextButton(
-                                child: const Text('Annulla'),
-                                onPressed: () =>
-                                    Navigator.of(dialogContext).pop(false),
-                              ),
-                              TextButton(
-                                child: const Text(
-                                  'Elimina',
-                                  style: TextStyle(color: Colors.red),
-                                ),
-                                onPressed: () =>
-                                    Navigator.of(dialogContext).pop(true),
-                              ),
-                            ],
-                          );
+                          return DeleteWalletAlert(walletName: widget.wallet.name, dialogContext: dialogContext);
                         }
-                      },
+                      }, //Dialog per Elimina
                     );
-
                     if (confirmDelete == true) {
                       try {
                         await widget._secureStorage.deleteSecureData(
@@ -217,7 +179,7 @@ class _WalletPageState extends State<WalletPage> {
                       }
                     }
                   },
-                ),
+                ), //Icona Elimina
               ],
             ),
             body: KeysPage(
