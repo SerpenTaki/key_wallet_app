@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fd9f324-4b81-479f-be21-42b0a387615a" name="Changes" comment="Primo commit">
+      <change afterPath="$PROJECT_DIR$/lib/ErrorScreens/key_not_found.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/_landingPage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/_landingPage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/_wallet_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/_wallet_page.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,9 +39,9 @@
     &quot;accountId&quot;: &quot;b64fd5a6-d50f-4418-a6ed-d427f7f9e268&quot;
   }
 }</component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 6
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="33654J22AQe3IcIR05oKdCobSOm" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
