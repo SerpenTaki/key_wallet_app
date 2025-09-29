@@ -30,7 +30,6 @@ class WalletProvider with ChangeNotifier {
         _wallets.add(Wallet.fromFirestore(doc));
       }
     } catch (e) {
-      print("Errore durante il fetchUserWallets: $e");
       _wallets.clear(); 
     } finally {
       _isLoading = false;
@@ -83,7 +82,6 @@ class WalletProvider with ChangeNotifier {
       // 1. Elimina da Firestore
       await _firestore.collection('wallets').doc(wallet.id).delete();
       // 2. Rimuovi dalla lista locale e notifica
-      final int initialLength = _wallets.length;
       _wallets.removeWhere((w) => w.id == wallet.id);
       notifyListeners();
     } catch (e) {
