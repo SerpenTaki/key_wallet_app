@@ -40,6 +40,7 @@ class _KeysPageState extends State<KeysPage>
         interactive: true,
         scrollbarOrientation: ScrollbarOrientation.right,
         child: SingleChildScrollView(
+          primary: false,
           child: Padding(
             padding: const EdgeInsets.all(16.0),
             child: Column(
