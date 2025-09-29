@@ -5,6 +5,8 @@ import 'package:key_wallet_app/ErrorScreens/key_not_found.dart';
 import 'package:key_wallet_app/screens/keys_page.dart';
 import 'package:key_wallet_app/widgets/delete_apple_wallet_alert.dart';
 import 'package:key_wallet_app/widgets/delete_wallet_alert.dart';
+import 'package:key_wallet_app/screens/chat_page.dart';
+import 'package:key_wallet_app/screens/docs_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 import 'package:key_wallet_app/providers/wallet_provider.dart';
@@ -120,7 +122,7 @@ class _WalletPageState extends State<WalletPage> {
     if (privateKeyValue == null || privateKeyValue.isEmpty) {
       return KeyNotFound();
     } else {
-      return DefaultTabController(length: 2,
+      return DefaultTabController(length: 3,
           child: Scaffold(
             appBar: AppBar(
               title: Text(
@@ -181,18 +183,31 @@ class _WalletPageState extends State<WalletPage> {
                   },
                 ), //Icona Elimina
               ],
+              bottom: const TabBar(
+                labelColor: Colors.white,
+                unselectedLabelColor: Colors.grey,
+                automaticIndicatorColorAdjustment: true,
+                tabs: [
+                  Tab(text:"Chat", icon: Icon(Icons.contacts),),
+                  Tab(text: 'Lista Documenti', icon: Icon(Icons.contact_mail_outlined),),
+                  Tab(text: 'Chiavi', icon: Icon(Icons.key),),
+                ],
+              )
             ),
-            body: KeysPage(
-              wallet: widget.wallet,
-              privateKeyValue: privateKeyValue,
-              secureStorage: _secureStorage,
+            body: TabBarView(
+              children: [
+                ChatPage(),
+                DocsPage(),
+                KeysPage(
+                  wallet: widget.wallet,
+                  privateKeyValue: privateKeyValue,
+                  secureStorage: _secureStorage,
+                ),
+              ],
             ),
           )
       );
     }
   }
 }
-
-
-
 
