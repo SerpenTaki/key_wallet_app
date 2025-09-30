@@ -4,7 +4,9 @@ import 'dart:math';
 import 'package:pointycastle/export.dart';
 import 'package:pointycastle/asymmetric/api.dart';
 
+// =========================
 // Secure random generator
+// =========================
 SecureRandom getSecureRandom() {
   final secureRandom = FortunaRandom();
   final seed = Uint8List(32);
@@ -16,7 +18,9 @@ SecureRandom getSecureRandom() {
   return secureRandom;
 }
 
+// =========================
 // RSA KeyPair generator
+// =========================
 AsymmetricKeyPair<PublicKey, PrivateKey> generateRSAkeyPair(
     SecureRandom secureRandom) {
   final keyGen = RSAKeyGenerator()
@@ -28,7 +32,9 @@ AsymmetricKeyPair<PublicKey, PrivateKey> generateRSAkeyPair(
   return keyGen.generateKeyPair();
 }
 
-// Convert public key to string
+// =========================
+// Convert Keys <-> String
+// =========================
 String publicKeyToString(RSAPublicKey publicKey) {
   return jsonEncode({
     "modulus": publicKey.modulus.toString(),
@@ -36,8 +42,6 @@ String publicKeyToString(RSAPublicKey publicKey) {
   });
 }
 
-// Parse private key from string
-// Convert private key to string (salva anche p e q)
 String privateKeyToString(RSAPrivateKey privateKey) {
   return jsonEncode({
     "modulus": privateKey.modulus.toString(),
@@ -47,7 +51,19 @@ String privateKeyToString(RSAPrivateKey privateKey) {
   });
 }
 
-// Parse private key from string
+RSAPublicKey? publicKeyFromString(String keyString) {
+  try {
+    final map = jsonDecode(keyString);
+    return RSAPublicKey(
+      BigInt.parse(map['modulus']),
+      BigInt.parse(map['publicExponent']),
+    );
+  } catch (e) {
+    print("Errore parsing public key: $e");
+    return null;
+  }
+}
+
 RSAPrivateKey? privateKeyFromString(String keyString) {
   try {
     final map = jsonDecode(keyString);
@@ -63,47 +79,30 @@ RSAPrivateKey? privateKeyFromString(String keyString) {
   }
 }
 
-
-// Parse public key from string
-RSAPublicKey? publicKeyFromString(String keyString) {
+// =========================
+// RSA Encryption / Decryption
+// =========================
+Future<Uint8List?> rsaEncrypt(String plainText, RSAPublicKey publicKey) async {
   try {
-    final map = jsonDecode(keyString);
-    return RSAPublicKey(
-      BigInt.parse(map['modulus']),
-      BigInt.parse(map['publicExponent']),
-    );
-  } catch (e) {
-    print("Errore parsing public key: $e");
-    return null;
-  }
-}
-
-// Process with private key (firma)
-Future<Uint8List?> rsaProcessWithPrivateKey(
-    String plainText, RSAPrivateKey privateKey) async {
-  try {
-    final signer = RSASigner(SHA256Digest(), '0609608648016503040201');
-    signer.init(true, PrivateKeyParameter<RSAPrivateKey>(privateKey));
-    final sig = signer.generateSignature(Uint8List.fromList(utf8.encode(plainText)));
-    return sig.bytes;
-  } catch (e) {
-    print("Errore processWithPrivateKey: $e");
-    return null;
-  }
-}
-
-// Process with public key (verifica/firma inversa)
-Future<String?> rsaProcessWithPublicKey(
-    Uint8List processedData, RSAPublicKey publicKey) async {
-  try {
-    // Per semplificare, facciamo solo decrypt stile "verify"
     final engine = RSAEngine()
-      ..init(false, PublicKeyParameter<RSAPublicKey>(publicKey));
+      ..init(true, PublicKeyParameter<RSAPublicKey>(publicKey));
 
-    final decrypted = engine.process(processedData);
+    return engine.process(Uint8List.fromList(utf8.encode(plainText)));
+  } catch (e) {
+    print("Errore encrypt: $e");
+    return null;
+  }
+}
+
+Future<String?> rsaDecrypt(Uint8List cipherText, RSAPrivateKey privateKey) async {
+  try {
+    final engine = RSAEngine()
+      ..init(false, PrivateKeyParameter<RSAPrivateKey>(privateKey));
+
+    final decrypted = engine.process(cipherText);
     return utf8.decode(decrypted);
   } catch (e) {
-    print("Errore processWithPublicKey: $e");
+    print("Errore decrypt: $e");
     return null;
   }
 }
