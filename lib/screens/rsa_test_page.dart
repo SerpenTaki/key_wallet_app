@@ -1,6 +1,6 @@
-import 'dart:convert'; // Per base64Encode e base64Decode
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; // Per Clipboard
+import 'package:flutter/services.dart';
 import 'package:key_wallet_app/services/cryptography_gen.dart';
 import 'package:pointycastle/asymmetric/api.dart' as pointy;
 
@@ -21,7 +21,7 @@ class RsaTestPage extends StatefulWidget {
 class _RsaTestPageState extends State<RsaTestPage> {
   final _privateKeyController = TextEditingController();
   final _publicKeyController = TextEditingController();
-  final _plainTextController = TextEditingController(text: "Ciao");
+  final _plainTextController = TextEditingController();
   final _processedTextController = TextEditingController();
   final _recoveredTextController = TextEditingController();
 
@@ -38,7 +38,9 @@ class _RsaTestPageState extends State<RsaTestPage> {
     }
     if (widget.initialPrivateKeyString != null) {
       _privateKeyController.text = widget.initialPrivateKeyString!;
-      _currentPrivateKey = privateKeyFromString(widget.initialPrivateKeyString!);
+      _currentPrivateKey = privateKeyFromString(
+        widget.initialPrivateKeyString!,
+      );
     }
   }
 
@@ -66,13 +68,17 @@ class _RsaTestPageState extends State<RsaTestPage> {
     }
     if (_currentPublicKey == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Nessuna chiave pubblica valida disponibile.')),
+        const SnackBar(
+          content: Text('Nessuna chiave pubblica valida disponibile.'),
+        ),
       );
       return;
     }
 
-    final encrypted =
-    await rsaEncrypt(_plainTextController.text, _currentPublicKey!);
+    final encrypted = await rsaEncrypt(
+      _plainTextController.text,
+      _currentPublicKey!,
+    );
 
     if (encrypted != null) {
       setState(() {
@@ -92,7 +98,9 @@ class _RsaTestPageState extends State<RsaTestPage> {
     }
     if (_currentPrivateKey == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Nessuna chiave privata valida disponibile.')),
+        const SnackBar(
+          content: Text('Nessuna chiave privata valida disponibile.'),
+        ),
       );
       return;
     }
@@ -116,8 +124,10 @@ class _RsaTestPageState extends State<RsaTestPage> {
       return;
     }
 
-    final decrypted =
-    await rsaDecrypt(_currentProcessedData!, _currentPrivateKey!);
+    final decrypted = await rsaDecrypt(
+      _currentProcessedData!,
+      _currentPrivateKey!,
+    );
 
     if (decrypted != null) {
       setState(() {
@@ -130,7 +140,10 @@ class _RsaTestPageState extends State<RsaTestPage> {
   }
 
   Widget _buildKeyTextField(
-      TextEditingController controller, String label, String hint) {
+    TextEditingController controller,
+    String label,
+    String hint,
+  ) {
     return TextField(
       controller: controller,
       decoration: InputDecoration(
@@ -157,6 +170,15 @@ class _RsaTestPageState extends State<RsaTestPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          'Test RSA',
+          style: TextStyle(fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        foregroundColor: Theme.of(context).colorScheme.inversePrimary,
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -167,9 +189,17 @@ class _RsaTestPageState extends State<RsaTestPage> {
               child: const Text('1. Genera Nuova Coppia di Chiavi RSA'),
             ),
             const SizedBox(height: 12),
-            _buildKeyTextField(_privateKeyController, 'Chiave Privata', 'Genera o incolla la chiave privata'),
+            _buildKeyTextField(
+              _privateKeyController,
+              'Chiave Privata',
+              'Genera o incolla la chiave privata',
+            ),
             const SizedBox(height: 12),
-            _buildKeyTextField(_publicKeyController, 'Chiave Pubblica', 'Genera o incolla la chiave pubblica'),
+            _buildKeyTextField(
+              _publicKeyController,
+              'Chiave Pubblica',
+              'Genera o incolla la chiave pubblica',
+            ),
             const SizedBox(height: 20),
             TextField(
               controller: _plainTextController,

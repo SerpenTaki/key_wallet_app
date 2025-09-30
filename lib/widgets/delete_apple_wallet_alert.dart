@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 class DeleteAppleWalletAlert extends StatelessWidget {
   const DeleteAppleWalletAlert({super.key, required this.walletName, required this.dialogContext});
   
-  final dynamic walletName; // Considera di tipizzarlo meglio se possibile, es. String
+  final String walletName;
 
   final BuildContext dialogContext;
   
@@ -19,13 +18,13 @@ class DeleteAppleWalletAlert extends StatelessWidget {
         CupertinoDialogAction(
           child: const Text('Annulla'),
           onPressed: () =>
-              Navigator.of(dialogContext).pop(false), // Usa il dialogContext passato
+              Navigator.of(dialogContext).pop(false),
         ),
         CupertinoDialogAction(
           isDestructiveAction: true,
           child: const Text('Elimina'),
           onPressed: () =>
-              Navigator.of(dialogContext).pop(true), // Usa il dialogContext passato
+              Navigator.of(dialogContext).pop(true),
         ),
       ],
     );
