@@ -49,8 +49,7 @@ class AuthPageState extends State<AuthPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          isLogin ? "Login" : "Registrati",
+        title: Text(isLogin ? "Login" : "Registrati",
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
@@ -66,7 +65,7 @@ class AuthPageState extends State<AuthPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset("images/logo.png", width: 50, height: 50),
-                SizedBox(width: 10), // Optional spacing between image and text
+                const SizedBox(width: 10),
                 const Text("key wallet app", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
               ],
@@ -94,9 +93,7 @@ class AuthPageState extends State<AuthPage> {
                         filled: true,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
+                          borderSide: BorderSide(color: Theme.of(context).colorScheme.primary,),
                         ),
                       ),
                     ),
@@ -116,9 +113,7 @@ class AuthPageState extends State<AuthPage> {
                         filled: true,
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
+                          borderSide: BorderSide(color: Theme.of(context).colorScheme.primary,),
                         ),
                       ),
                     ),
@@ -139,18 +134,10 @@ class AuthPageState extends State<AuthPage> {
                       ),
                     ),
                     TextButton(
-                      onPressed: () {
-                        setState(() {
-                          isLogin = !isLogin;
-                        });
-                      },
+                      onPressed: () {setState(() {isLogin = !isLogin;});},
                       child: Text(
-                        isLogin
-                            ? "Non hai un account? Registrati"
-                            : "Hai un account? Accedi",
-                        style: TextStyle(
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
+                        isLogin ? "Non hai un account? Registrati" : "Hai un account? Accedi",
+                        style: TextStyle(color: Theme.of(context).colorScheme.primary,),
                       ),
                     ),
                   ],

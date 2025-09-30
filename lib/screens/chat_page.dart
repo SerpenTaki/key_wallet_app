@@ -10,8 +10,8 @@ class ChatPage extends StatefulWidget {
 class _ChatPageState extends State<ChatPage> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-
+    return Center(
+      child: const Text("Chat Page"),
     );
   }
 }

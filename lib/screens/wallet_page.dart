@@ -87,8 +87,8 @@ class _WalletPageState extends State<WalletPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CircularProgressIndicator(),
-            SizedBox(height: 16),
+            const CircularProgressIndicator(),
+            const SizedBox(height: 16),
             Text(message),
           ],
         ),
@@ -110,8 +110,7 @@ class _WalletPageState extends State<WalletPage> {
     );
   }
 
-  Widget _buildWalletDetailsScaffold(BuildContext context,
-      String? privateKeyValue,) {
+  Widget _buildWalletDetailsScaffold(BuildContext context, String? privateKeyValue,) {
     if (privateKeyValue == null || privateKeyValue.isEmpty) {
       return KeyNotFound();
     } else {
@@ -119,10 +118,7 @@ class _WalletPageState extends State<WalletPage> {
           length: 3,
           child: Scaffold(
             appBar: AppBar(
-                title: Text(
-                  widget.wallet.name,
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
+                title: Text(widget.wallet.name, style: TextStyle(fontWeight: FontWeight.bold),),
                 backgroundColor: Theme.of(context).colorScheme.primary,
                 foregroundColor: Theme.of(context).colorScheme.inversePrimary,
                 centerTitle: true,
@@ -133,10 +129,7 @@ class _WalletPageState extends State<WalletPage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => RsaTestPage(
-                            initialPrivateKeyString: privateKeyValue,
-                            initialPublicKeyString: widget.wallet.publicKey,
-                          ),
+                          builder: (context) => RsaTestPage(initialPrivateKeyString: privateKeyValue, initialPublicKeyString: widget.wallet.publicKey,),
                         ),
                       );
                     },
@@ -148,35 +141,25 @@ class _WalletPageState extends State<WalletPage> {
                         context: context,
                         builder: (BuildContext dialogContext) {
                           if (defaultTargetPlatform == TargetPlatform.iOS) {
-                            return DeleteAppleWalletAlert(walletName: widget
-                                .wallet.name, dialogContext: dialogContext);
+                            return DeleteAppleWalletAlert(walletName: widget.wallet.name, dialogContext: dialogContext);
                           } else {
-                            return DeleteWalletAlert(walletName: widget.wallet
-                                .name, dialogContext: dialogContext);
+                            return DeleteWalletAlert(walletName: widget.wallet.name, dialogContext: dialogContext);
                           }
                         },
                       );
                       if (confirmDelete == true) {
                         try {
                           await widget._secureStorage.deleteSecureData(widget.wallet.localKeyIdentifier,);
-                          await Provider.of<WalletProvider>(context, listen: false,).deleteWallet(widget.wallet);
-
+                          await Provider.of<WalletProvider>(context, listen: false,).deleteWalletDBandList(widget.wallet);
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                               content: Text('Wallet "${widget.wallet.name}" eliminato con successo!',),
                               backgroundColor: Colors.green,
                             ),
                           );
-                          if (Navigator.canPop(context)) {
-                            Navigator.pop(context,);
-                          }
+                          if (Navigator.canPop(context)) {Navigator.pop(context,);}
                         } catch (e) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Errore durante l\'eliminazione: ${e.toString()}',),
-                              backgroundColor: Colors.red,
-                            ),
-                          );
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Errore durante l\'eliminazione: ${e.toString()}',), backgroundColor: Colors.red,),);
                         }
                       }
                     },
@@ -187,16 +170,16 @@ class _WalletPageState extends State<WalletPage> {
                   unselectedLabelColor: Colors.grey,
                   automaticIndicatorColorAdjustment: true,
                   tabs: [
-                    Tab(text: "Chat", icon: Icon(Icons.chat_outlined),),
                     Tab(text: 'Lista Documenti', icon: Icon(Icons.contact_mail_outlined),),
+                    Tab(text: "Chat", icon: Icon(Icons.chat_outlined),),
                     Tab(text: 'Chiavi', icon: Icon(Icons.key),),
                   ],
                 )
             ),
             body: TabBarView(
               children: [
-                ChatPage(),
                 DocsPage(),
+                ChatPage(),
                 KeysPage(wallet: widget.wallet, privateKeyValue: privateKeyValue, secureStorage: _secureStorage,),
               ],
             ),
@@ -205,9 +188,3 @@ class _WalletPageState extends State<WalletPage> {
     }
   }
 }
-
-
-//RsaTestPage(
-//initialPrivateKeyString: privateKeyValue,
-//initialPublicKeyString: widget.wallet.publicKey,
-//)
