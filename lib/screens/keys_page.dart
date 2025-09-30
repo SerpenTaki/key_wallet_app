@@ -34,10 +34,7 @@ class _KeysPageState extends State<KeysPage>
   Widget build(BuildContext context) {
     return Scaffold(
       body: Scrollbar(
-        thumbVisibility: true,
         trackVisibility: true,
-        thickness: 10,
-        interactive: true,
         scrollbarOrientation: ScrollbarOrientation.right,
         child: SingleChildScrollView(
           primary: false,
@@ -46,21 +43,12 @@ class _KeysPageState extends State<KeysPage>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  "Visualizza qui le tue chiavi",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
-                SizedBox(height: 16),
+                const Text("Visualizza qui le tue chiavi", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+                const SizedBox(height: 16),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      "Chiave pubblica",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    const Text("Chiave pubblica", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,),),
                     ElevatedButton(
                       onPressed: () {
                         setState(() => showPublicKey = !showPublicKey);
@@ -72,17 +60,10 @@ class _KeysPageState extends State<KeysPage>
                     ),
                   ],
                 ),
-                SizedBox(height: 8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                const SizedBox(height: 8),
+                Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      "Chiave privata",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    const Text("Chiave privata", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,),),
                     ElevatedButton(
                       onPressed: () {
                         setState(() => showPrivateKey = !showPrivateKey);
@@ -94,9 +75,9 @@ class _KeysPageState extends State<KeysPage>
                     ),
                   ],
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 if (showPublicKey) SelectableText(widget.wallet.publicKey),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 if (showPrivateKey) SelectableText(widget.privateKeyValue),
               ],
             ),

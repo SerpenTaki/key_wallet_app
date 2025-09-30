@@ -67,11 +67,7 @@ class _RsaTestPageState extends State<RsaTestPage> {
       _currentPublicKey = publicKeyFromString(_publicKeyController.text);
     }
     if (_currentPublicKey == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Nessuna chiave pubblica valida disponibile.'),
-        ),
-      );
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Nessuna chiave pubblica valida disponibile.'),),);
       return;
     }
 
@@ -86,9 +82,7 @@ class _RsaTestPageState extends State<RsaTestPage> {
         _processedTextController.text = base64Encode(encrypted);
         _recoveredTextController.clear();
       });
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Testo cifrato con chiave pubblica!')),
-      );
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Testo cifrato con chiave pubblica!')),);
     }
   }
 
@@ -97,11 +91,7 @@ class _RsaTestPageState extends State<RsaTestPage> {
       _currentPrivateKey = privateKeyFromString(_privateKeyController.text);
     }
     if (_currentPrivateKey == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Nessuna chiave privata valida disponibile.'),
-        ),
-      );
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Nessuna chiave privata valida disponibile.'),),);
       return;
     }
 
@@ -110,17 +100,13 @@ class _RsaTestPageState extends State<RsaTestPage> {
       try {
         _currentProcessedData = base64Decode(_processedTextController.text);
       } catch (_) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Testo cifrato non valido.')),
-        );
+        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Testo cifrato non valido.')),);
         return;
       }
     }
 
     if (_currentProcessedData == null) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Nessun dato cifrato da decifrare.')),
-      );
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Nessun dato cifrato da decifrare.')),);
       return;
     }
 
@@ -130,20 +116,12 @@ class _RsaTestPageState extends State<RsaTestPage> {
     );
 
     if (decrypted != null) {
-      setState(() {
-        _recoveredTextController.text = decrypted;
-      });
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Testo decifrato con chiave privata!')),
-      );
+      setState(() {_recoveredTextController.text = decrypted;});
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Testo decifrato con chiave privata!')),);
     }
   }
 
-  Widget _buildKeyTextField(
-    TextEditingController controller,
-    String label,
-    String hint,
-  ) {
+  Widget _buildKeyTextField(TextEditingController controller, String label, String hint,) {
     return TextField(
       controller: controller,
       decoration: InputDecoration(
@@ -171,10 +149,7 @@ class _RsaTestPageState extends State<RsaTestPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Test RSA',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
+        title: const Text('Test RSA', style: TextStyle(fontWeight: FontWeight.bold),),
         centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -184,58 +159,35 @@ class _RsaTestPageState extends State<RsaTestPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            ElevatedButton(
-              onPressed: _generateKeys,
-              child: const Text('1. Genera Nuova Coppia di Chiavi RSA'),
-            ),
+            ElevatedButton(onPressed: _generateKeys, child: const Text('Genera Nuova Coppia di Chiavi RSA'),),
             const SizedBox(height: 12),
-            _buildKeyTextField(
-              _privateKeyController,
-              'Chiave Privata',
-              'Genera o incolla la chiave privata',
-            ),
+            _buildKeyTextField(_privateKeyController, 'Chiave Privata', 'Genera o incolla la chiave privata',),
             const SizedBox(height: 12),
-            _buildKeyTextField(
-              _publicKeyController,
-              'Chiave Pubblica',
-              'Genera o incolla la chiave pubblica',
-            ),
+            _buildKeyTextField(_publicKeyController, 'Chiave Pubblica', 'Genera o incolla la chiave pubblica',),
             const SizedBox(height: 20),
             TextField(
               controller: _plainTextController,
-              decoration: const InputDecoration(
-                labelText: 'Testo in Chiaro',
-                border: OutlineInputBorder(),
-              ),
+              decoration: const InputDecoration(labelText: 'Testo in Chiaro', border: OutlineInputBorder(),),
             ),
             const SizedBox(height: 12),
             ElevatedButton(
               onPressed: _encryptWithPublicKey,
-              child: const Text('2. Cifra con Chiave Pubblica'),
+              child: const Text('Cifra con Chiave Pubblica'),
             ),
             const SizedBox(height: 12),
             TextField(
               controller: _processedTextController,
-              decoration: const InputDecoration(
-                labelText: 'Testo Cifrato (Base64)',
-                border: OutlineInputBorder(),
-              ),
+              decoration: const InputDecoration(labelText: 'Testo Cifrato (Base64)', border: OutlineInputBorder(),),
               readOnly: true,
               maxLines: 3,
               style: const TextStyle(fontSize: 12),
             ),
             const SizedBox(height: 12),
-            ElevatedButton(
-              onPressed: _decryptWithPrivateKey,
-              child: const Text('3. Decifra con Chiave Privata'),
-            ),
+            ElevatedButton(onPressed: _decryptWithPrivateKey, child: const Text('3. Decifra con Chiave Privata'),),
             const SizedBox(height: 12),
             TextField(
               controller: _recoveredTextController,
-              decoration: const InputDecoration(
-                labelText: 'Testo Decifrato',
-                border: OutlineInputBorder(),
-              ),
+              decoration: const InputDecoration(labelText: 'Testo Decifrato', border: OutlineInputBorder(),),
               readOnly: true,
             ),
           ],

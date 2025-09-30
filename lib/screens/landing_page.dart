@@ -6,6 +6,8 @@ import 'package:key_wallet_app/services/auth.dart';
 import 'package:key_wallet_app/providers/wallet_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:key_wallet_app/widgets/add_apple_wallet_dialog.dart';
+import 'package:key_wallet_app/widgets/add_wallet_dialog.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -58,88 +60,29 @@ class _LandingPageState extends State<LandingPage> {
       return showCupertinoDialog<String>(
         context: context,
         builder: (BuildContext dialogContext) {
-          return CupertinoAlertDialog(
-            title: const Text('Crea Nuovo Wallet'),
-            content: CupertinoTextField(
-              controller: controller,
-              autofocus: true,
-              placeholder: 'Nome del Wallet',
-            ),
-            actions: <CupertinoDialogAction>[
-              CupertinoDialogAction(
-                child: const Text('Annulla'),
-                onPressed: () {
-                  Navigator.of(dialogContext).pop();
-                },
-              ),
-              CupertinoDialogAction(
-                isDefaultAction: true,
-                onPressed: () {
-                  if (controller.text.trim().isNotEmpty) {
-                    Navigator.of(dialogContext).pop(controller.text.trim());
-                  }
-                },
-                child: const Text('Crea'),
-              ),
-            ],
-          );
+          return AddAppleWalletDialog(controller: controller, dialogContext: dialogContext);
         },
       );
     } else {
       return showDialog<String>(
         context: context,
         builder: (BuildContext dialogContext) {
-          return AlertDialog(
-            title: const Text('Crea Nuovo Wallet'),
-            content: TextField(
-              controller: controller,
-              autofocus: true,
-              decoration: const InputDecoration(hintText: 'Nome del Wallet'),
-            ),
-            actions: <Widget>[
-              TextButton(
-                child: const Text('Annulla'),
-                onPressed: () {
-                  Navigator.of(dialogContext).pop();
-                },
-              ),
-              TextButton(
-                child: const Text('Crea'),
-                onPressed: () {
-                  if (controller.text.trim().isEmpty) {
-
-                    ScaffoldMessenger.of(dialogContext).showSnackBar(
-                      const SnackBar(
-                        content: Text("Il nome del wallet non può essere vuoto."),
-                        backgroundColor: Colors.red,
-                      ),
-                    );
-                  } else {
-                    ScaffoldMessenger.of(dialogContext).showSnackBar(
-                      const SnackBar(
-                        content: Text("Wallet creato con successo!"),
-                        backgroundColor: Colors.green,
-                      ),
-                    );
-                    Navigator.of(dialogContext).pop(controller.text.trim());
-                  }
-                },
-              ),
-            ],
-          );
+          return AddWalletDialog(controller: controller, dialogContext: dialogContext);
         },
       );
     }
   }
 
+  //Il body cambia in base a 3 condizioni, se si sta aspettando il caricamento, se il database per l'utente è vuoto
+  // e se invece ci sono wallet da mostrare
   Widget _buildBody(BuildContext context, WalletProvider walletProvider) {
-    if (walletProvider.isLoading) {
+    if (walletProvider.isLoading) { // se il caricamento è in corso
       return const SliverFillRemaining(
         child: Center(child: CircularProgressIndicator()),
       );
     }
 
-    if (walletProvider.wallets.isEmpty) {
+    if (walletProvider.wallets.isEmpty) { //se il caricamento è completato ma non ci sono wallet
       return const SliverFillRemaining(
         child: Center(
           child: Padding(
@@ -154,13 +97,13 @@ class _LandingPageState extends State<LandingPage> {
       );
     }
 
-    return SliverList(
+    return SliverList( //se ci sono wallet da mostrare
       delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
         final wallet = walletProvider.wallets[index];
         return Card(
           margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: ListTile(
-            leading: Icon(Icons.wallet_rounded),
+            leading: const Icon(Icons.wallet_rounded),
             title: Text(wallet.name),
             trailing: Icon(
               defaultTargetPlatform == TargetPlatform.android ? Icons.arrow_forward : Icons.arrow_forward_ios,
@@ -183,28 +126,21 @@ class _LandingPageState extends State<LandingPage> {
         slivers: [
           SliverAppBar(
             floating: true,
-              title: Row(
+              title: const Row(
                 children: [
                   Icon(Icons.account_balance_wallet),
                   SizedBox(width: 8),
-                  const Text("Key Wallet", style: TextStyle(fontWeight: FontWeight.bold),),
+                  Text("Key Wallet", style: TextStyle(fontWeight: FontWeight.bold),),
                 ],
               ),
               actions: [
-                IconButton(
-                  icon: Icon(Icons.refresh),
-                  onPressed: _refreshData,
-                ),
-                IconButton(
-                  onPressed: signOut,
-                  icon: Icon(Icons.logout, size: 25),
-                ),
+                IconButton(onPressed: _refreshData, icon: const Icon(Icons.refresh, size: 25,),),
+                IconButton(onPressed: signOut, icon: const Icon(Icons.logout, size: 25),),
               ],
               backgroundColor: Theme.of(context).colorScheme.primary,
               foregroundColor: Theme.of(context).colorScheme.inversePrimary,
             ),
-
-          _buildBody(context, walletProvider)
+          _buildBody(context, walletProvider) //CHIAMATA AL BUILDER DEL BODY
         ],
       ),
       floatingActionButton: FloatingActionButton(

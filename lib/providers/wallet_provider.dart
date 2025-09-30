@@ -14,41 +14,40 @@ class WalletProvider with ChangeNotifier {
 
   List<Wallet> get wallets => List.unmodifiable(_wallets);
 
+  //La funzione cerca nel database firestore i wallet dell'utente tramite userId che
+  //deve essere passato come argomento
   Future<void> fetchUserWallets(String userId) async {
-    _isLoading = true;
+    _isLoading = true; // Operazione molto lunga meglio non annoiare l'utente
     notifyListeners();
     try {
       QuerySnapshot<Map<String, dynamic>> walletSnapshot = await _firestore
           .collection('wallets')
           .where('userId', isEqualTo: userId)
           .orderBy('createdAt', descending: true)
-          .get();
-      _wallets.clear(); 
-      for (var doc in walletSnapshot.docs) {
+          .get(); //Qui viene chiamata la query per ottenere i documenti
+      _wallets.clear();
+      for (var doc in walletSnapshot.docs) { //Il metodo docs restituisce una lista in questo caso di walletSnapshot
         _wallets.add(Wallet.fromFirestore(doc));
       }
     } catch (e) {
-      _wallets.clear(); 
+      _wallets.clear();
     } finally {
       _isLoading = false;
-      notifyListeners(); 
+      notifyListeners(); //Provider aggiorna i widget interessati
     }
   }
-  
+
+  //Funzione per aggiungere un nuovo wallet alla lista locale e alla lista di firestore, di conseguenza generando
+  //le 2 chiavi da salvare
   Future<void> generateAndAddWallet(String userId, String walletName) async {
     if (userId.isEmpty) {
       return;
     }
-    // È buona norma importare SecureStorage solo dove serve.
-    // Se generateAndAddWallet è l'unico punto, va bene qui.
-    // Altrimenti, potrebbe essere un membro della classe se usato più frequentemente.
-    final secureStorage = SecureStorage(); // Istanza locale se usata solo qui
+    final secureStorage = SecureStorage(); // Istanza di Secure Storage per gestire la chiave privata da salvare sul dispositivo
     try {
-      Wallet tempWallet = await Wallet.generateNew(walletName);
-      // Assicurati che SecureStorage sia importato se questo codice è attivo
-      // import 'package:key_wallet_app/services/secure_storage.dart';
-      await secureStorage.writeSecureData(tempWallet.localKeyIdentifier, tempWallet.transientRawPrivateKey!);
-      tempWallet.transientRawPrivateKey = null; 
+      Wallet tempWallet = await Wallet.generateNew(walletName); //creo un wallet temporaneo tramite la classe Wallet
+      await secureStorage.writeSecureData(tempWallet.localKeyIdentifier, tempWallet.transientRawPrivateKey!); //con secure storage salvo la chiave privata
+      tempWallet.transientRawPrivateKey = null;
 
       Map<String, dynamic> walletDataForFirestore = {
         'userId': userId,
@@ -60,7 +59,7 @@ class WalletProvider with ChangeNotifier {
         'backedUp': false,
       };
 
-      DocumentReference docRef = await _firestore.collection('wallets').add(walletDataForFirestore); 
+      DocumentReference docRef = await _firestore.collection('wallets').add(walletDataForFirestore); //aggiungo il wallet alla lista di firestore
       final Wallet finalWallet = Wallet(
         id: docRef.id,
         name: tempWallet.name,
@@ -68,18 +67,16 @@ class WalletProvider with ChangeNotifier {
         localKeyIdentifier: tempWallet.localKeyIdentifier,
       ); 
       _wallets.insert(0, finalWallet);
-      notifyListeners();
+      notifyListeners(); //aggiungo il wallet finale alla lista locale
     } catch (e) {
       throw e;
     }
   }
 
-
-  Future<void> deleteWallet(Wallet wallet) async {
+  //Elimina solo dalla lista aggiornando il provider e dal Database, l'eliminazione da secure storage è gestita in wallet_page.dart
+  Future<void> deleteWalletDBandList(Wallet wallet) async {
     try {
-      // 1. Elimina da Firestore
       await _firestore.collection('wallets').doc(wallet.id).delete();
-      // 2. Rimuovi dalla lista locale e notifica
       _wallets.removeWhere((w) => w.id == wallet.id);
       notifyListeners();
     } catch (e) {

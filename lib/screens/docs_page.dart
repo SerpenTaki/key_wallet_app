@@ -43,7 +43,7 @@ class _DocsPageState extends State<DocsPage> {
             widget.docs.add(widget.docs.length + 1);
           });
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
