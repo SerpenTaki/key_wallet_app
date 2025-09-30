@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'dart:math';
 import 'package:pointycastle/export.dart';
-import 'package:pointycastle/asymmetric/api.dart';
 
 // =========================
 // Secure random generator
@@ -59,7 +58,6 @@ RSAPublicKey? publicKeyFromString(String keyString) {
       BigInt.parse(map['publicExponent']),
     );
   } catch (e) {
-    print("Errore parsing public key: $e");
     return null;
   }
 }
@@ -74,7 +72,7 @@ RSAPrivateKey? privateKeyFromString(String keyString) {
       BigInt.parse(map['q']),
     );
   } catch (e) {
-    print("Errore parsing private key: $e");
+
     return null;
   }
 }
@@ -89,7 +87,6 @@ Future<Uint8List?> rsaEncrypt(String plainText, RSAPublicKey publicKey) async {
 
     return engine.process(Uint8List.fromList(utf8.encode(plainText)));
   } catch (e) {
-    print("Errore encrypt: $e");
     return null;
   }
 }
@@ -102,7 +99,6 @@ Future<String?> rsaDecrypt(Uint8List cipherText, RSAPrivateKey privateKey) async
     final decrypted = engine.process(cipherText);
     return utf8.decode(decrypted);
   } catch (e) {
-    print("Errore decrypt: $e");
     return null;
   }
 }

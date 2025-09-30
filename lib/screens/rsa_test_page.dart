@@ -1,5 +1,4 @@
 import 'dart:convert'; // Per base64Encode e base64Decode
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart'; // Per Clipboard
 import 'package:key_wallet_app/services/cryptography_gen.dart';
