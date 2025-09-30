@@ -36,16 +36,10 @@ class _RsaTestPageState extends State<RsaTestPage> {
     if (widget.initialPublicKeyString != null) {
       _publicKeyController.text = widget.initialPublicKeyString!;
       _currentPublicKey = publicKeyFromString(widget.initialPublicKeyString!);
-      if (_currentPublicKey == null) {
-        print("Avviso: Chiave pubblica iniziale non valida.");
-      }
     }
     if (widget.initialPrivateKeyString != null) {
       _privateKeyController.text = widget.initialPrivateKeyString!;
       _currentPrivateKey = privateKeyFromString(widget.initialPrivateKeyString!);
-      if (_currentPrivateKey == null) {
-        print("Avviso: Chiave privata iniziale non valida.");
-      }
     }
   }
 
@@ -67,112 +61,77 @@ class _RsaTestPageState extends State<RsaTestPage> {
     );
   }
 
-  Future<void> _processWithPrivateKey() async {
-    if (_currentPrivateKey == null && _privateKeyController.text.isNotEmpty) {
-      _currentPrivateKey = privateKeyFromString(_privateKeyController.text);
-      if (_currentPrivateKey == null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Chiave privata non valida.')),
-        );
-        return;
-      }
+  Future<void> _encryptWithPublicKey() async {
+    if (_currentPublicKey == null && _publicKeyController.text.isNotEmpty) {
+      _currentPublicKey = publicKeyFromString(_publicKeyController.text);
     }
-    if (_currentPrivateKey == null) {
+    if (_currentPublicKey == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Nessuna chiave privata disponibile.')),
-      );
-      return;
-    }
-    if (_plainTextController.text.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Inserisci del testo.')),
+        const SnackBar(content: Text('Nessuna chiave pubblica valida disponibile.')),
       );
       return;
     }
 
-    setState(() {
-      _processedTextController.clear();
-      _recoveredTextController.clear();
-      _currentProcessedData = null;
-    });
+    final encrypted =
+    await rsaEncrypt(_plainTextController.text, _currentPublicKey!);
 
-    try {
-      final processedData =
-      await rsaProcessWithPrivateKey(_plainTextController.text, _currentPrivateKey!);
-
-      if (processedData != null) {
-        _currentProcessedData = processedData;
-        _processedTextController.text = base64Encode(processedData);
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Testo processato con chiave privata!')),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Errore durante il processamento.')),
-        );
-      }
-    } catch (e) {
+    if (encrypted != null) {
+      setState(() {
+        _currentProcessedData = encrypted;
+        _processedTextController.text = base64Encode(encrypted);
+        _recoveredTextController.clear();
+      });
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Errore: $e')),
+        const SnackBar(content: Text('Testo cifrato con chiave pubblica!')),
       );
     }
   }
 
-  Future<void> _processWithPublicKey() async {
-    if (_currentPublicKey == null && _publicKeyController.text.isNotEmpty) {
-      _currentPublicKey = publicKeyFromString(_publicKeyController.text);
-      if (_currentPublicKey == null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Chiave pubblica non valida.')),
-        );
-        return;
-      }
+  Future<void> _decryptWithPrivateKey() async {
+    if (_currentPrivateKey == null && _privateKeyController.text.isNotEmpty) {
+      _currentPrivateKey = privateKeyFromString(_privateKeyController.text);
     }
-    if (_currentPublicKey == null) {
+    if (_currentPrivateKey == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Nessuna chiave pubblica disponibile.')),
+        const SnackBar(content: Text('Nessuna chiave privata valida disponibile.')),
       );
       return;
     }
-    if (_currentProcessedData == null && _processedTextController.text.isNotEmpty) {
+
+    if (_currentProcessedData == null &&
+        _processedTextController.text.isNotEmpty) {
       try {
         _currentProcessedData = base64Decode(_processedTextController.text);
       } catch (_) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Testo processato non valido.')),
+          const SnackBar(content: Text('Testo cifrato non valido.')),
         );
         return;
       }
     }
+
     if (_currentProcessedData == null) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Nessun dato processato disponibile.')),
+        const SnackBar(content: Text('Nessun dato cifrato da decifrare.')),
       );
       return;
     }
 
-    try {
-      final recoveredText =
-      await rsaProcessWithPublicKey(_currentProcessedData!, _currentPublicKey!);
+    final decrypted =
+    await rsaDecrypt(_currentProcessedData!, _currentPrivateKey!);
 
-      if (recoveredText != null) {
-        _recoveredTextController.text = recoveredText;
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Testo recuperato con chiave pubblica!')),
-        );
-      } else {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Errore durante il recupero.')),
-        );
-      }
-    } catch (e) {
+    if (decrypted != null) {
+      setState(() {
+        _recoveredTextController.text = decrypted;
+      });
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Errore: $e')),
+        const SnackBar(content: Text('Testo decifrato con chiave privata!')),
       );
     }
   }
 
-  Widget _buildKeyTextField(TextEditingController controller, String label, String hint) {
+  Widget _buildKeyTextField(
+      TextEditingController controller, String label, String hint) {
     return TextField(
       controller: controller,
       decoration: InputDecoration(
@@ -209,9 +168,9 @@ class _RsaTestPageState extends State<RsaTestPage> {
               child: const Text('1. Genera Nuova Coppia di Chiavi RSA'),
             ),
             const SizedBox(height: 12),
-            _buildKeyTextField(_privateKeyController, 'Chiave Privata (Stringa)', 'Genera o incolla la chiave privata'),
+            _buildKeyTextField(_privateKeyController, 'Chiave Privata', 'Genera o incolla la chiave privata'),
             const SizedBox(height: 12),
-            _buildKeyTextField(_publicKeyController, 'Chiave Pubblica (Stringa)', 'Genera o incolla la chiave pubblica'),
+            _buildKeyTextField(_publicKeyController, 'Chiave Pubblica', 'Genera o incolla la chiave pubblica'),
             const SizedBox(height: 20),
             TextField(
               controller: _plainTextController,
@@ -222,26 +181,15 @@ class _RsaTestPageState extends State<RsaTestPage> {
             ),
             const SizedBox(height: 12),
             ElevatedButton(
-              onPressed: _processWithPrivateKey,
-              child: const Text('2. Processa con Chiave Privata (m^d mod n)'),
+              onPressed: _encryptWithPublicKey,
+              child: const Text('2. Cifra con Chiave Pubblica'),
             ),
             const SizedBox(height: 12),
             TextField(
               controller: _processedTextController,
-              decoration: InputDecoration(
-                labelText: 'Testo Processato (Base64)',
-                border: const OutlineInputBorder(),
-                suffixIcon: IconButton(
-                  icon: const Icon(Icons.copy),
-                  onPressed: () {
-                    if (_processedTextController.text.isNotEmpty) {
-                      Clipboard.setData(ClipboardData(text: _processedTextController.text));
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(content: Text('Testo processato copiato!')),
-                      );
-                    }
-                  },
-                ),
+              decoration: const InputDecoration(
+                labelText: 'Testo Cifrato (Base64)',
+                border: OutlineInputBorder(),
               ),
               readOnly: true,
               maxLines: 3,
@@ -249,14 +197,14 @@ class _RsaTestPageState extends State<RsaTestPage> {
             ),
             const SizedBox(height: 12),
             ElevatedButton(
-              onPressed: _processWithPublicKey,
-              child: const Text('3. Recupera con Chiave Pubblica (c^e mod n)'),
+              onPressed: _decryptWithPrivateKey,
+              child: const Text('3. Decifra con Chiave Privata'),
             ),
             const SizedBox(height: 12),
             TextField(
               controller: _recoveredTextController,
               decoration: const InputDecoration(
-                labelText: 'Testo Recuperato',
+                labelText: 'Testo Decifrato',
                 border: OutlineInputBorder(),
               ),
               readOnly: true,
