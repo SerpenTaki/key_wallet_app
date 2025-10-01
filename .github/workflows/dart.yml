@@ -21,7 +21,7 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           channel: stable
-          flutter-version: '3.9.2' # Assicurati che questa versione sia valida
+          #flutter-version: '3.9.2' # Assicurati che questa versione sia valida
 
       # Rimuovi tutte le azioni 'dart-lang/setup-dart' che avevi,
       # poiché l'azione Flutter gestisce già l'SDK Dart appropriato.
