@@ -1,9 +1,6 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
+# File: .github/workflows/dart.yml
 
-name: Dart
+name: Flutter CI Build
 
 on:
   push:
@@ -18,31 +15,23 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Note: This workflow uses the latest stable version of the Dart SDK.
-      # You can specify other versions if desired, see documentation here:
-      # https://github.com/dart-lang/setup-dart/blob/main/README.md
-      # - uses: dart-lang/setup-dart@v1
-      - uses: dart-lang/setup-dart@9a04e6d73cca37bd455e0608d7e5092f881fd603
-
-      - name: Setup Dart
-        uses: dart-lang/setup-dart@v1
+      # 1. Configura Flutter (QUESTO AGGIUNGE 'flutter' e 'dart' al PATH)
+      # Questo step risolve l'errore 'command not found'.
+      - name: Set up Flutter SDK
+        uses: subosito/flutter-action@v2
         with:
-          sdk: "3.9.2"
+          channel: stable
+          flutter-version: '3.9.2' # Assicurati che questa versione sia valida
+
+      # Rimuovi tutte le azioni 'dart-lang/setup-dart' che avevi,
+      # poiché l'azione Flutter gestisce già l'SDK Dart appropriato.
 
       - name: Install dependencies
         run: flutter pub get
 
-      # Uncomment this step to verify the use of 'dart format' on each commit.
-      # - name: Verify formatting
-      #   run: dart format --output=none --set-exit-if-changed .
-
-      # Consider passing '--fatal-infos' for slightly stricter analysis.
       - name: Analyze project source
-        run: dart analyze
+        # Usa 'flutter analyze' per i progetti Flutter
+        run: flutter analyze
 
-      # Your project will need to have tests in test/ and a dependency on
-      # package:test for this step to succeed. Note that Flutter projects will
-      # want to change this to 'flutter test'.
-      - name: flutter tests
+      - name: Run tests
         run: flutter test
-
