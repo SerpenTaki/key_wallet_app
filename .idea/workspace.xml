@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fd9f324-4b81-479f-be21-42b0a387615a" name="Changes" comment="Primo commit">
-      <change afterPath="$PROJECT_DIR$/lib/NFC/ndef_record/raw_record_setting.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/NFC/ndef_record/text_record_setting.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/NFC/ndef_record/uri_record_setting.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/screens/new_wallet_creation.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/services/NFC/nfc_fetch_data.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/widgets/color_picker_dialog.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/android/app/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/landing_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/landing_page.dart" afterDir="false" />
@@ -78,8 +75,8 @@
       <recent name="$PROJECT_DIR$/lib/NFC" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/lib/screens" />
       <recent name="$PROJECT_DIR$/lib/services" />
+      <recent name="$PROJECT_DIR$/lib/screens" />
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
