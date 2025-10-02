@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
 import 'package:key_wallet_app/widgets/color_picker_dialog.dart';
-import 'package:key_wallet_app/services/NFC/nfc_fetch_data.dart';
+import 'package:key_wallet_app/services/nfc_fetch_data.dart';
 
 class NewWalletCreation extends StatefulWidget {
   const NewWalletCreation({super.key});
@@ -16,7 +16,7 @@ class _NewWalletCreationState extends State<NewWalletCreation> {
   Color selectedColor = Colors.deepPurpleAccent;
   String hBytes = "";
   String standard = "";
-  String device = Platform.operatingSystem; // Ottiene il sistema operativo del dispositivo
+  String device = Platform.operatingSystem;
   bool _isNfcAvailable = false;
   bool _isScanning = false;
 
@@ -42,17 +42,13 @@ class _NewWalletCreationState extends State<NewWalletCreation> {
     });
 
     try {
-      // fetchNfcData restituisce un oggetto di tipo NFCTag, non una mappa.
       dynamic tagData = await NfcFetchData().fetchNfcData();
       if (tagData != null && mounted) {
-        // Accediamo alle proprietà dell'oggetto usando la notazione con il punto.
-        // Ipotizzando che le proprietà esistano sull'oggetto tagData.
         setState(() {
           hBytes = tagData.historicalBytes?.toString() ?? 'N/D';
           standard = tagData.standard?.toString() ?? 'N/D';
-          // Mostra un feedback all'utente
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Wallet scansionato con successo!"), backgroundColor: Colors.green),
+            const SnackBar(content: Text("Documento scansionato con successo!"), backgroundColor: Colors.green),
           );
         });
       }
@@ -73,16 +69,11 @@ class _NewWalletCreationState extends State<NewWalletCreation> {
 
   @override
   Widget build(BuildContext context) {
-    // Logica per abilitare il pulsante di creazione solo se i dati NFC sono validi.
-    final bool canCreateWallet = hBytes.isNotEmpty && hBytes != 'N/D' &&
-                                 standard.isNotEmpty && standard != 'N/D';
+    final bool canCreateWallet = hBytes.isNotEmpty && hBytes != 'N/D' && standard.isNotEmpty && standard != 'N/D';
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          "Creazione nuovo wallet",
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
+        title: const Text("Creazione nuovo wallet", style: TextStyle(fontWeight: FontWeight.bold),),
         centerTitle: true,
       ),
       body: Form(
@@ -135,22 +126,18 @@ class _NewWalletCreationState extends State<NewWalletCreation> {
             if (_isNfcAvailable)
               ElevatedButton.icon(
                 onPressed: _isScanning ? null : _scanNfcTag,
-                icon: _isScanning 
-                    ? const SizedBox(width: 20, height: 20, child: CircularProgressIndicator(strokeWidth: 3, color: Colors.white,))
+                icon: _isScanning
+                    ? const SizedBox(width: 20,
+                    height: 20,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 3, color: Colors.white,))
                     : const Icon(Icons.nfc_outlined),
-                label: Text(_isScanning ? "Scansione in corso..." : "Scansiona wallet"),
+                label: Text(
+                    _isScanning ? "Scansione in corso..." : "Scansiona wallet"),
               )
             else
-              const Padding(
-                padding: EdgeInsets.all(8.0),
-                child: Text(
-                  "Questo dispositivo non supporta la tecnologia NFC",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(fontSize: 16, color: Colors.red),
-                ),
-              ),
+              const Text("NFC non disponibile"),
             const SizedBox(height: 30),
-            // I Text widget si aggiornano automaticamente grazie a setState
             Text("Piattaforma: $device"),
             Text("HBytes: $hBytes"),
             Text("Standard: $standard"),
@@ -160,12 +147,10 @@ class _NewWalletCreationState extends State<NewWalletCreation> {
                   ? () {
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
-                        // Qui andrà la logica per creare il wallet con i dati raccolti:
                         print("Nome: $nome, Colore: $selectedColor, HBytes: $hBytes, Standard: $standard, Piattaforma: $device");
-                        // Esempio: Navigator.pop(context, nuovoWallet);
                       }
                     }
-                  : null, // Disabilita il pulsante se i dati NFC non sono stati scansionati
+                  : null,
               style: ElevatedButton.styleFrom(
                 padding: const EdgeInsets.symmetric(vertical: 15),
               ),
