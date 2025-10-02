@@ -3,10 +3,10 @@ import 'package:key_wallet_app/models/wallet.dart'; // Importa il modello Wallet
 import 'package:key_wallet_app/screens/landing_page.dart';
 import 'package:key_wallet_app/screens/auth_page.dart';
 import 'package:key_wallet_app/screens/wallet_page.dart';
+import 'package:key_wallet_app/screens/new_wallet_creation.dart';
 
 //Per mandare dati dinamici
 class RouteGenerator {
-
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
 
@@ -22,6 +22,8 @@ class RouteGenerator {
           );
         }
         return _errorRoute();
+      case '/NewWalletCreation':
+        return MaterialPageRoute(builder: (context) => NewWalletCreation());
       default:
         return _errorRoute();
     }
@@ -31,7 +33,9 @@ class RouteGenerator {
     return MaterialPageRoute(
       builder: (_) => Scaffold(
         appBar: AppBar(title: Text('Errore')),
-        body: Center(child: Text('Pagina non trovata o errore negli argomenti.')),
+        body: Center(
+          child: Text('Pagina non trovata o errore negli argomenti.'),
+        ),
       ),
     );
   }
