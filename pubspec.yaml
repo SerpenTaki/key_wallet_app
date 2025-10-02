@@ -45,7 +45,8 @@ dependencies:
   provider: ^6.1.5+1
   flutter_secure_storage: ^10.0.0-beta.4
   flutter_launcher_icons: ^0.14.4
-  pretty_qr_code: ^3.5.0
+  flutter_nfc_kit: ^3.6.0
+  ndef: ^0.3.4
 
 dev_dependencies:
   flutter_test:
