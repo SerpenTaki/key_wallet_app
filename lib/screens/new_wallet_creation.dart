@@ -23,7 +23,7 @@ class _NewWalletCreationState extends State<NewWalletCreation> {
   @override
   void initState() {
     super.initState();
-    NfcFetchData().checkAvailability().then((isAvailable) {
+    NfcServices().checkAvailability().then((isAvailable) {
       if (mounted) {
         setState(() {
           _isNfcAvailable = isAvailable;
@@ -39,7 +39,7 @@ class _NewWalletCreationState extends State<NewWalletCreation> {
     });
 
     try {
-      dynamic tagData = await NfcFetchData().fetchNfcData();
+      dynamic tagData = await NfcServices().fetchNfcData();
       if (tagData != null && mounted) {
         setState(() {
           hBytes = tagData.historicalBytes?.toString() ?? 'N/D';
@@ -97,25 +97,18 @@ class _NewWalletCreationState extends State<NewWalletCreation> {
             const SizedBox(height: 20),
             ElevatedButton.icon(
               onPressed: () {
-                showDialog(
-                  context: context,
+                showDialog(context: context,
                   builder: (BuildContext context) {
                     return ColorPickerDialog(
                       initialColor: selectedColor,
                       onColorChanged: (Color value) {
                         setState(() {
                           selectedColor = value;
-                        });
-                      },
-                    );
-                  },
-                );
-              },
+                        });},);},);},
               style: ElevatedButton.styleFrom(
                 backgroundColor: selectedColor,
                 foregroundColor: selectedColor.computeLuminance() > 0.5 ? Colors.black : Colors.white,
-                padding: const EdgeInsets.symmetric(vertical: 15),
-              ),
+                padding: const EdgeInsets.symmetric(vertical: 15),),
               icon: const Icon(Icons.color_lens_outlined),
               label: const Text('Seleziona Colore Wallet'),
             ),
@@ -126,16 +119,13 @@ class _NewWalletCreationState extends State<NewWalletCreation> {
                 icon: _isScanning
                     ? const SizedBox(width: 20,
                     height: 20,
-                    child: CircularProgressIndicator(
-                      strokeWidth: 3, color: Colors.white,))
-                    : const Icon(Icons.nfc_outlined),
-                label: Text(
-                    _isScanning ? "Scansione in corso..." : "Scansiona wallet"),
-              )
-            else
-              const Text("NFC non disponibile"),
+                    child: CircularProgressIndicator(strokeWidth: 3, color: Colors.white,)) : const Icon(Icons.nfc_outlined),
+                label: Text(_isScanning ? "Scansione in corso..." : "Scansiona wallet"),)
+            else // questo non lo vedo mai
+              const Center(
+                  child: Text("NFC non disponibile su questo dispositivo.", style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold))
+              ),
             const SizedBox(height: 30),
-            Text("Piattaforma: $device"),
             Text("HBytes: $hBytes"),
             Text("Standard: $standard"),
             const SizedBox(height: 30),

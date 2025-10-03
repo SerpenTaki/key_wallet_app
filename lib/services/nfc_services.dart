@@ -2,7 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_nfc_kit/flutter_nfc_kit.dart';
 
 
-class NfcFetchData{
+class NfcServices{
 
   Future<bool> checkAvailability() async {
     try {
