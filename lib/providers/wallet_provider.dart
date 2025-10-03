@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:key_wallet_app/models/wallet.dart';
@@ -14,39 +13,54 @@ class WalletProvider with ChangeNotifier {
 
   List<Wallet> get wallets => List.unmodifiable(_wallets);
 
-  //La funzione cerca nel database firestore i wallet dell'utente tramite userId che
-  //deve essere passato come argomento
   Future<void> fetchUserWallets(String userId) async {
-    _isLoading = true; // Operazione molto lunga meglio non annoiare l'utente
+    _isLoading = true;
     notifyListeners();
     try {
       QuerySnapshot<Map<String, dynamic>> walletSnapshot = await _firestore
           .collection('wallets')
           .where('userId', isEqualTo: userId)
           .orderBy('createdAt', descending: true)
-          .get(); //Qui viene chiamata la query per ottenere i documenti
+          .get();
       _wallets.clear();
-      for (var doc in walletSnapshot.docs) { //Il metodo docs restituisce una lista in questo caso di walletSnapshot
+      for (var doc in walletSnapshot.docs) {
         _wallets.add(Wallet.fromFirestore(doc));
       }
-    } catch (e, stackTrace) {
+    } catch (e) {
       _wallets.clear();
     } finally {
       _isLoading = false;
-      notifyListeners(); //Provider aggiorna i widget interessati
+      notifyListeners();
     }
   }
 
-  //Funzione per aggiungere un nuovo wallet alla lista locale e alla lista di firestore, di conseguenza generando
-  //le 2 chiavi da salvare
+  // Controlla se un wallet con gli stessi hBytes esiste GIA' PER L'UTENTE SPECIFICATO.
+  Future<bool> checkIfWalletExists(String hBytes, String userId) async {
+    // Se hBytes è vuoto, non può esistere.
+    if (hBytes.isEmpty) return false;
+
+    try {
+      final querySnapshot = await _firestore
+          .collection('wallets')
+          .where('hBytes', isEqualTo: hBytes)
+          .where('userId', isEqualTo: userId)
+          .limit(1)
+          .get();
+      return querySnapshot.docs.isNotEmpty;
+    } catch (e) {
+      print("Errore durante il controllo dell'esistenza del wallet: $e");
+      return true; // Fail-safe: previene duplicati in caso di errore.
+    }
+  }
+
   Future<void> generateAndAddWallet(String userId, String walletName, Color selectedColor, String hBytes, String standard, String device) async {
     if (userId.isEmpty) {
       return;
     }
-    final secureStorage = SecureStorage(); // Istanza di Secure Storage per gestire la chiave privata da salvare sul dispositivo
+    final secureStorage = SecureStorage();
     try {
-      Wallet tempWallet = await Wallet.generateNew(walletName, selectedColor, hBytes, standard, device); //creo un wallet temporaneo tramite la classe Wallet
-      await secureStorage.writeSecureData(tempWallet.localKeyIdentifier, tempWallet.transientRawPrivateKey!); //con secure storage salvo la chiave privata
+      Wallet tempWallet = await Wallet.generateNew(walletName, selectedColor, hBytes, standard, device);
+      await secureStorage.writeSecureData(tempWallet.localKeyIdentifier, tempWallet.transientRawPrivateKey!); 
       tempWallet.transientRawPrivateKey = null;
 
       Map<String, dynamic> walletDataForFirestore = {
@@ -63,7 +77,7 @@ class WalletProvider with ChangeNotifier {
         'backedUp': false,
       };
 
-      DocumentReference docRef = await _firestore.collection('wallets').add(walletDataForFirestore); //aggiungo il wallet alla lista di firestore
+      DocumentReference docRef = await _firestore.collection('wallets').add(walletDataForFirestore);
       final Wallet finalWallet = Wallet(
         id: docRef.id,
         name: tempWallet.name,
@@ -75,13 +89,12 @@ class WalletProvider with ChangeNotifier {
         localKeyIdentifier: tempWallet.localKeyIdentifier,
       ); 
       _wallets.insert(0, finalWallet);
-      notifyListeners(); //aggiungo il wallet finale alla lista locale
+      notifyListeners();
     } catch (e) {
       throw e;
     }
   }
 
-  //Elimina solo dalla lista aggiornando il provider e dal Database, l'eliminazione da secure storage è gestita in wallet_page.dart
   Future<void> deleteWalletDBandList(Wallet wallet) async {
     try {
       await _firestore.collection('wallets').doc(wallet.id).delete();
