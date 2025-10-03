@@ -1,3 +1,5 @@
+import 'dart:ui';
+import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 import 'package:key_wallet_app/services/cryptography_gen.dart';
 import 'package:pointycastle/asymmetric/api.dart' as pointy;
@@ -9,6 +11,10 @@ class Wallet {
   final String publicKey;
   final String localKeyIdentifier;
   String? transientRawPrivateKey;
+  Color? color;
+  String? hBytes;
+  String? standard;
+  String? device;
 
   Wallet({
     required this.id,
@@ -16,6 +22,10 @@ class Wallet {
     required this.publicKey,
     required this.localKeyIdentifier,
     this.transientRawPrivateKey,
+    required this.color,
+    required this.hBytes,
+    required this.standard,
+    required this.device,
   });
 
   // Factory constructor per creare un'istanza di Wallet da un documento Firestore
@@ -29,11 +39,15 @@ class Wallet {
       name: data['name'] as String? ?? 'Wallet Senza Nome',
       publicKey: data['publicKey'] as String? ?? '',
       localKeyIdentifier: data['localKeyIdentifier'] as String? ?? '',
+      color: data['color'] as Color? ?? Colors.deepPurpleAccent,
+      hBytes: data['hBytes'] as String? ?? '',
+      standard: data['standard'] as String? ?? '',
+      device: data['device'] as String? ?? '',
     );
   }
 
 
-  static Future<Wallet> generateNew(String nome) async {
+  static Future<Wallet> generateNew(String nome, Color selectedColor, String hBytes, String standard, String device) async {
     var uuid = const Uuid();
     final newLocalKeyIdentifier = uuid.v4();
 
@@ -52,6 +66,10 @@ class Wallet {
       publicKey: publicKeyString,
       localKeyIdentifier: newLocalKeyIdentifier,
       transientRawPrivateKey: privateKeyString,
+      color: Colors.deepPurpleAccent,
+      hBytes: hBytes,
+      standard: standard,
+      device: device,
     );
   }
 }

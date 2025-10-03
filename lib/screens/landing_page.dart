@@ -1,13 +1,10 @@
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:key_wallet_app/services/auth.dart';
 import 'package:key_wallet_app/providers/wallet_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:key_wallet_app/widgets/add_apple_wallet_dialog.dart';
-import 'package:key_wallet_app/widgets/add_wallet_dialog.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -55,31 +52,6 @@ class _LandingPageState extends State<LandingPage> {
 
   Future<void> signOut() async {
     await _authService.signOut();
-  }
-
-  Future<String?> _askWalletNameDialog(BuildContext context) async {
-    TextEditingController controller = TextEditingController();
-    if (defaultTargetPlatform == TargetPlatform.iOS) {
-      return showCupertinoDialog<String>(
-        context: context,
-        builder: (BuildContext dialogContext) {
-          return AddAppleWalletDialog(
-            controller: controller,
-            dialogContext: dialogContext,
-          );
-        },
-      );
-    } else {
-      return showDialog<String>(
-        context: context,
-        builder: (BuildContext dialogContext) {
-          return AddWalletDialog(
-            controller: controller,
-            dialogContext: dialogContext,
-          );
-        },
-      );
-    }
   }
 
   //Il body cambia in base a 3 condizioni, se si sta aspettando il caricamento, se il database per l'utente è vuoto
@@ -144,7 +116,10 @@ class _LandingPageState extends State<LandingPage> {
               children: [
                 Icon(Icons.account_balance_wallet),
                 SizedBox(width: 8),
-                Text("Key Wallet", style: TextStyle(fontWeight: FontWeight.bold),),
+                Text(
+                  "Key Wallet",
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
               ],
             ),
             actions: [
@@ -163,45 +138,29 @@ class _LandingPageState extends State<LandingPage> {
           _buildBody(context, walletProvider), //CHIAMATA AL BUILDER DEL BODY
         ],
       ),
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          FloatingActionButton(
-            heroTag: 'addWalletButton',
-            onPressed: () async {
-              final user = _authService.currentUser;
-              if (user == null) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text("Devi essere loggato per creare un wallet."),
-                  ),
-                );
-                return;
-              }
-              String? newWalletName = await _askWalletNameDialog(context);
-              if (newWalletName != null && newWalletName.isNotEmpty) {
-                context.read<WalletProvider>().generateAndAddWallet(
-                  user.uid,
-                  newWalletName,
-                );
-              }
-            },
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            foregroundColor: Theme.of(context).colorScheme.onPrimary,
-            child: const Icon(Icons.add),
-          ),
-
-
-          const SizedBox(width: 16),
-          FloatingActionButton(
-            heroTag: 'nfcButton',
-            onPressed: () { Navigator.pushNamed(context, '/NewWalletCreation'); },
-            backgroundColor: Theme.of(context).colorScheme.primary,
-            foregroundColor: Theme.of(context).colorScheme.onPrimary,
-            child: const Icon(Icons.nfc_sharp),
-          ),
-        ],
+      floatingActionButton: FloatingActionButton(
+        heroTag: 'addWallet',
+        onPressed: () async {
+          final user = _authService.currentUser;
+          if (user == null) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text("Devi essere loggato per creare un wallet."),
+              ),
+            );
+            return;
+          }
+            Navigator.pushNamed(
+              context,
+              '/NewWalletCreation',
+              arguments: user.uid,
+            );
+          },
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        foregroundColor: Theme.of(context).colorScheme.onPrimary,
+        child: const Icon(Icons.add_card_rounded),
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 }
