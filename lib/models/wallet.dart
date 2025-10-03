@@ -1,4 +1,3 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 import 'package:key_wallet_app/services/cryptography_gen.dart';
@@ -39,11 +38,41 @@ class Wallet {
       name: data['name'] as String? ?? 'Wallet Senza Nome',
       publicKey: data['publicKey'] as String? ?? '',
       localKeyIdentifier: data['localKeyIdentifier'] as String? ?? '',
-      color: data['color'] as Color? ?? Colors.deepPurpleAccent,
+      // Usa la funzione helper per parsificare il colore dalla stringa
+      color: _colorFromString(data['color'] as String?),
       hBytes: data['hBytes'] as String? ?? '',
       standard: data['standard'] as String? ?? '',
       device: data['device'] as String? ?? '',
     );
+  }
+
+  static Color _colorFromString(String? colorString) {
+    if (colorString == null) {
+      return Colors.deepPurpleAccent;
+    }
+
+    try {
+      // Caso 1: Gestisce "Color(alpha: 1.0000, red: 0.0000, ...)"
+      var re = RegExp(r'alpha:\s*([\d.]+),\s*red:\s*([\d.]+),\s*green:\s*([\d.]+),\s*blue:\s*([\d.]+)');
+      var match = re.firstMatch(colorString);
+      if (match != null) {
+        final alpha = double.parse(match.group(1)!);
+        final red = double.parse(match.group(2)!);
+        final green = double.parse(match.group(3)!);
+        final blue = double.parse(match.group(4)!);
+        return Color.fromARGB(
+          (alpha * 255).toInt(),
+          (red * 255).toInt(),
+          (green * 255).toInt(),
+          (blue * 255).toInt(),
+        );
+      }
+      // Se nessun formato corrisponde, restituisce il colore di default
+      return Colors.deepPurpleAccent;
+    } catch (e) {
+      // In caso di errore di parsing, restituisce il colore di default
+      return Colors.deepPurpleAccent;
+    }
   }
 
 
@@ -66,7 +95,7 @@ class Wallet {
       publicKey: publicKeyString,
       localKeyIdentifier: newLocalKeyIdentifier,
       transientRawPrivateKey: privateKeyString,
-      color: Colors.deepPurpleAccent,
+      color: selectedColor, // Usa il colore passato come argomento
       hBytes: hBytes,
       standard: standard,
       device: device,
