@@ -85,10 +85,22 @@ class _LandingPageState extends State<LandingPage> {
       delegate: SliverChildBuilderDelegate((BuildContext context, int index) {
         final wallet = walletProvider.wallets[index];
         return Card(
-          margin: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          elevation: 4,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
           child: ListTile(
-            leading: const Icon(Icons.wallet_rounded),
-            title: Text(wallet.name),
+            contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            leading: Icon(Icons.wallet_rounded, color: wallet.color, size: 40),
+            title: Text(wallet.name, style: const TextStyle(fontWeight: FontWeight.bold)),
+            subtitle: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const SizedBox(height: 4),
+                Text('HBytes: ${wallet.hBytes}', style: const TextStyle(fontSize: 12)),
+                Text('Standard: ${wallet.standard}', style: const TextStyle(fontSize: 12)),
+                Text('Creato su: ${wallet.device}', style: const TextStyle(fontSize: 12)),
+              ],
+            ),
             trailing: Icon(
               defaultTargetPlatform == TargetPlatform.android
                   ? Icons.arrow_forward
