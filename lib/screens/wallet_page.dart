@@ -6,7 +6,6 @@ import 'package:key_wallet_app/screens/keys_page.dart';
 import 'package:key_wallet_app/widgets/delete_apple_wallet_alert.dart';
 import 'package:key_wallet_app/widgets/delete_wallet_alert.dart';
 import 'package:key_wallet_app/screens/rsa_test_page.dart';
-import 'package:key_wallet_app/screens/docs_page.dart';
 import 'package:key_wallet_app/screens/chat_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
@@ -115,7 +114,7 @@ class _WalletPageState extends State<WalletPage> {
       return KeyNotFound();
     } else {
       return DefaultTabController(
-          length: 3,
+          length: 2,
           child: Scaffold(
             appBar: AppBar(
                 title: Text(widget.wallet.name, style: TextStyle(fontWeight: FontWeight.bold),),
@@ -170,7 +169,6 @@ class _WalletPageState extends State<WalletPage> {
                   unselectedLabelColor: Colors.grey,
                   automaticIndicatorColorAdjustment: true,
                   tabs: [
-                    Tab(text: 'Lista Documenti', icon: Icon(Icons.contact_mail_outlined),),
                     Tab(text: "Chat", icon: Icon(Icons.chat_outlined),),
                     Tab(text: 'Chiavi', icon: Icon(Icons.key),),
                   ],
@@ -178,7 +176,6 @@ class _WalletPageState extends State<WalletPage> {
             ),
             body: TabBarView(
               children: [
-                DocsPage(),
                 ChatPage(),
                 KeysPage(wallet: widget.wallet, privateKeyValue: privateKeyValue, secureStorage: _secureStorage,),
               ],

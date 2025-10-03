@@ -20,14 +20,9 @@ SecureRandom getSecureRandom() {
 // =========================
 // RSA KeyPair generator
 // =========================
-AsymmetricKeyPair<PublicKey, PrivateKey> generateRSAkeyPair(
-    SecureRandom secureRandom) {
+AsymmetricKeyPair<PublicKey, PrivateKey> generateRSAkeyPair(SecureRandom secureRandom) {
   final keyGen = RSAKeyGenerator()
-    ..init(ParametersWithRandom(
-      RSAKeyGeneratorParameters(BigInt.parse('65537'), 2048, 64),
-      secureRandom,
-    ));
-
+    ..init(ParametersWithRandom(RSAKeyGeneratorParameters(BigInt.parse('65537'), 2048, 64), secureRandom,));
   return keyGen.generateKeyPair();
 }
 
