@@ -2,9 +2,14 @@ import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
 import 'package:key_wallet_app/widgets/color_picker_dialog.dart';
 import 'package:key_wallet_app/services/nfc_services.dart';
+import 'package:provider/provider.dart';
+
+import '../providers/wallet_provider.dart';
 
 class NewWalletCreation extends StatefulWidget {
-  const NewWalletCreation({super.key});
+  const NewWalletCreation({super.key, required this.uid});
+
+  final String uid;
 
   @override
   State<NewWalletCreation> createState() => _NewWalletCreationState();
@@ -19,6 +24,7 @@ class _NewWalletCreationState extends State<NewWalletCreation> {
   String device = Platform.operatingSystem;
   bool _isNfcAvailable = false;
   bool _isScanning = false;
+
 
   @override
   void initState() {
@@ -138,7 +144,10 @@ class _NewWalletCreationState extends State<NewWalletCreation> {
                   ? () {
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
-                        print("Nome: $nome, Colore: $selectedColor, HBytes: $hBytes, Standard: $standard, Piattaforma: $device");
+                        context.read<WalletProvider>().generateAndAddWallet(
+                          widget.uid, nome, selectedColor, hBytes, standard, device
+                        );
+                        Navigator.pop(context);
                       }
                     }
                   : null,

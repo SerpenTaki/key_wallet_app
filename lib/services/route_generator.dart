@@ -10,6 +10,7 @@ class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
 
+
     switch (settings.name) {
       case '/LandingPage':
         return MaterialPageRoute(builder: (context) => LandingPage());
@@ -23,7 +24,12 @@ class RouteGenerator {
         }
         return _errorRoute();
       case '/NewWalletCreation':
-        return MaterialPageRoute(builder: (context) => NewWalletCreation());
+        if (args is String) {
+          return MaterialPageRoute(
+            builder: (context) => NewWalletCreation(uid: args),
+          );
+        }
+        return _errorRoute();
       default:
         return _errorRoute();
     }

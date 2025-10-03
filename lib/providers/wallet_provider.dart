@@ -39,19 +39,23 @@ class WalletProvider with ChangeNotifier {
 
   //Funzione per aggiungere un nuovo wallet alla lista locale e alla lista di firestore, di conseguenza generando
   //le 2 chiavi da salvare
-  Future<void> generateAndAddWallet(String userId, String walletName) async {
+  Future<void> generateAndAddWallet(String userId, String walletName, Color selectedColor, String hBytes, String standard, String device) async {
     if (userId.isEmpty) {
       return;
     }
     final secureStorage = SecureStorage(); // Istanza di Secure Storage per gestire la chiave privata da salvare sul dispositivo
     try {
-      Wallet tempWallet = await Wallet.generateNew(walletName); //creo un wallet temporaneo tramite la classe Wallet
+      Wallet tempWallet = await Wallet.generateNew(walletName, selectedColor, hBytes, standard, device); //creo un wallet temporaneo tramite la classe Wallet
       await secureStorage.writeSecureData(tempWallet.localKeyIdentifier, tempWallet.transientRawPrivateKey!); //con secure storage salvo la chiave privata
       tempWallet.transientRawPrivateKey = null;
 
       Map<String, dynamic> walletDataForFirestore = {
         'userId': userId,
         'name': tempWallet.name,
+        'hBytes': hBytes,
+        'standard': standard,
+        'device': device,
+        'color': selectedColor.toString(),
         'publicKey': tempWallet.publicKey,
         'localKeyIdentifier': tempWallet.localKeyIdentifier,
         'algorithm': 'RSA',
@@ -63,6 +67,10 @@ class WalletProvider with ChangeNotifier {
       final Wallet finalWallet = Wallet(
         id: docRef.id,
         name: tempWallet.name,
+        hBytes: hBytes,
+        standard: standard,
+        device: device,
+        color: selectedColor,
         publicKey: tempWallet.publicKey,
         localKeyIdentifier: tempWallet.localKeyIdentifier,
       ); 

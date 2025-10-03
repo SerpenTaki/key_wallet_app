@@ -6,9 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="4fd9f324-4b81-479f-be21-42b0a387615a" name="Changes" comment="Primo commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main2Test.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/wallet.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/wallet.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/providers/wallet_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/providers/wallet_provider.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/landing_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/landing_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/new_wallet_creation.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/new_wallet_creation.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/nfc_services.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/nfc_services.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/route_generator.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/route_generator.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
