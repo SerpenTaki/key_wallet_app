@@ -114,7 +114,7 @@ class _NewWalletCreationState extends State<NewWalletCreation> {
                       onColorChanged: (Color value) {
                         setState(() {
                           selectedColor = value;
-                        });},);},);},
+                        });},);},);},              
               style: ElevatedButton.styleFrom(
                 backgroundColor: selectedColor,
                 foregroundColor: selectedColor.computeLuminance() > 0.5 ? Colors.black : Colors.white,
@@ -141,13 +141,17 @@ class _NewWalletCreationState extends State<NewWalletCreation> {
             const SizedBox(height: 30),
             ElevatedButton(
               onPressed: canCreateWallet
-                  ? () {
+                  ? () async {
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
-                        context.read<WalletProvider>().generateAndAddWallet(
-                          widget.uid, nome, selectedColor, hBytes, standard, device
-                        );
-                        Navigator.pop(context);
+                        if (!(await context.read<WalletProvider>().checkIfWalletExists(hBytes, widget.uid))) {
+                          context.read<WalletProvider>().generateAndAddWallet(widget.uid, nome, selectedColor, hBytes, standard, device);
+                          if(mounted) Navigator.pop(context);
+                        }
+                        else {
+                          ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                              content: Text("Documento già usato per un altro wallet"), backgroundColor: Colors.red));
+                        }
                       }
                     }
                   : null,
