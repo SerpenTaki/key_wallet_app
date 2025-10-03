@@ -44,9 +44,13 @@ class _NewWalletCreationState extends State<NewWalletCreation> {
         setState(() {
           hBytes = tagData.historicalBytes?.toString() ?? 'N/D';
           standard = tagData.standard?.toString() ?? 'N/D';
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text("Documento scansionato con successo!"), backgroundColor: Colors.green),
-          );
+          if (hBytes.isNotEmpty && hBytes != 'N/D' && standard.isNotEmpty && standard != 'N/D') {
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text("Documento scansionato con successo!"), backgroundColor: Colors.green));
+          } else {
+            ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text("Documento non valido per l'operazione"), backgroundColor: Colors.red));
+          }
         });
       }
     } catch (e) {
