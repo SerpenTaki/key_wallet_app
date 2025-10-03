@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
 import 'package:key_wallet_app/widgets/color_picker_dialog.dart';
-import 'package:key_wallet_app/services/nfc_fetch_data.dart';
+import 'package:key_wallet_app/services/nfc_services.dart';
 
 class NewWalletCreation extends StatefulWidget {
   const NewWalletCreation({super.key});
@@ -23,16 +23,13 @@ class _NewWalletCreationState extends State<NewWalletCreation> {
   @override
   void initState() {
     super.initState();
-    _checkNfcAvailability();
-  }
-
-  Future<void> _checkNfcAvailability() async {
-    bool isAvailable = await NfcFetchData().checkAvailability();
-    if (mounted) {
-      setState(() {
-        _isNfcAvailable = isAvailable;
-      });
-    }
+    NfcFetchData().checkAvailability().then((isAvailable) {
+      if (mounted) {
+        setState(() {
+          _isNfcAvailable = isAvailable;
+        });
+      }
+    });
   }
 
   Future<void> _scanNfcTag() async {
@@ -152,7 +149,7 @@ class _NewWalletCreationState extends State<NewWalletCreation> {
                     }
                   : null,
               style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 15),
+                padding: const EdgeInsets.symmetric(vertical: 15), 
               ),
               child: const Text("Crea Wallet"),
             )
