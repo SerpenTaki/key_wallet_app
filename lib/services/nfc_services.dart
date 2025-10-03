@@ -1,25 +1,28 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_nfc_kit/flutter_nfc_kit.dart';
+import 'package:flutter/foundation.dart';
 
 
 class NfcServices{
 
   Future<bool> checkAvailability() async {
     try {
-      var _ = await FlutterNfcKit.nfcAvailability;
+      NFCAvailability availability = await FlutterNfcKit.nfcAvailability;
+      return availability == NFCAvailability.available;
     } on PlatformException {
-      var _ = NFCAvailability.not_supported;
       return false;
     }
-    return true;
   }
 
   Future<NFCTag?> fetchNfcData() async {
     try {
       NFCTag tag = await FlutterNfcKit.poll();
-      await FlutterNfcKit.setIosAlertMessage("Working on it...");
+      if (defaultTargetPlatform == TargetPlatform.iOS) {
+        await FlutterNfcKit.setIosAlertMessage("Avvicina il dispositivo al tag NFC...");
+      }
       return tag;
     } catch (e) {
+      await FlutterNfcKit.finish();
       return null;
     }
   }
