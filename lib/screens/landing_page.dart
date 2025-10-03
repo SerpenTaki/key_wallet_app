@@ -144,10 +144,7 @@ class _LandingPageState extends State<LandingPage> {
               children: [
                 Icon(Icons.account_balance_wallet),
                 SizedBox(width: 8),
-                Text(
-                  "Key Wallet",
-                  style: TextStyle(fontWeight: FontWeight.bold),
-                ),
+                Text("Key Wallet", style: TextStyle(fontWeight: FontWeight.bold),),
               ],
             ),
             actions: [
@@ -181,7 +178,6 @@ class _LandingPageState extends State<LandingPage> {
                 );
                 return;
               }
-
               String? newWalletName = await _askWalletNameDialog(context);
               if (newWalletName != null && newWalletName.isNotEmpty) {
                 context.read<WalletProvider>().generateAndAddWallet(
@@ -194,6 +190,8 @@ class _LandingPageState extends State<LandingPage> {
             foregroundColor: Theme.of(context).colorScheme.onPrimary,
             child: const Icon(Icons.add),
           ),
+
+
           const SizedBox(width: 16),
           FloatingActionButton(
             heroTag: 'nfcButton',
