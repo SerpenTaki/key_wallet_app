@@ -29,7 +29,7 @@ class WalletProvider with ChangeNotifier {
       for (var doc in walletSnapshot.docs) { //Il metodo docs restituisce una lista in questo caso di walletSnapshot
         _wallets.add(Wallet.fromFirestore(doc));
       }
-    } catch (e) {
+    } catch (e, stackTrace) {
       _wallets.clear();
     } finally {
       _isLoading = false;
