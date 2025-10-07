@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class ChatPage extends StatelessWidget {
-  // Adesso riceve l'intera mappa dei dati dei wallet
   final Map<String, dynamic> senderWallet;
   final Map<String, dynamic> receiverWallet;
 

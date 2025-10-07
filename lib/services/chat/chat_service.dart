@@ -11,7 +11,6 @@ class ChatService {
     if (currentUser == null) {
       return Stream.value([]);
     }
-
     return _firestore.collection('wallets').snapshots().map((snapshot) {
       return snapshot.docs
           .where((doc) => doc.data()['userId'] != currentUser.uid) // Esclude i wallet dell'utente corrente
@@ -25,22 +24,4 @@ class ChatService {
     });
   }
 
-  // Ottiene un flusso di tutti i wallet appartenenti all'utente loggato.
-  Stream<List<Map<String, dynamic>>> getCurrentUserWalletsStream() {
-    final currentUser = _auth.currentUser;
-    if (currentUser == null) {
-      return Stream.value([]);
-    }
-    return _firestore
-        .collection('wallets')
-        .where('userId', isEqualTo: currentUser.uid)
-        .snapshots()
-        .map((snapshot) {
-      return snapshot.docs.map((doc) {
-        final data = doc.data();
-        data['id'] = doc.id;
-        return data;
-      }).toList();
-    });
-  }
 }
