@@ -177,11 +177,7 @@ class _WalletPageState extends State<WalletPage> {
             body: TabBarView(
               children: [
                 ChatListPage(
-                  senderWallet: {
-                    'id': widget.wallet.id,
-                    'name': widget.wallet.name,
-                    'publicKey': widget.wallet.publicKey,
-                  },
+                  senderWallet: widget.wallet,
                 ),
                 KeysPage(wallet: widget.wallet, privateKeyValue: privateKeyValue, secureStorage: _secureStorage,),
               ],

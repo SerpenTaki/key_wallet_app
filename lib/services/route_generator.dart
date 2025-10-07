@@ -31,8 +31,8 @@ class RouteGenerator {
           );
         }
         return _errorRoute();
-      case '/chat_list': // NUOVA ROTTA
-        if (args is Map<String, dynamic>) {
+      case '/chat_list':
+        if (args is Wallet) {
           return MaterialPageRoute(
             builder: (context) => ChatListPage(senderWallet: args),
           );
