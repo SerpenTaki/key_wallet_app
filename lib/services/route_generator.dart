@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:key_wallet_app/models/wallet.dart'; // Importa il modello Wallet
+import 'package:key_wallet_app/models/wallet.dart';
 import 'package:key_wallet_app/screens/landing_page.dart';
 import 'package:key_wallet_app/screens/auth_page.dart';
 import 'package:key_wallet_app/screens/wallet_page.dart';
 import 'package:key_wallet_app/screens/new_wallet_creation.dart';
+import 'package:key_wallet_app/screens/chat_page.dart';
 
 //Per mandare dati dinamici
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
-
 
     switch (settings.name) {
       case '/LandingPage':
@@ -28,6 +28,11 @@ class RouteGenerator {
           return MaterialPageRoute(
             builder: (context) => NewWalletCreation(uid: args),
           );
+        }
+        return _errorRoute();
+      case '/chat':
+        if (args is String) {
+          return MaterialPageRoute(builder: (context) => ChatPage(receiverEmail: args,));
         }
         return _errorRoute();
       default:
