@@ -162,11 +162,7 @@ class _LandingPageState extends State<LandingPage> {
             );
             return;
           }
-            Navigator.pushNamed(
-              context,
-              '/NewWalletCreation',
-              arguments: user.uid,
-            );
+            Navigator.pushNamed(context, '/NewWalletCreation', arguments: user.uid,);
           },
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Theme.of(context).colorScheme.onPrimary,

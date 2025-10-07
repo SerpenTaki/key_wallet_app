@@ -127,9 +127,8 @@ class _NewWalletCreationState extends State<NewWalletCreation> {
               ElevatedButton.icon(
                 onPressed: _isScanning ? null : _scanNfcTag,
                 icon: _isScanning
-                    ? const SizedBox(width: 20,
-                    height: 20,
-                    child: CircularProgressIndicator(strokeWidth: 3, color: Colors.white,)) : const Icon(Icons.nfc_outlined),
+                    ? const SizedBox(width: 20, height: 20,
+                    child:  CircularProgressIndicator(strokeWidth: 3, color: Colors.white,)) : const Icon(Icons.nfc_outlined),
                 label: Text(_isScanning ? "Scansione in corso..." : "Scansiona wallet"),)
             else // questo non lo vedo mai
               const Center(
@@ -155,9 +154,7 @@ class _NewWalletCreationState extends State<NewWalletCreation> {
                       }
                     }
                   : null,
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 15), 
-              ),
+              style: ElevatedButton.styleFrom(padding: const EdgeInsets.symmetric(vertical: 15),),
               child: const Text("Crea Wallet"),
             )
           ],

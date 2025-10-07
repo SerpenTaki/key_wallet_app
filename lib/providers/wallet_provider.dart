@@ -34,7 +34,6 @@ class WalletProvider with ChangeNotifier {
     }
   }
 
-  // Controlla se un wallet con gli stessi hBytes esiste GIA' PER L'UTENTE SPECIFICATO.
   Future<bool> checkIfWalletExists(String hBytes, String userId) async {
     // Se hBytes è vuoto, non può esistere.
     if (hBytes.isEmpty) return false;
@@ -48,8 +47,7 @@ class WalletProvider with ChangeNotifier {
           .get();
       return querySnapshot.docs.isNotEmpty;
     } catch (e) {
-      print("Errore durante il controllo dell'esistenza del wallet: $e");
-      return true; // Fail-safe: previene duplicati in caso di errore.
+      return true;
     }
   }
 
@@ -91,7 +89,7 @@ class WalletProvider with ChangeNotifier {
       _wallets.insert(0, finalWallet);
       notifyListeners();
     } catch (e) {
-      throw e;
+      rethrow;
     }
   }
 
@@ -101,7 +99,7 @@ class WalletProvider with ChangeNotifier {
       _wallets.removeWhere((w) => w.id == wallet.id);
       notifyListeners();
     } catch (e) {
-      throw e; 
+      rethrow;
     }
   }
 }
