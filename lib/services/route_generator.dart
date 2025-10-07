@@ -4,6 +4,7 @@ import 'package:key_wallet_app/screens/landing_page.dart';
 import 'package:key_wallet_app/screens/auth_page.dart';
 import 'package:key_wallet_app/screens/wallet_page.dart';
 import 'package:key_wallet_app/screens/new_wallet_creation.dart';
+import 'package:key_wallet_app/screens/chat_list_page.dart';
 import 'package:key_wallet_app/screens/chat_page.dart';
 
 //Per mandare dati dinamici
@@ -30,14 +31,19 @@ class RouteGenerator {
           );
         }
         return _errorRoute();
+      case '/chat_list': // NUOVA ROTTA
+        if (args is Map<String, dynamic>) {
+          return MaterialPageRoute(
+            builder: (context) => ChatListPage(senderWallet: args),
+          );
+        }
+        return _errorRoute();
       case '/chat':
-        // Adesso si aspetta una mappa di argomenti, non più una stringa.
         if (args is Map<String, dynamic>) {
           return MaterialPageRoute(
             builder: (context) => ChatPage(
-              receiverId: args['receiverId'],
-              receiverPublicKey: args['receiverPublicKey'],
-              walletName: args['walletName'],
+              senderWallet: args['senderWallet'],
+              receiverWallet: args['receiverWallet'],
             ),
           );
         }
