@@ -31,8 +31,15 @@ class RouteGenerator {
         }
         return _errorRoute();
       case '/chat':
-        if (args is String) {
-          return MaterialPageRoute(builder: (context) => ChatPage(receiverEmail: args,));
+        // Adesso si aspetta una mappa di argomenti, non più una stringa.
+        if (args is Map<String, dynamic>) {
+          return MaterialPageRoute(
+            builder: (context) => ChatPage(
+              receiverId: args['receiverId'],
+              receiverPublicKey: args['receiverPublicKey'],
+              walletName: args['walletName'],
+            ),
+          );
         }
         return _errorRoute();
       default:
