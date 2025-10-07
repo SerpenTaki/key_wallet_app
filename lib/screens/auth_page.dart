@@ -54,95 +54,104 @@ class AuthPageState extends State<AuthPage> {
         foregroundColor: Theme.of(context).colorScheme.inversePrimary,
         centerTitle: true,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+      body: SingleChildScrollView(
+        child: Center(
+          heightFactor: 1.5,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 20.0),
+            child: Column(
+              spacing: 10,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.min,
               children: [
-                Image.asset("images/logo.png", width: 50, height: 50),
-                const SizedBox(width: 10),
-                const Text("key wallet app", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Form(
-                key: _formKey,
-                child: Column(
-                  spacing: 20,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    TextFormField(
-                      controller: _email,
-                      keyboardType: TextInputType.emailAddress,
-                      textInputAction: TextInputAction.next,
-                      validator: (value) {
-                        if (emailValidator(value) == null) {
-                          return null;
-                        }
-                        return emailValidator(value);
-                      },
-                      decoration: InputDecoration(
-                        label: const Text("Email"),
-                        fillColor: Colors.grey[200],
-                        filled: true,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(color: Theme.of(context).colorScheme.primary,),
-                        ),
-                      ),
-                    ),
-                    TextFormField(
-                      validator: (value) {
-                        if (passwordValidator(value) == null) {
-                          return null;
-                        }
-                        return passwordValidator(value);
-                      },
-                      controller: _password,
-                      obscureText: true,
-                      textInputAction: TextInputAction.done,
-                      decoration: InputDecoration(
-                        label: const Text("Password"),
-                        fillColor: Colors.grey[200],
-                        filled: true,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(color: Theme.of(context).colorScheme.primary,),
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ElevatedButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            isLogin ? signIn() : createUser();
-                          }
-                        },
-                        style: ElevatedButton.styleFrom(
-                          fixedSize: Size(double.infinity, 50),
-                          backgroundColor: Theme.of(context).colorScheme.primary,
-                          foregroundColor: Theme.of(context).colorScheme.inversePrimary,
-                        ),
-                        child: Text(isLogin ? "Login" : "Registrati"),
-                      ),
-                    ),
-                    TextButton(
-                      onPressed: () {setState(() {isLogin = !isLogin;});},
-                      child: Text(
-                        isLogin ? "Non hai un account? Registrati" : "Hai un account? Accedi",
-                        style: TextStyle(color: Theme.of(context).colorScheme.primary,),
-                      ),
+                    Image.asset("images/logo.png", width: 60, height: 60),
+                    const SizedBox(width: 10),
+                    const Text("Key Wallet App", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                     ),
                   ],
                 ),
-              ),
+                const SizedBox(height: 40),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        TextFormField(
+                          controller: _email,
+                          keyboardType: TextInputType.emailAddress,
+                          textInputAction: TextInputAction.next,
+                          validator: (value) {
+                            if (emailValidator(value) == null) {
+                              return null;
+                            }
+                            return emailValidator(value);
+                          },
+                          decoration: InputDecoration(
+                            label: const Text("Email"),
+                            fillColor: Colors.grey[200],
+                            filled: true,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(color: Theme.of(context).colorScheme.primary,),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 30),
+                        TextFormField(
+                          validator: (value) {
+                            if (passwordValidator(value) == null) {
+                              return null;
+                            }
+                            return passwordValidator(value);
+                          },
+                          controller: _password,
+                          obscureText: true,
+                          textInputAction: TextInputAction.done,
+                          decoration: InputDecoration(
+                            label: const Text("Password"),
+                            fillColor: Colors.grey[200],
+                            filled: true,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              borderSide: BorderSide(color: Theme.of(context).colorScheme.primary,),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 40),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ElevatedButton(
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                isLogin ? signIn() : createUser();
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: const Size(double.infinity, 50),
+                              backgroundColor: Theme.of(context).colorScheme.primary,
+                              foregroundColor: Theme.of(context).colorScheme.inversePrimary,
+                            ),
+                            child: Text(isLogin ? "Login" : "Registrati"),
+                          ),
+                        ),
+                        TextButton(
+                          onPressed: () {setState(() {isLogin = !isLogin;});},
+                          child: Text(
+                            isLogin ? "Non hai un account? Registrati" : "Hai un account? Accedi",
+                            style: TextStyle(color: Theme.of(context).colorScheme.primary,),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
