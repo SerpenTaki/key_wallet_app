@@ -6,7 +6,7 @@ import 'package:key_wallet_app/screens/keys_page.dart';
 import 'package:key_wallet_app/widgets/delete_apple_wallet_alert.dart';
 import 'package:key_wallet_app/widgets/delete_wallet_alert.dart';
 import 'package:key_wallet_app/screens/rsa_test_page.dart';
-import 'package:key_wallet_app/screens/chat_page.dart';
+import 'package:key_wallet_app/screens/chat_list_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 import 'package:key_wallet_app/providers/wallet_provider.dart';
@@ -176,7 +176,7 @@ class _WalletPageState extends State<WalletPage> {
             ),
             body: TabBarView(
               children: [
-                ChatPage(),
+                ChatListPage(),
                 KeysPage(wallet: widget.wallet, privateKeyValue: privateKeyValue, secureStorage: _secureStorage,),
               ],
             ),
