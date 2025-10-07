@@ -20,38 +20,44 @@ class _ChatListPageState extends State<ChatListPage> {
   }
 
   Widget _buildUserList() {
-    return StreamBuilder(
+    return StreamBuilder<List<Map<String, dynamic>>>(
         stream: _chatService.getUserStream(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            print('ERROOR ERROROR ROROROROR: ${snapshot.error}');
-            return Text('Error: ${snapshot.error}');
+            print('ERRORE CHAT LIST: ${snapshot.error}');
+            return const Center(child: Text('Si è verificato un errore.'));
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
 
-          // controllo per lista vuota
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text("Nessun altro utente trovato."));
+            return const Center(child: Text("Nessun altro utente con un wallet trovato."));
           }
 
           return ListView(
-              children: snapshot.data!.map<Widget>((userData) => _buildUserListItem(userData, context)).toList(),
+              children: snapshot.data!.map<Widget>((walletData) => _buildUserListItem(walletData, context)).toList(),
           );
         }
     );
   }
 
-  Widget _buildUserListItem(Map<String, dynamic> userData, BuildContext context) {
-    //mostra tutti gli utenti tranne il corrente
-    return UserTile(text: userData["email"],
+  Widget _buildUserListItem(Map<String, dynamic> walletData, BuildContext context) {
+    return UserTile(
+      text: walletData["name"] ?? "Wallet senza nome",
       onTap: () {
-      Navigator.pushNamed(context, '/chat', arguments: userData['email']);
-      },);
+        // Usa la rotta nominativa e passa i dati come mappa
+        Navigator.pushNamed(
+          context,
+          '/chat',
+          arguments: {
+            'receiverId': walletData['userId'],
+            'receiverPublicKey': walletData['publicKey'],
+            'walletName': walletData['name'],
+          },
+        );
+      },
+    );
   }
-
-
-
 }

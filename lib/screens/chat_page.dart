@@ -1,18 +1,28 @@
 import 'package:flutter/material.dart';
 
 class ChatPage extends StatelessWidget {
-  final String receiverEmail;
+  final String receiverId;
+  final String receiverPublicKey;
+  final String? walletName;
 
-  const ChatPage({super.key, required this.receiverEmail});
+  ChatPage({
+    super.key,
+    required this.receiverId,
+    required this.receiverPublicKey,
+    this.walletName,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chat con $receiverEmail'),
+        title: Text(walletName ?? "Chat"),
       ),
       body: Center(
-        child: Text('Chat con $receiverEmail'),
+        // Qui andrà la logica per la chat crittografata
+        // Usando receiverId per creare la chat room
+        // e receiverPublicKey per crittografare i messaggi.
+        child: Text('Chat con utente: $receiverId'),
       ),
     );
   }
