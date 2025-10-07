@@ -2,62 +2,48 @@ import 'package:flutter/material.dart';
 import 'package:key_wallet_app/services/chat/chat_service.dart';
 import 'package:key_wallet_app/widgets/user_tile.dart';
 
-class ChatListPage extends StatefulWidget {
-  const ChatListPage({super.key});
+class ChatListPage extends StatelessWidget {
+  final Map<String, dynamic> senderWallet;
 
-  @override
-  State<ChatListPage> createState() => _ChatListPageState();
-}
-
-class _ChatListPageState extends State<ChatListPage> {
-  final ChatService _chatService = ChatService();
+  const ChatListPage({super.key, required this.senderWallet});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: _buildUserList(),
-    );
-  }
+    final ChatService chatService = ChatService();
 
-  Widget _buildUserList() {
-    return StreamBuilder<List<Map<String, dynamic>>>(
-        stream: _chatService.getUserStream(),
+    return Scaffold(
+      body: StreamBuilder<List<Map<String, dynamic>>>(
+        stream: chatService.getWalletsStream(),
         builder: (context, snapshot) {
           if (snapshot.hasError) {
-            print('ERRORE CHAT LIST: ${snapshot.error}');
             return const Center(child: Text('Si è verificato un errore.'));
           }
-
           if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(child: CircularProgressIndicator());
           }
-
           if (!snapshot.hasData || snapshot.data!.isEmpty) {
-            return const Center(child: Text("Nessun altro utente con un wallet trovato."));
+            return const Center(child: Text("Nessun altro wallet trovato per chattare."));
           }
 
           return ListView(
-              children: snapshot.data!.map<Widget>((walletData) => _buildUserListItem(walletData, context)).toList(),
+            children: snapshot.data!.map<Widget>((receiverWalletData) {
+              return UserTile(
+                text: receiverWalletData["name"] ?? "Wallet senza nome",
+                onTap: () {
+                  Navigator.pushNamed(
+                    context,
+                    '/chat',
+                    arguments: {
+                      'senderWallet': senderWallet,
+                      'receiverWallet': receiverWalletData,
+                    },
+                  );
+                },
+              );
+            }).toList(),
           );
-        }
-    );
-  }
-
-  Widget _buildUserListItem(Map<String, dynamic> walletData, BuildContext context) {
-    return UserTile(
-      text: walletData["name"] ?? "Wallet senza nome",
-      onTap: () {
-        // Usa la rotta nominativa e passa i dati come mappa
-        Navigator.pushNamed(
-          context,
-          '/chat',
-          arguments: {
-            'receiverId': walletData['userId'],
-            'receiverPublicKey': walletData['publicKey'],
-            'walletName': walletData['name'],
-          },
-        );
-      },
+        },
+      ),
     );
   }
 }
