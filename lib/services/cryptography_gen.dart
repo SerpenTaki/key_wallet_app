@@ -129,3 +129,15 @@ Future<String?> rsaDecryptBase64(String cipherText, RSAPrivateKey privateKey) as
     return "Messaggio non decodificabile";
   }
 }
+
+
+///////////////
+
+RSAPublicKey parsePublicKeyFromJsonString(String jsonString) {
+  final Map<String, dynamic> keyData = jsonDecode(jsonString);
+  //
+  final modulus = BigInt.parse(keyData['modulus']);
+  final exponent = BigInt.parse(keyData['publicExponent']);
+
+  return RSAPublicKey(modulus, exponent);
+}
