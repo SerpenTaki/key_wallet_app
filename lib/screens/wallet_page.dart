@@ -12,10 +12,9 @@ import 'package:provider/provider.dart';
 import 'package:key_wallet_app/providers/wallet_provider.dart';
 
 class WalletPage extends StatefulWidget {
-  WalletPage({super.key, required this.wallet});
+  const WalletPage({super.key, required this.wallet});
 
   final Wallet wallet;
-  final SecureStorage _secureStorage = SecureStorage();
 
   @override
   State<WalletPage> createState() => _WalletPageState();
@@ -23,16 +22,6 @@ class WalletPage extends StatefulWidget {
 
 class _WalletPageState extends State<WalletPage> {
   final SecureStorage _secureStorage = SecureStorage();
-
-  @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,34 +33,10 @@ class _WalletPageState extends State<WalletPage> {
         } else if (mainSnapshot.hasError) {
           return _buildErrorScaffold(
             context,
-            "Errore durante il caricamento della chiave: ${mainSnapshot.error
-                .toString()}",
+            "Errore durante il caricamento della chiave: ${mainSnapshot.error.toString()}",
           );
         } else if (mainSnapshot.hasData) {
-          final dynamic dataFromMainFuture = mainSnapshot.data;
-
-          if (dataFromMainFuture is Future) {
-            return FutureBuilder<String?>(
-              future: dataFromMainFuture as Future<String?>,
-              builder: (context, innerSnapshot) {
-                if (innerSnapshot.connectionState == ConnectionState.waiting) {
-                  return _buildLoadingScaffold(
-                    context, "Caricamento chiave privata (interno)...",);
-                } else if (innerSnapshot.hasError) {
-                  return _buildErrorScaffold(
-                      context,
-                      "Errore interno caricamento chiave: ${innerSnapshot.error
-                          .toString()}");
-                } else {
-                  return _buildWalletDetailsScaffold(
-                      context, innerSnapshot.data);
-                }
-              },
-            );
-          } else {
-            final String? privateKeyValue = dataFromMainFuture as String?;
-            return _buildWalletDetailsScaffold(context, privateKeyValue);
-          }
+          return _buildWalletDetailsScaffold(context, mainSnapshot.data);
         } else {
           return _buildWalletDetailsScaffold(context, null);
         }
@@ -102,7 +67,7 @@ class _WalletPageState extends State<WalletPage> {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Text(
-            errorMessage, style: TextStyle(color: Colors.red, fontSize: 16),
+            errorMessage, style: const TextStyle(color: Colors.red, fontSize: 16),
             textAlign: TextAlign.center,),
         ),
       ),
@@ -117,7 +82,7 @@ class _WalletPageState extends State<WalletPage> {
           length: 2,
           child: Scaffold(
             appBar: AppBar(
-                title: Text(widget.wallet.name, style: TextStyle(fontWeight: FontWeight.bold),),
+                title: Text(widget.wallet.name, style: const TextStyle(fontWeight: FontWeight.bold),),
                 backgroundColor: Theme.of(context).colorScheme.primary,
                 foregroundColor: Theme.of(context).colorScheme.inversePrimary,
                 centerTitle: true,
@@ -148,17 +113,21 @@ class _WalletPageState extends State<WalletPage> {
                       );
                       if (confirmDelete == true) {
                         try {
-                          await widget._secureStorage.deleteSecureData(widget.wallet.localKeyIdentifier,);
-                          await Provider.of<WalletProvider>(context, listen: false,).deleteWalletDBandList(widget.wallet);
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(
-                              content: Text('Wallet "${widget.wallet.name}" eliminato con successo!',),
-                              backgroundColor: Colors.green,
-                            ),
-                          );
-                          if (Navigator.canPop(context)) {Navigator.pop(context,);}
+                          await _secureStorage.deleteSecureData(widget.wallet.localKeyIdentifier,);
+                          if (mounted) {
+                             await Provider.of<WalletProvider>(context, listen: false).deleteWalletDBandList(widget.wallet);
+                             ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Wallet eliminato con successo!',),
+                                backgroundColor: Colors.green,
+                              ),
+                            );
+                            if (Navigator.canPop(context)) {Navigator.pop(context,);}
+                          }
                         } catch (e) {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Errore durante l\'eliminazione: ${e.toString()}',), backgroundColor: Colors.red,),);
+                           if(mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Errore durante l\'eliminazione: ${e.toString()}',), backgroundColor: Colors.red,),);
+                           }
                         }
                       }
                     },

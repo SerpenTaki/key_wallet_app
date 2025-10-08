@@ -35,9 +35,7 @@ class WalletProvider with ChangeNotifier {
   }
 
   Future<bool> checkIfWalletExists(String hBytes, String userId) async {
-    // Se hBytes è vuoto, non può esistere.
     if (hBytes.isEmpty) return false;
-
     try {
       final querySnapshot = await _firestore
           .collection('wallets')
