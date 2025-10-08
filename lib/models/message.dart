@@ -1,16 +1,16 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Message {
-  final String senderId;
-  final String senderEmail;
-  final String receiverId;
+  final String currentUserID;
+  final String senderWalletId;
+  final String receiverWalletId;
   final String message;
   final Timestamp timestamp;
 
   Message({
-    required this.senderId,
-    required this.senderEmail,
-    required this.receiverId,
+    required this.currentUserID,
+    required this.senderWalletId,
+    required this.receiverWalletId,
     required this.message,
     required this.timestamp,
   });
@@ -18,9 +18,9 @@ class Message {
   // Converte l'oggetto Message in una mappa per Firestore
   Map<String, dynamic> toMap() {
     return {
-      'senderId': senderId,
-      'senderEmail': senderEmail,
-      'receiverId': receiverId,
+      'senderUserId': currentUserID,
+      'senderWalletId': senderWalletId,
+      'receiverWalletId': receiverWalletId,
       'message': message,
       'timestamp': timestamp,
     };
