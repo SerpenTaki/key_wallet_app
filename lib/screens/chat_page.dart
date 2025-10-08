@@ -28,6 +28,7 @@ class _ChatPageState extends State<ChatPage> {
         centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.secondary,
         foregroundColor: Colors.white,
+        elevation: 20,
       ),
       body: Column(
         children: [
