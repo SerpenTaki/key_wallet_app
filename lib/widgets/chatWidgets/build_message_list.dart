@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:key_wallet_app/services/chat_service.dart';
+import 'package:key_wallet_app/widgets/chatWidgets/chat_bubble.dart';
 
 class BuildMessageList extends StatelessWidget {
   final String senderWalletId;
@@ -44,6 +45,14 @@ class BuildMessageList extends StatelessWidget {
         ? Alignment.centerRight
         : Alignment.centerLeft;
 
-    return Container(alignment: alignment, child: Text(data['message']));
+    return Container(
+      alignment: alignment,
+      child: Column(
+        crossAxisAlignment: isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        children: [
+          ChatBubble(message: data['message'], isCurrentUser: isCurrentUser)
+        ],
+      ),
+    );
   }
 }
