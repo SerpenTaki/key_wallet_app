@@ -6,15 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="4fd9f324-4b81-479f-be21-42b0a387615a" name="Changes" comment="Primo commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/wallet.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/wallet.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/chat_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/chat_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/rsa_test_page.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/wallet_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/wallet_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/models/message.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/message.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/services/chat_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/chat_service.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/services/cryptography_gen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/cryptography_gen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/route_generator.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/route_generator.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/chatWidgets/build_user_input.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/chatWidgets/build_user_input.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/chatWidgets/build_user_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/chatWidgets/build_user_list.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,6 +60,7 @@
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
     "com.google.services.firebase.aqiPopupShown": "true",
+    "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "main",
     "io.flutter.reload.alreadyRun": "true",
     "last_opened_file_path": "/Users/serpentaki/Documents/key_wallet_app/lib/NFC",

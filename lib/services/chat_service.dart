@@ -3,13 +3,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:key_wallet_app/models/message.dart';
 import 'package:key_wallet_app/services/cryptography_gen.dart';
 import 'package:key_wallet_app/models/wallet.dart';
+import 'package:pointycastle/asymmetric/api.dart';
 
 
 class ChatService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  // Ottiene un flusso dei wallet, esclusi quelli dell'utente corrente.
+  // ottiene un flusso dei wallet, esclusi quelli dell'utente corrente.
   Stream<List<Map<String, dynamic>>> getWalletsStream() {
     final currentUser = _auth.currentUser;
     if (currentUser == null) {
@@ -33,15 +34,16 @@ class ChatService {
     // L'ID utente corrente per sapere chi ha inviato il messaggio
     final String currentUserId = _auth.currentUser!.uid;
     final Timestamp timestamp = Timestamp.now();
-    
-    //final encryptedForSender = rsaEncryptBase64(message, receiverPublicKey);
+
+    final RSAPublicKey receiverKey = parsePublicKeyFromJsonString(receiverPublicKey); //Converte la chiave pubblica del destinatario in un oggetto RSAPublicKey
+    final encryptedForReceiver = rsaEncryptBase64(message, receiverKey); //Cripta il messaggio con la chiave pubblica del destinatario
 
     // Crea il nuovo messaggio
     final newMessage = Message(
       currentUserID: currentUserId,
       senderWalletId: senderWallet.id,
       receiverWalletId: receiverWallet.id,
-      message: message,
+      message: await encryptedForReceiver,
       timestamp: timestamp,
     );
 
