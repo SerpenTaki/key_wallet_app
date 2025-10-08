@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:key_wallet_app/models/message.dart';
+import 'package:key_wallet_app/services/cryptography_gen.dart';
+import 'package:key_wallet_app/models/wallet.dart';
 
 
 class ChatService {
@@ -27,22 +29,24 @@ class ChatService {
   }
 
   // Invia un messaggio da un wallet a un altro
-  Future<void> sendMessage(String receiverWalletId, String senderWalletId, String message) async{
+  Future<void> sendMessage(Wallet receiverWallet, Wallet senderWallet, String message, String receiverPublicKey) async{
     // L'ID utente corrente per sapere chi ha inviato il messaggio
     final String currentUserId = _auth.currentUser!.uid;
     final Timestamp timestamp = Timestamp.now();
+    
+    //final encryptedForSender = rsaEncryptBase64(message, receiverPublicKey);
 
     // Crea il nuovo messaggio
     final newMessage = Message(
       currentUserID: currentUserId,
-      senderWalletId: senderWalletId,
-      receiverWalletId: receiverWalletId,
+      senderWalletId: senderWallet.id,
+      receiverWalletId: receiverWallet.id,
       message: message,
       timestamp: timestamp,
     );
 
     // Costruisce l'ID della chat room (ordinando gli ID dei wallet per coerenza)
-    List<String> ids = [senderWalletId, receiverWalletId];
+    List<String> ids = [senderWallet.id, receiverWallet.id];
     ids.sort(); //Fa si che l'ID della chat room sia sempre uguale per 2 wallet
     String chatRoomId = ids.join("_");
 

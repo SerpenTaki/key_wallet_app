@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:key_wallet_app/models/wallet.dart';
 import 'package:key_wallet_app/widgets/chatWidgets/build_message_list.dart';
 import 'package:key_wallet_app/widgets/chatWidgets/build_user_input.dart';
 
 class ChatPage extends StatefulWidget {
-  final Map<String, dynamic> senderWallet;
-  final Map<String, dynamic> receiverWallet;
+  final Wallet senderWallet;
+  final Wallet receiverWallet;
 
   const ChatPage({
     super.key,
@@ -20,11 +21,9 @@ class _ChatPageState extends State<ChatPage> {
 
   @override
   Widget build(BuildContext context) {
-    final receiverName = widget.receiverWallet['name'] ?? "Wallet destinatario";
-
     return Scaffold(
       appBar: AppBar(
-        title: Text(receiverName, style: const TextStyle(fontSize: 25)),
+        title: Text(widget.receiverWallet.name, style: const TextStyle(fontSize: 25)),
         centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.secondary,
         foregroundColor: Colors.white,
@@ -35,12 +34,15 @@ class _ChatPageState extends State<ChatPage> {
           // mostra tutti i messaggi
           Expanded(
             child: BuildMessageList(
-              senderWalletId: widget.senderWallet['id'],
-              receiverWalletId: widget.receiverWallet['id'],
+              senderWalletId: widget.senderWallet.id,
+              receiverWalletId: widget.receiverWallet.id,
             ),
           ),
           //mostra il campo per inviare messaggi
-          BuildUserInput(receiverWalletId: widget.receiverWallet['id'], senderWalletId: widget.senderWallet['id'],),
+          BuildUserInput(
+            senderWallet: widget.senderWallet,
+            receiverWallet: widget.receiverWallet,
+          ),
           const SizedBox(height: 10),
         ],
       ),
