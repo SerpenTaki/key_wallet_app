@@ -18,24 +18,32 @@ class BuildMessageList extends StatelessWidget {
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: _chatService.getMessages(senderWalletId, receiverWalletId),
-      builder: (context, snapshot){
-        if(snapshot.hasError){
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
           //print("Errore: ${snapshot.error}");
           return Text("Errore: ${snapshot.error}");
         }
-        if(snapshot.connectionState == ConnectionState.waiting){
+        if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         }
 
         return ListView(
-          children: snapshot.data!.docs.map((doc) => _buildMessageItem(doc)).toList(),
+          children: snapshot.data!.docs
+              .map((doc) => _buildMessageItem(doc))
+              .toList(),
         );
       },
     );
   }
 
-  Widget _buildMessageItem(DocumentSnapshot doc){
+  Widget _buildMessageItem(DocumentSnapshot doc) {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-    return Text(data['message']);
+    bool isCurrentUser = data['senderWalletId'] == senderWalletId;
+
+    var alignment = isCurrentUser
+        ? Alignment.centerRight
+        : Alignment.centerLeft;
+
+    return Container(alignment: alignment, child: Text(data['message']));
   }
 }
