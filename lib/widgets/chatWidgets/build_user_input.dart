@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:key_wallet_app/services/chat/chat_service.dart';
+import 'package:key_wallet_app/services/chat_service.dart';
 
 class BuildUserInput extends StatelessWidget {
   final String receiverWalletId;

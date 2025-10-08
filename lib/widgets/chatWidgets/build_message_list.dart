@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:key_wallet_app/services/chat/chat_service.dart';
+import 'package:key_wallet_app/services/chat_service.dart';
 
 class BuildMessageList extends StatelessWidget {
   final String senderWalletId;
