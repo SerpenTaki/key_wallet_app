@@ -16,23 +16,12 @@ class ChatPage extends StatelessWidget {
     final senderName = senderWallet['name'] ?? "Il tuo wallet";
     final receiverName = receiverWallet['name'] ?? "Wallet destinatario";
 
-    // Qui definirai l'ID della chat room in modo univoco
-    // ordinando gli ID dei wallet per garantire la coerenza.
-    final ids = [senderWallet['id'], receiverWallet['id']]..sort();
-    final chatRoomId = ids.join('_');
-
     return Scaffold(
       appBar: AppBar(
-        title: Text('Chat con $receiverName'),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text('Chat Room ID: $chatRoomId'),
-            Text('Invii da: $senderName'),
-          ],
-        ),
+        title: Text(receiverName, style: const TextStyle(fontSize: 25)),
+        centerTitle: true,
+        backgroundColor: Theme.of(context).colorScheme.secondary,
+        foregroundColor: Colors.white,
       ),
     );
   }
