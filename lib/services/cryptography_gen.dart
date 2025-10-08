@@ -97,3 +97,35 @@ Future<String?> rsaDecrypt(Uint8List cipherText, RSAPrivateKey privateKey) async
     return null;
   }
 }
+
+
+// =========================
+// RSA Encryption / Decryption with Base64
+// =========================
+
+//Cripta una stringa e restituisce il risultato in base 64
+Future<String?> rsaEncryptBase64(String plainText, RSAPublicKey publicKey) async {
+  final engine = RSAEngine();
+  engine.init(true, PublicKeyParameter<RSAPublicKey>(publicKey));
+  
+  try{
+    final encrypted = engine.process(Uint8List.fromList(utf8.encode(plainText)));
+    return base64Encode(encrypted);
+  } catch (e) {
+    print("Errore nella codifica del messaggio ${e.toString()}");
+    return null;
+  }
+}
+
+Future<String?> rsaDecryptBase64(String cipherText, RSAPrivateKey privateKey) async {
+  final engine = RSAEngine();
+  engine.init(false, PrivateKeyParameter<RSAPrivateKey>(privateKey));
+  
+  try{
+    final decrypted = engine.process(base64Decode(cipherText));
+    return utf8.decode(decrypted);
+  }catch(e){
+    print("Errore nella decodifica del messaggio ${e.toString()}");
+    return "Messaggio non decodificabile";
+  }
+}

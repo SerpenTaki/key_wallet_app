@@ -46,26 +46,40 @@ class Wallet {
     );
   }
 
+  // Factory constructor per creare un'istanza di Wallet da una mappa
+  factory Wallet.fromMap(Map<String, dynamic> map) {
+    return Wallet(
+      id: map['id'] as String? ?? '',
+      name: map['name'] as String? ?? 'Wallet Senza Nome',
+      publicKey: map['publicKey'] as String? ?? '',
+      localKeyIdentifier: map['localKeyIdentifier'] as String? ?? '',
+      color: _colorFromString(map['color'] as String?),
+      hBytes: map['hBytes'] as String? ?? '',
+      standard: map['standard'] as String? ?? '',
+      device: map['device'] as String? ?? '',
+    );
+  }
+
   static Color _colorFromString(String? colorString) {
     if (colorString == null) {
       return Colors.deepPurpleAccent;
     }
 
+    // Cerca di gestire il formato "Color(0xff...)"
+    if (colorString.startsWith('Color(') && colorString.endsWith(')')) {
+      try {
+        final value = int.parse(colorString.substring(8, colorString.length - 1));
+        return Color(value);
+      } catch (e) { /* non fa nulla, prova il formato successivo */ }
+    }
+
     try {
-      // Caso 1: Gestisce "Color(alpha: 1.0000, red: 0.0000, ...)"
-      var re = RegExp(r'alpha:\s*([\d.]+),\s*red:\s*([\d.]+),\s*green:\s*([\d.]+),\s*blue:\s*([\d.]+)');
+      // Gestisce il formato "MaterialColor(primary value: Color(0xff...))"
+      var re = RegExp(r'Color\(0x([0-9a-fA-F]+)\)');
       var match = re.firstMatch(colorString);
       if (match != null) {
-        final alpha = double.parse(match.group(1)!);
-        final red = double.parse(match.group(2)!);
-        final green = double.parse(match.group(3)!);
-        final blue = double.parse(match.group(4)!);
-        return Color.fromARGB(
-          (alpha * 255).toInt(),
-          (red * 255).toInt(),
-          (green * 255).toInt(),
-          (blue * 255).toInt(),
-        );
+        final value = int.parse(match.group(1)!, radix: 16);
+        return Color(value);
       }
       // Se nessun formato corrisponde, restituisce il colore di default
       return Colors.deepPurpleAccent;

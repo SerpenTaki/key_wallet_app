@@ -5,7 +5,7 @@ import 'package:key_wallet_app/ErrorScreens/key_not_found.dart';
 import 'package:key_wallet_app/screens/keys_page.dart';
 import 'package:key_wallet_app/widgets/delete_apple_wallet_alert.dart';
 import 'package:key_wallet_app/widgets/delete_wallet_alert.dart';
-import 'package:key_wallet_app/screens/rsa_test_page.dart';
+//import 'package:key_wallet_app/screens/rsa_test_page.dart';
 import 'package:key_wallet_app/screens/chat_list_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
@@ -88,17 +88,6 @@ class _WalletPageState extends State<WalletPage> {
                 centerTitle: true,
                 actions: [
                   IconButton(
-                    icon: const Icon(Icons.science_outlined),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => RsaTestPage(initialPrivateKeyString: privateKeyValue, initialPublicKeyString: widget.wallet.publicKey,),
-                        ),
-                      );
-                    },
-                  ),
-                  IconButton(
                     icon: const Icon(Icons.delete),
                     onPressed: () async {
                       final bool? confirmDelete = await showDialog<bool>(
@@ -156,3 +145,16 @@ class _WalletPageState extends State<WalletPage> {
     }
   }
 }
+
+
+//IconButton(
+//icon: const Icon(Icons.science_outlined),
+//onPressed: () {
+//Navigator.push(
+// context,
+// MaterialPageRoute(
+//   builder: (context) => RsaTestPage(initialPrivateKeyString: privateKeyValue, initialPublicKeyString: widget.wallet.publicKey,),
+// ),
+// );
+//},
+//),
