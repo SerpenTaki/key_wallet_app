@@ -35,7 +35,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData.light().copyWith(
         colorScheme: ColorScheme.fromSwatch().copyWith(
           primary: Colors.deepPurpleAccent,
-          secondary: Colors.purpleAccent,
+          secondary: Colors.deepPurple,
           brightness: Brightness.light,
         ),
       ),
