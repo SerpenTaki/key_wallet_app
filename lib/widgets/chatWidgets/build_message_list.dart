@@ -44,7 +44,7 @@ class BuildMessageList extends StatelessWidget {
     bool isCurrentUser = data['senderWalletId'] == senderWallet.id;
 
     return FutureBuilder<String?>(
-      future: _chatService.translateMessage(data['message'], receiverWallet),
+      future: _chatService.translateMessage(data['message'], senderWallet),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Text(

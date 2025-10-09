@@ -76,6 +76,7 @@ class ChatService {
   Future<String?> translateMessage(String message, Wallet wallet) async {
     final secureStorage = SecureStorage();
     final walletPrivateKeyJson = await secureStorage.readSecureData(wallet.localKeyIdentifier);
+    print(" da translate : ${wallet.localKeyIdentifier}");
     if (walletPrivateKeyJson == null) return "[ERRORE: nessuna chiave trovata]";
 
     final RSAPrivateKey receiverKey = parsePrivateKeyFromJsonString(walletPrivateKeyJson);
