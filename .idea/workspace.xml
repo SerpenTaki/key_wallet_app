@@ -6,9 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="4fd9f324-4b81-479f-be21-42b0a387615a" name="Changes" comment="Primo commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/message.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/message.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/chat_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/chat_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/services/chat_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/chat_service.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/services/cryptography_gen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/cryptography_gen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/chatWidgets/build_message_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/chatWidgets/build_message_list.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -41,7 +42,7 @@
   }
 }</component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 8
+  &quot;associatedIndex&quot;: 6
 }</component>
   <component name="ProjectId" id="33654J22AQe3IcIR05oKdCobSOm" />
   <component name="ProjectViewState">
@@ -59,23 +60,17 @@
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "com.google.services.firebase.aqiPopupShown": "true",
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "main",
     "io.flutter.reload.alreadyRun": "true",
-    "last_opened_file_path": "/Users/serpentaki/Documents/key_wallet_app/lib/NFC",
     "settings.editor.selected.configurable": "AndroidSdkUpdater",
     "show.migrate.to.gradle.popup": "false"
   }
 }]]></component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/lib/NFC" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/lib/services" />
-      <recent name="$PROJECT_DIR$/lib/widgets/chatWidgets" />
       <recent name="$PROJECT_DIR$/lib/screens" />
+      <recent name="$PROJECT_DIR$/lib/services" />
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>

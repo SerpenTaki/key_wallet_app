@@ -4,6 +4,7 @@ import 'package:key_wallet_app/models/message.dart';
 import 'package:key_wallet_app/services/cryptography_gen.dart';
 import 'package:key_wallet_app/models/wallet.dart';
 import 'package:pointycastle/asymmetric/api.dart';
+import 'package:key_wallet_app/services/secure_storage.dart';
 
 
 class ChatService {
@@ -57,9 +58,10 @@ class ChatService {
   }
 
   // Ottiene il flusso di messaggi per una specifica chat room
-  Stream<QuerySnapshot> getMessages(String walletId1, String walletId2) {
+  Stream<QuerySnapshot> getMessages(Wallet senderWallet, Wallet receiverWallet) {
+
     // Costruisce l'ID della chat room nello stesso modo per recuperare i messaggi
-    List<String> ids = [walletId1, walletId2];
+    List<String> ids = [senderWallet.id, receiverWallet.id];
     ids.sort();
     String chatRoomId = ids.join("_");
 
@@ -70,5 +72,27 @@ class ChatService {
         .orderBy('timestamp', descending: false)
         .snapshots();
   }
+
+  Future<String?> translateMessage(String message, Wallet wallet) async {
+    final secureStorage = SecureStorage();
+    final walletPrivateKeyJson = await secureStorage.readSecureData(wallet.localKeyIdentifier);
+    if (walletPrivateKeyJson == null) return "[ERRORE: nessuna chiave trovata]";
+
+    final RSAPrivateKey receiverKey = parsePrivateKeyFromJsonString(walletPrivateKeyJson);
+
+    try {
+      final decryptedMessage = await rsaDecryptBase64(message, receiverKey);
+
+      if (decryptedMessage == null || decryptedMessage.isEmpty) {
+        return "[Vuoto dopo decriptazione]";
+      }
+      return decryptedMessage;
+    } catch (e) {
+      return "[Errore decriptazione: $e]";
+    }
+  }
+
+
+
 
 }

@@ -34,8 +34,8 @@ class _ChatPageState extends State<ChatPage> {
           // mostra tutti i messaggi
           Expanded(
             child: BuildMessageList(
-              senderWalletId: widget.senderWallet.id,
-              receiverWalletId: widget.receiverWallet.id,
+              senderWallet: widget.senderWallet,
+              receiverWallet: widget.receiverWallet,
             ),
           ),
           //mostra il campo per inviare messaggi
