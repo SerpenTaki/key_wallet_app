@@ -141,3 +141,14 @@ RSAPublicKey parsePublicKeyFromJsonString(String jsonString) {
 
   return RSAPublicKey(modulus, exponent);
 }
+
+RSAPrivateKey parsePrivateKeyFromJsonString(String jsonString) {
+  final Map<String, dynamic> keyData = jsonDecode(jsonString);
+
+  final modulus = BigInt.parse(keyData['modulus']);
+  final privateExponent = BigInt.parse(keyData['privateExponent']);
+  final p = BigInt.parse(keyData['p']);
+  final q = BigInt.parse(keyData['q']);
+
+  return RSAPrivateKey(modulus, privateExponent, p, q);
+}

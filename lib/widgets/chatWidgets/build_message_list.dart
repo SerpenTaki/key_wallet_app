@@ -2,15 +2,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:key_wallet_app/services/chat_service.dart';
 import 'package:key_wallet_app/widgets/chatWidgets/chat_bubble.dart';
+import 'package:key_wallet_app/models/wallet.dart';
 
 class BuildMessageList extends StatelessWidget {
-  final String senderWalletId;
-  final String receiverWalletId;
+  final Wallet senderWallet;
+  final Wallet receiverWallet;
 
   BuildMessageList({
     super.key,
-    required this.senderWalletId,
-    required this.receiverWalletId,
+    required this.senderWallet,
+    required this.receiverWallet,
   });
 
   final ChatService _chatService = ChatService();
@@ -18,7 +19,7 @@ class BuildMessageList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: _chatService.getMessages(senderWalletId, receiverWalletId),
+      stream: _chatService.getMessages(senderWallet, receiverWallet),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           //print("Errore: ${snapshot.error}");
@@ -37,22 +38,38 @@ class BuildMessageList extends StatelessWidget {
     );
   }
 
+
   Widget _buildMessageItem(DocumentSnapshot doc) {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-    bool isCurrentUser = data['senderWalletId'] == senderWalletId;
+    bool isCurrentUser = data['senderWalletId'] == senderWallet.id;
 
-    var alignment = isCurrentUser
-        ? Alignment.centerRight
-        : Alignment.centerLeft;
+    return FutureBuilder<String?>(
+      future: _chatService.translateMessage(data['message'], receiverWallet),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) {
+          return Text(
+            "Errore: ${snapshot.error}",
+            style: const TextStyle(color: Colors.red),
+          );
+        }
 
-    return Container(
-      alignment: alignment,
-      child: Column(
-        crossAxisAlignment: isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-        children: [
-          ChatBubble(message: data['message'], isCurrentUser: isCurrentUser)
-        ],
-      ),
+        // Quando il messaggio è decriptato
+        final text = snapshot.data ?? "";
+
+        var alignment =
+        isCurrentUser ? Alignment.centerRight : Alignment.centerLeft;
+
+        return Container(
+          alignment: alignment,
+          child: Column(
+            crossAxisAlignment:
+            isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+            children: [
+              ChatBubble(message: text, isCurrentUser: isCurrentUser),
+            ],
+          ),
+        );
+      },
     );
   }
 }
