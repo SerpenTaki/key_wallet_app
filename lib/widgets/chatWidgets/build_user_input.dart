@@ -22,12 +22,11 @@ class _BuildUserInputState extends State<BuildUserInput> {
 
   void sendMessage() async {
     if (_messageController.text.isNotEmpty) {
-      try {
+      try { //Passo al chat service i 2 wallet e il messaggio da inviare
         await _chatService.sendMessage(
           widget.receiverWallet,
           widget.senderWallet,
           _messageController.text,
-          widget.receiverWallet.publicKey,
         );
         _messageController.clear();
       } catch (e) {

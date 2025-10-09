@@ -30,15 +30,9 @@ class BuildUserList extends StatelessWidget {
 
         return ListView(
           children: snapshot.data!.map<Widget>((receiverWalletData) {
-            // Evita di mostrare il wallet dell'utente corrente nella lista
-            if (receiverWalletData['id'] == senderWallet.id) {
-              return const SizedBox.shrink(); 
-            }
-            
             return UserTile(
-              text: receiverWalletData["name"] ?? "Wallet senza nome",
+              text: receiverWalletData["name"],
               onTap: () {
-                // Correzione: Uso Navigator.push per passare direttamente i due wallet.
                 Navigator.push(
                   context,
                   MaterialPageRoute(

@@ -9,10 +9,10 @@ import 'package:key_wallet_app/services/secure_storage.dart';
 
 class ChatService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance; // usato solo per escludere le chat con me stesso
 
   // ottiene un flusso dei wallet, esclusi quelli dell'utente corrente.
-  Stream<List<Map<String, dynamic>>> getWalletsStream() {
+  Stream<List<Map<String, dynamic>>> getWalletsStream() { //Per wallets intendo ogni utente, praticamente è una chat wallet-wallet
     final currentUser = _auth.currentUser;
     if (currentUser == null) {
       return Stream.value([]);
@@ -31,12 +31,12 @@ class ChatService {
   }
 
   // Invia un messaggio da un wallet a un altro
-  Future<void> sendMessage(Wallet receiverWallet, Wallet senderWallet, String message, String receiverPublicKey) async{
+  Future<void> sendMessage(Wallet receiverWallet, Wallet senderWallet, String message) async{
     // L'ID utente corrente per sapere chi ha inviato il messaggio
-    final String currentUserId = _auth.currentUser!.uid;
+    final String currentUserId = _auth.currentUser!.uid; //Potrebbe servirmi per la firma del messaggio...
     final Timestamp timestamp = Timestamp.now();
 
-    final RSAPublicKey receiverKey = parsePublicKeyFromJsonString(receiverPublicKey); //Converte la chiave pubblica del destinatario in un oggetto RSAPublicKey
+    final RSAPublicKey receiverKey = parsePublicKeyFromJsonString(receiverWallet.publicKey); //Converte la chiave pubblica del destinatario in un oggetto RSAPublicKey
     final encryptedForReceiver = rsaEncryptBase64(message, receiverKey); //Cripta il messaggio con la chiave pubblica del destinatario
 
     // Crea il nuovo messaggio
@@ -57,7 +57,7 @@ class ChatService {
     await _firestore.collection("chat_rooms").doc(chatRoomId).collection("messages").add(newMessage.toMap());
   }
 
-  // Ottiene il flusso di messaggi per una specifica chat room
+  // Ottiene il flusso di messaggi per una specifica chat room quindi passiamo i due wallet per ricostruire l'ID delal chatroom
   Stream<QuerySnapshot> getMessages(Wallet senderWallet, Wallet receiverWallet) {
 
     // Costruisce l'ID della chat room nello stesso modo per recuperare i messaggi
@@ -73,11 +73,12 @@ class ChatService {
         .snapshots();
   }
 
+  // Funzione creata per decifrare un messaggio criptato cifrando la chiave pubblica del destinatario
   Future<String?> translateMessage(String message, Wallet wallet) async {
     final secureStorage = SecureStorage();
-    final walletPrivateKeyJson = await secureStorage.readSecureData(wallet.localKeyIdentifier);
-    print(" da translate : ${wallet.localKeyIdentifier}");
-    if (walletPrivateKeyJson == null) return "[ERRORE: nessuna chiave trovata]";
+    final walletPrivateKeyJson = await secureStorage.readSecureData(wallet.localKeyIdentifier); //Recupero la chiave privata
+    //print(" da translate : ${wallet.localKeyIdentifier}");
+    if (walletPrivateKeyJson == null) return "[ERRORE: nessuna chiave trovata]"; //Debug, da eliminare
 
     final RSAPrivateKey receiverKey = parsePrivateKeyFromJsonString(walletPrivateKeyJson);
 

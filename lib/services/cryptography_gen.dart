@@ -7,13 +7,13 @@ import 'package:pointycastle/export.dart';
 // Secure random generator
 // =========================
 SecureRandom getSecureRandom() {
-  final secureRandom = FortunaRandom();
-  final seed = Uint8List(32);
+  final secureRandom = FortunaRandom(); //Generatore sicuro
+  final seed = Uint8List(32); //Seed di 32 byte casuali
   final random = Random.secure();
   for (int i = 0; i < seed.length; i++) {
-    seed[i] = random.nextInt(256);
+    seed[i] = random.nextInt(256); //Popola l'array seed lungo 32 byte con numeri casuali compresi tra 0 e 255
   }
-  secureRandom.seed(KeyParameter(seed));
+  secureRandom.seed(KeyParameter(seed)); //Inizializza FortunaRandom con il seed popolato
   return secureRandom;
 }
 
@@ -21,8 +21,13 @@ SecureRandom getSecureRandom() {
 // RSA KeyPair generator
 // =========================
 AsymmetricKeyPair<PublicKey, PrivateKey> generateRSAkeyPair(SecureRandom secureRandom) {
-  final keyGen = RSAKeyGenerator()
-    ..init(ParametersWithRandom(RSAKeyGeneratorParameters(BigInt.parse('65537'), 2048, 64), secureRandom,));
+  final keyGen = RSAKeyGenerator(); //Generatore di chiavi RSA
+  keyGen.init(ParametersWithRandom(RSAKeyGeneratorParameters(BigInt.parse('65537'), 2048, 64), secureRandom,));
+  // Inizializza il generatore di chiavi RSA con i parametri specificati
+  //65537 è il valore di default per il parametro publicExponent
+  //2048 bit è il valore di default per il parametro keyLength sicura per l'uso moderno
+  //64 rappresenta il numero di test di primalità per generare 2 numeri primi p e q
+  //Parameters con Random usa secureRandom passato in funzione
   return keyGen.generateKeyPair();
 }
 
@@ -31,7 +36,7 @@ AsymmetricKeyPair<PublicKey, PrivateKey> generateRSAkeyPair(SecureRandom secureR
 // =========================
 String publicKeyToString(RSAPublicKey publicKey) {
   return jsonEncode({
-    "modulus": publicKey.modulus.toString(),
+    "modulus": publicKey.modulus.toString(), //prodotto dei primmi p e q
     "publicExponent": publicKey.exponent.toString(),
   });
 }
@@ -41,9 +46,11 @@ String privateKeyToString(RSAPrivateKey privateKey) {
     "modulus": privateKey.modulus.toString(),
     "privateExponent": privateKey.exponent.toString(),
     "p": privateKey.p.toString(),
-    "q": privateKey.q.toString(),
+    "q": privateKey.q.toString(), 
   });
 }
+
+//Usate solo per rsa_test_page.dart
 
 RSAPublicKey? publicKeyFromString(String keyString) {
   try {
@@ -73,7 +80,7 @@ RSAPrivateKey? privateKeyFromString(String keyString) {
 }
 
 // =========================
-// RSA Encryption / Decryption
+// RSA Encryption / Decryption //QUESTE SONO USATE SOLO PER TESTARE SU rsa_test_page.dart
 // =========================
 Future<Uint8List?> rsaEncrypt(String plainText, RSAPublicKey publicKey) async {
   try {
@@ -130,12 +137,11 @@ Future<String?> rsaDecryptBase64(String cipherText, RSAPrivateKey privateKey) as
   }
 }
 
-
-///////////////
+//
 
 RSAPublicKey parsePublicKeyFromJsonString(String jsonString) {
   final Map<String, dynamic> keyData = jsonDecode(jsonString);
-  //
+
   final modulus = BigInt.parse(keyData['modulus']);
   final exponent = BigInt.parse(keyData['publicExponent']);
 
