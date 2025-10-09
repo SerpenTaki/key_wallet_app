@@ -31,14 +31,12 @@ class _ChatPageState extends State<ChatPage> {
       ),
       body: Column(
         children: [
-          // mostra tutti i messaggi
           Expanded(
             child: BuildMessageList(
               senderWallet: widget.senderWallet,
               receiverWallet: widget.receiverWallet,
             ),
           ),
-          //mostra il campo per inviare messaggi
           BuildUserInput(
             senderWallet: widget.senderWallet,
             receiverWallet: widget.receiverWallet,

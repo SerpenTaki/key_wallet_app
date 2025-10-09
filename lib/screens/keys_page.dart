@@ -32,7 +32,7 @@ class _KeysPageState extends State<KeysPage>
 
   @override
   Widget build(BuildContext context) {
-    print(widget.wallet.localKeyIdentifier);
+    //print(widget.wallet.localKeyIdentifier);
     return Scaffold(
       body: Scrollbar(
         trackVisibility: true,

@@ -44,7 +44,13 @@ class BuildMessageList extends StatelessWidget {
     bool isCurrentUser = data['senderWalletId'] == senderWallet.id;
 
     return FutureBuilder<String?>(
-      future: _chatService.translateMessage(data['message'], senderWallet),
+      future: _chatService.translateMessage(data['message'], isCurrentUser ? receiverWallet : senderWallet),
+      /*
+      Mi prendo 2 righe per commentarlo, perchè qui la logica funziona al "contrario":
+      Se isCurrentUser == true mostro un messaggio inviato da me, quindi TODO: sistemare in modo che non venga decifrato
+      Se isCurrentUser == false mostro un messaggio ricevuto da me, quindi Lo posso dedifrare con la mia chiave privata in quanto
+      io sono il destinatario del messaggio ed esso è stato crittato con la mia chiave pubblica
+      */
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return Text(
