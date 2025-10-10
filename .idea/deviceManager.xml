@@ -20,6 +20,9 @@
     <option name="groupByAttributes">
       <list>
         <option value="Type" />
+        <option value="Type" />
+        <option value="Type" />
+        <option value="Type" />
       </list>
     </option>
   </component>
