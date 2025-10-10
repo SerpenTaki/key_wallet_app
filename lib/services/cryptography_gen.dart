@@ -112,7 +112,7 @@ Future<String?> rsaDecrypt(Uint8List cipherText, RSAPrivateKey privateKey) async
 
 //Cripta una stringa e restituisce il risultato in base 64
 Future<String?> rsaEncryptBase64(String plainText, RSAPublicKey publicKey) async {
-  final engine = RSAEngine();
+  final engine = OAEPEncoding(RSAEngine()); //https://it.wikipedia.org/wiki/Optimal_Asymmetric_Encryption_Padding
   engine.init(true, PublicKeyParameter<RSAPublicKey>(publicKey));
   
   try{
@@ -125,7 +125,7 @@ Future<String?> rsaEncryptBase64(String plainText, RSAPublicKey publicKey) async
 }
 
 Future<String?> rsaDecryptBase64(String cipherText, RSAPrivateKey privateKey) async {
-  final engine = RSAEngine();
+  final engine = OAEPEncoding(RSAEngine());
   engine.init(false, PrivateKeyParameter<RSAPrivateKey>(privateKey));
   
   try{

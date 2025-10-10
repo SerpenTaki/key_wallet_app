@@ -36,17 +36,31 @@ class ChatService {
     final String currentUserId = _auth.currentUser!.uid; //Potrebbe servirmi per la firma del messaggio...
     final Timestamp timestamp = Timestamp.now();
 
+    //print("Public key del receiverWallet:");
+    //print(receiverWallet.publicKey);
+    //print("Public key del senderWallet:");
+    //print(senderWallet.publicKey);
+
+
     final RSAPublicKey receiverKey = parsePublicKeyFromJsonString(receiverWallet.publicKey); //Converte la chiave pubblica del destinatario in un oggetto RSAPublicKey
     final encryptedForReceiver = rsaEncryptBase64(message, receiverKey); //Cripta il messaggio con la chiave pubblica del destinatario
+    final RSAPublicKey senderKey = parsePublicKeyFromJsonString(senderWallet.publicKey); //Converte la chiave pubblica del mittente in un oggetto RSAPublicKey
+    final encryptedForSender = rsaEncryptBase64(message, senderKey); //Cripta il messaggio con la chiave pubblica del mittente
 
     // Crea il nuovo messaggio
     final newMessage = Message(
       currentUserID: currentUserId,
       senderWalletId: senderWallet.id,
       receiverWalletId: receiverWallet.id,
-      message: await encryptedForReceiver,
+      messageForReceiver: await encryptedForReceiver,
+      messageForSender: await encryptedForSender,
       timestamp: timestamp,
     );
+
+    //print("Cifratura messaggio:");
+    //print("  Mittente: ${senderWallet.id} -> publicKey hash: ${senderWallet.publicKey.hashCode}");
+    //print("  Destinatario: ${receiverWallet.id} -> publicKey hash: ${receiverWallet.publicKey.hashCode}");
+
 
     // Costruisce l'ID della chat room (ordinando gli ID dei wallet per coerenza)
     List<String> ids = [senderWallet.id, receiverWallet.id];

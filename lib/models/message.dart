@@ -4,14 +4,16 @@ class Message {
   final String currentUserID;
   final String senderWalletId;
   final String receiverWalletId;
-  final String? message;
+  final String? messageForReceiver;
+  final String? messageForSender;
   final Timestamp timestamp;
 
   Message({
     required this.currentUserID,
     required this.senderWalletId,
     required this.receiverWalletId,
-    required this.message,
+    required this.messageForReceiver,
+    required this.messageForSender,
     required this.timestamp,
   });
 
@@ -21,7 +23,8 @@ class Message {
       'senderUserId': currentUserID,
       'senderWalletId': senderWalletId,
       'receiverWalletId': receiverWalletId,
-      'message': message,
+      'messageForReceiver': messageForReceiver,
+      'messageForSender': messageForSender,
       'timestamp': timestamp,
     };
   }

@@ -38,44 +38,30 @@ class BuildMessageList extends StatelessWidget {
     );
   }
 
-
   Widget _buildMessageItem(DocumentSnapshot doc) {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
     bool isCurrentUser = data['senderWalletId'] == senderWallet.id;
 
     return FutureBuilder<String?>(
-      future: _chatService.translateMessage(data['message'], isCurrentUser ? receiverWallet : senderWallet),
       /*
-      Mi prendo 2 righe per commentarlo, perchè qui la logica funziona al "contrario":
-      Se isCurrentUser == true mostro un messaggio inviato da me, quindi TODO: sistemare in modo che non venga decifrato
-      Se isCurrentUser == false mostro un messaggio ricevuto da me, quindi Lo posso dedifrare con la mia chiave privata in quanto
-      io sono il destinatario del messaggio ed esso è stato crittato con la mia chiave pubblica
-      */
+        Mi prendo 2 righe per commentarla
+        - I messaggi che mi arrivano sono cifrati con la mia chiave pubblica e
+          non sono ancora decriptati.l'unico modo che ho per cifrarli è con la mia chiave privata quindi del sender
+        - I messaggi che io invio vengono criptati per il destinatario con la sua chiave pubblica, ma per la mia view sono criptati
+          con la mia privata quindi del sender.
+       */
+      future: _chatService.translateMessage(isCurrentUser? data['messageForSender'] : data['messageForReceiver'], senderWallet,),
       builder: (context, snapshot) {
-        if (snapshot.hasError) {
-          return Text(
-            "Errore: ${snapshot.error}",
-            style: const TextStyle(color: Colors.red),
-          );
-        }
-
-        // Quando il messaggio è decriptato
-        final text = snapshot.data ?? "";
-
-        var alignment =
-        isCurrentUser ? Alignment.centerRight : Alignment.centerLeft;
-
-        return Container(
-          alignment: alignment,
-          child: Column(
-            crossAxisAlignment:
-            isCurrentUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
-            children: [
-              ChatBubble(message: text, isCurrentUser: isCurrentUser),
-            ],
-          ),
-        );
+        final text = snapshot.data ?? "[Errore decriptazione]";
+        return _buildBubble(text, isCurrentUser);
       },
+    );
+  }
+
+  Widget _buildBubble(String message, bool isCurrentUser) {
+    return Container(
+      alignment: isCurrentUser ? Alignment.centerRight : Alignment.centerLeft,
+      child: ChatBubble(message: message, isCurrentUser: isCurrentUser),
     );
   }
 }
