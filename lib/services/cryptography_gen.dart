@@ -81,6 +81,7 @@ RSAPrivateKey? privateKeyFromString(String keyString) {
 
 // =========================
 // RSA Encryption / Decryption //QUESTE SONO USATE SOLO PER TESTARE SU rsa_test_page.dart
+//DIfatti sono anche le vecchie versioni senza OAEP che non vanno bene per quello che volevo fare io
 // =========================
 Future<Uint8List?> rsaEncrypt(String plainText, RSAPublicKey publicKey) async {
   try {
