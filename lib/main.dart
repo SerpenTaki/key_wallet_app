@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
 import 'package:key_wallet_app/services/route_generator.dart';
 import 'package:key_wallet_app/services/auth.dart';
 import 'package:key_wallet_app/screens/landing_page.dart';
@@ -13,6 +14,9 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
   runApp(
     MultiProvider(
         providers: [ChangeNotifierProvider(create: (_) => WalletProvider())],

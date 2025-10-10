@@ -48,7 +48,7 @@ class AuthPageState extends State<AuthPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(isLogin ? "Login" : "Registrati",
-          style: TextStyle(fontWeight: FontWeight.bold),
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Theme.of(context).colorScheme.inversePrimary,

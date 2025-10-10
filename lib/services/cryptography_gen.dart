@@ -50,62 +50,6 @@ String privateKeyToString(RSAPrivateKey privateKey) {
   });
 }
 
-//Usate solo per rsa_test_page.dart
-
-RSAPublicKey? publicKeyFromString(String keyString) {
-  try {
-    final map = jsonDecode(keyString);
-    return RSAPublicKey(
-      BigInt.parse(map['modulus']),
-      BigInt.parse(map['publicExponent']),
-    );
-  } catch (e) {
-    return null;
-  }
-}
-
-RSAPrivateKey? privateKeyFromString(String keyString) {
-  try {
-    final map = jsonDecode(keyString);
-    return RSAPrivateKey(
-      BigInt.parse(map['modulus']),
-      BigInt.parse(map['privateExponent']),
-      BigInt.parse(map['p']),
-      BigInt.parse(map['q']),
-    );
-  } catch (e) {
-
-    return null;
-  }
-}
-
-// =========================
-// RSA Encryption / Decryption //QUESTE SONO USATE SOLO PER TESTARE SU rsa_test_page.dart
-//DIfatti sono anche le vecchie versioni senza OAEP che non vanno bene per quello che volevo fare io
-// =========================
-Future<Uint8List?> rsaEncrypt(String plainText, RSAPublicKey publicKey) async {
-  try {
-    final engine = RSAEngine()
-      ..init(true, PublicKeyParameter<RSAPublicKey>(publicKey));
-
-    return engine.process(Uint8List.fromList(utf8.encode(plainText)));
-  } catch (e) {
-    return null;
-  }
-}
-
-Future<String?> rsaDecrypt(Uint8List cipherText, RSAPrivateKey privateKey) async {
-  try {
-    final engine = RSAEngine()
-      ..init(false, PrivateKeyParameter<RSAPrivateKey>(privateKey));
-
-    final decrypted = engine.process(cipherText);
-    return utf8.decode(decrypted);
-  } catch (e) {
-    return null;
-  }
-}
-
 
 // =========================
 // RSA Encryption / Decryption with Base64
@@ -120,7 +64,7 @@ Future<String?> rsaEncryptBase64(String plainText, RSAPublicKey publicKey) async
     final encrypted = engine.process(Uint8List.fromList(utf8.encode(plainText)));
     return base64Encode(encrypted);
   } catch (e) {
-    print("Errore nella codifica del messaggio ${e.toString()}");
+    //print("Errore nella codifica del messaggio ${e.toString()}");
     return null;
   }
 }
@@ -133,7 +77,7 @@ Future<String?> rsaDecryptBase64(String cipherText, RSAPrivateKey privateKey) as
     final decrypted = engine.process(base64Decode(cipherText));
     return utf8.decode(decrypted);
   }catch(e){
-    print("Errore nella decodifica del messaggio ${e.toString()}");
+    //print("Errore nella decodifica del messaggio ${e.toString()}");
     return "Messaggio non decodificabile";
   }
 }
