@@ -1,0 +1,76 @@
+\documentclass[a4paper,12pt]{article}
+
+% --- Pacchetti ---
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage{fancyhdr}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{hyperref}
+\usepackage{caption}
+
+% --- Intestazione personalizzata ---
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{Gabriele Di Pietro}
+\fancyhead[R]{\thepage}
+
+% --- Spaziatura ---
+\setstretch{1.2}
+
+\begin{document}
+
+% --- Copertina ---
+\begin{titlepage}
+    \thispagestyle{empty}
+
+    \centering
+    \vspace*{2cm}
+
+    \includegraphics[width=0.3\textwidth]{/Users/serpentaki/Documents/key_wallet_app/images/logo.png}
+    \vspace{1cm}
+
+    {\Huge \textbf{Key Wallet App}}\\
+    \vspace{0.5cm}
+    {\Large Analisi Dei Requisiti}\\
+    \vspace{4cm}
+\end{titlepage}
+
+% --- Storico versioni ---
+\newpage
+\begin{table}[h]
+    \centering
+    \renewcommand{\arraystretch}{1.2}
+    \setlength{\tabcolsep}{5pt}
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        \textbf{Versione} & \textbf{Data} & \textbf{Autore} & \textbf{Verificatore} & \textbf{Descrizione} \\
+        \hline
+        0.1 & 14/10/2025 & Gabriele Di Pietro & Gabriele Di Pietro & Prima stesura del documento \\
+        \hline
+    \end{tabular}
+    \caption{Storico delle versioni del documento}
+\end{table}
+
+% --- Indici ---
+\newpage
+\tableofcontents
+\listoffigures
+\listoftables
+
+% --- Sezioni ---
+\newpage
+\input{introduzione}
+
+\newpage
+\input{descrizione_prodotto}
+
+\newpage
+%\input{casi_uso}
+
+\newpage
+%\input{requisiti}
+
+\end{document}
