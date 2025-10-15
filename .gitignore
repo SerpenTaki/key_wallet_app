@@ -125,5 +125,4 @@ app.*.symbols
 *.out
 *.gz
 *.toc
-
-/lib/services/firebase_options.dart
+.env
