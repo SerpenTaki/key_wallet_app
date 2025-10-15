@@ -5,8 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fd9f324-4b81-479f-be21-42b0a387615a" name="Changes" comment="Primo commit">
-      <change beforePath="$PROJECT_DIR$/doc/Analisi_Dei_Requisiti/analisi_dei_requisiti.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/doc/Analisi_Dei_Requisiti/analisi_dei_requisiti.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/Analisi_Dei_Requisiti/analisi_dei_requisiti.tex" beforeDir="false" afterPath="$PROJECT_DIR$/doc/Analisi_Dei_Requisiti/analisi_dei_requisiti.tex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deviceManager.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deviceManager.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,6 +57,7 @@
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
+    "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "main",
     "io.flutter.reload.alreadyRun": "true",
     "settings.editor.selected.configurable": "AndroidSdkUpdater",
