@@ -11,9 +11,13 @@ import 'package:key_wallet_app/providers/wallet_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  try {
+    await Firebase.initializeApp(
+      options: DefaultFirebaseOptions.currentPlatform,
+    );
+  } catch (e) {
+    const SnackBar(content: Text('Errore durante l\'inizializzazione di Firebase'));
+  }
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
   ]);

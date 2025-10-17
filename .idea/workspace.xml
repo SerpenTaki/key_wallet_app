@@ -5,10 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fd9f324-4b81-479f-be21-42b0a387615a" name="Changes" comment="Primo commit">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/key_wallet_app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/key_wallet_app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +62,7 @@
     "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "main",
     "io.flutter.reload.alreadyRun": "true",
-    "last_opened_file_path": "/Users/serpentaki/Documents/key_wallet_app/lib/services",
+    "last_opened_file_path": "/Users/serpentaki/Documents/key_wallet_app",
     "settings.editor.selected.configurable": "AndroidSdkUpdater",
     "show.migrate.to.gradle.popup": "false"
   }

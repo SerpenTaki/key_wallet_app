@@ -1,16 +1,16 @@
-# key_wallet_app
+<div align="center">
+ <div style="display: grid; grid-template-columns: 1fr auto; align-items: center;">
+    <h1>Key Wallet App Wiki</h1>
+    <div style="text-align: right;">
+        <img src="https://raw.githubusercontent.com/SerpenTaki/key_wallet_app/refs/heads/main/images/logo.png" alt="Key Wallet App Logo"  width="150px" height="150px" />
+    </div>
+</div>
+</div>
 
-An app for cryptocurrency wallets
+***
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Elementi della documentazione
+* [Analisi Dei Requisiti](https://github.com/SerpenTaki/key_wallet_app/wiki/Analisi_dei_requisiti)
+* Specifica Tecnica (Working)
+* [Manuale Utente Online](https://serpentaki.github.io/key_wallet_app/)
+* Manuale Utente PDF (Working...)
