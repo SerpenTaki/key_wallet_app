@@ -11,6 +11,6 @@
 
 ## Elementi della documentazione
 * [Analisi Dei Requisiti](https://github.com/SerpenTaki/key_wallet_app/wiki/Analisi_dei_requisiti)
-* Specifica Tecnica (Working)
+* [Specifica Tecnica](https://github.com/SerpenTaki/key_wallet_app/wiki/Specifica_tecnica)
 * [Manuale Utente Online](https://serpentaki.github.io/key_wallet_app/)
 * Manuale Utente PDF (Working...)

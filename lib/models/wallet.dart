@@ -14,6 +14,7 @@ class Wallet {
   String? hBytes;
   String? standard;
   String? device;
+  double? balance;
 
   Wallet({
     required this.id,
@@ -25,6 +26,7 @@ class Wallet {
     required this.hBytes,
     required this.standard,
     required this.device,
+    required this.balance,
   });
 
   // Factory constructor per creare un'istanza di Wallet da un documento Firestore
@@ -43,6 +45,7 @@ class Wallet {
       hBytes: data['hBytes'] as String? ?? '',
       standard: data['standard'] as String? ?? '',
       device: data['device'] as String? ?? '',
+      balance: data['balance'] as double? ?? 0.0,
     );
   }
 
@@ -57,6 +60,7 @@ class Wallet {
       hBytes: map['hBytes'] as String? ?? '',
       standard: map['standard'] as String? ?? '',
       device: map['device'] as String? ?? '',
+      balance: map['balance'] as double? ?? 0.0,
     );
   }
 
@@ -113,6 +117,7 @@ class Wallet {
       hBytes: hBytes,
       standard: standard,
       device: device,
+      balance: 0.0,
     );
   }
 }

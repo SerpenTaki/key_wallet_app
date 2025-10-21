@@ -71,6 +71,7 @@ class WalletProvider with ChangeNotifier {
         'algorithm': 'RSA',
         'createdAt': FieldValue.serverTimestamp(),
         'backedUp': false,
+        'balance' : tempWallet.balance,
       };
 
       DocumentReference docRef = await _firestore.collection('wallets').add(walletDataForFirestore);
@@ -83,6 +84,7 @@ class WalletProvider with ChangeNotifier {
         color: selectedColor,
         publicKey: tempWallet.publicKey,
         localKeyIdentifier: tempWallet.localKeyIdentifier,
+        balance: tempWallet.balance,
       ); 
       _wallets.insert(0, finalWallet);
       notifyListeners();
@@ -96,6 +98,33 @@ class WalletProvider with ChangeNotifier {
       await _firestore.collection('wallets').doc(wallet.id).delete();
       _wallets.removeWhere((w) => w.id == wallet.id);
       notifyListeners();
+    } catch (e) {
+      rethrow;
+    }
+  }
+  
+  Future<void> updateBalance(String walletId, double newBalance) async {
+    try {
+      await _firestore.collection('wallets').doc(walletId).update({
+        'balance': newBalance,
+      });
+
+      final index = _wallets.indexWhere((wallet) => wallet.id == walletId);
+      if (index != -1) { // indexWhere restituisce -1 se non ci sono portafogli che soddisfano wallet.id == walletId
+        final oldWallet = _wallets[index];
+        _wallets[index] = Wallet( // Costruisco un nuovo wallet per il principio di immutabilità di flutter
+          id: oldWallet.id,
+          name: oldWallet.name,
+          hBytes: oldWallet.hBytes,
+          standard: oldWallet.standard,
+          device: oldWallet.device,
+          color: oldWallet.color,
+          publicKey: oldWallet.publicKey,
+          localKeyIdentifier: oldWallet.localKeyIdentifier,
+          balance: newBalance,
+        );
+        notifyListeners(); // Notifica Flutter che i dati sono stati aggiornati
+      }
     } catch (e) {
       rethrow;
     }
