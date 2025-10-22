@@ -6,8 +6,8 @@ import 'package:key_wallet_app/screens/wallet_page.dart';
 import 'package:key_wallet_app/screens/new_wallet_creation.dart';
 import 'package:key_wallet_app/screens/chat_list_page.dart';
 import 'package:key_wallet_app/screens/chat_page.dart';
+import 'package:key_wallet_app/screens/wallet_recover_page.dart';
 
-//Per mandare dati dinamici
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
@@ -41,13 +41,13 @@ class RouteGenerator {
       case '/chat':
         if (args is Wallet) {
           return MaterialPageRoute(
-            builder: (context) => ChatPage(
-              senderWallet: args,
-              receiverWallet: args,
-            ),
+            builder: (context) =>
+                ChatPage(senderWallet: args, receiverWallet: args),
           );
         }
         return _errorRoute();
+      case '/WalletRecoverPage':
+        return MaterialPageRoute(builder: (context) => WalletRecoverPage());
       default:
         return _errorRoute();
     }

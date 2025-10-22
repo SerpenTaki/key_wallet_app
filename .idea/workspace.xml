@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fd9f324-4b81-479f-be21-42b0a387615a" name="Changes" comment="Primo commit">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/screens/wallet_recover_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/ErrorScreens/key_not_found.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/ErrorScreens/key_not_found.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/route_generator.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/route_generator.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

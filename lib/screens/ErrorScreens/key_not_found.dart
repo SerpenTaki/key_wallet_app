@@ -21,7 +21,7 @@ class KeyNotFound extends StatelessWidget {
             ),
             ElevatedButton(
                   onPressed: (){
-
+                      Navigator.pushNamed(context, "/WalletRecoverPage");
                   },
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size(390, 50),
