@@ -5,18 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fd9f324-4b81-479f-be21-42b0a387615a" name="Changes" comment="Primo commit">
-      <change afterPath="$PROJECT_DIR$/lib/screens/money_page.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/widgets/MoneyAlertDialogs/add_money_alert_dialog.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/widgets/KeysDialogs/delete_privatekey_apple_dialog.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/widgets/KeysDialogs/delete_privatekey_dialog.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/deviceManager.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deviceManager.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/key_wallet_app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/key_wallet_app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/wallet.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/wallet.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/providers/wallet_provider.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/providers/wallet_provider.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/keys_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/keys_page.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/wallet_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/wallet_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/cryptography_gen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/cryptography_gen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/delete_apple_wallet_alert.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/WalletDialog/delete_apple_wallet_alert.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/delete_wallet_alert.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/WalletDialog/delete_wallet_alert.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,6 +78,7 @@
       <recent name="$PROJECT_DIR$/lib/services" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/widgets/WalletDialog" />
       <recent name="$PROJECT_DIR$/lib/screens" />
       <recent name="$PROJECT_DIR$/lib/services" />
       <recent name="$PROJECT_DIR$" />

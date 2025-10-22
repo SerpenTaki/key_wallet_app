@@ -82,8 +82,6 @@ Future<String?> rsaDecryptBase64(String cipherText, RSAPrivateKey privateKey) as
   }
 }
 
-//
-
 RSAPublicKey parsePublicKeyFromJsonString(String jsonString) {
   final Map<String, dynamic> keyData = jsonDecode(jsonString);
 
@@ -102,4 +100,12 @@ RSAPrivateKey parsePrivateKeyFromJsonString(String jsonString) {
   final q = BigInt.parse(keyData['q']);
 
   return RSAPrivateKey(modulus, privateExponent, p, q);
+}
+
+String convertPublicKeyToBase64String(String publicKey){
+  return base64Encode(utf8.encode(publicKey));
+}
+
+String convertPrivateKeyToBase64String(String privateKey){
+  return base64Encode(utf8.encode(privateKey));
 }
