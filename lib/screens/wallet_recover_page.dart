@@ -179,7 +179,7 @@ class _WalletRecoverPageState extends State<WalletRecoverPage> {
                         )
                       : const Icon(Icons.nfc_outlined),
                   label: Text(
-                    _isScanning ? "Scansione in corso..." : "Scansiona wallet",
+                    _isScanning ? "Scansione in corso..." : "Scansiona documento",
                   ),
                 )
               else
@@ -199,7 +199,10 @@ class _WalletRecoverPageState extends State<WalletRecoverPage> {
                           widget.wallet.localKeyIdentifier,
                           _privateKeyController.text,
                         );
-                        if (mounted) Navigator.pop(context);
+                        if (mounted) {
+                          Navigator.pop(context);
+                          Navigator.pop(context);
+                        }
                       }
                     : null,
                 style: ElevatedButton.styleFrom(
