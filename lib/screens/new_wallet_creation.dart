@@ -38,7 +38,7 @@ class _NewWalletCreationState extends State<NewWalletCreation> {
     });
   }
 
-  Future<void> _scanNfcTag() async {
+  Future<void> _scanNfcTag() async { //da mettere da un altra parte
     if (_isScanning) return;
     setState(() {
       _isScanning = true;

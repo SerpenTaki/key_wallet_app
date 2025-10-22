@@ -141,12 +141,12 @@ class _KeysPageState extends State<KeysPage>
                 const SizedBox(height: 16),
                 if (showPublicKey)
                   SelectableText(
-                    convertPublicKeyToBase64String(widget.wallet.publicKey),
+                    widget.wallet.publicKey
                   ),
                 const SizedBox(height: 8),
                 if (showPrivateKey)
                   SelectableText(
-                    convertPrivateKeyToBase64String(widget.privateKeyValue),
+                    widget.privateKeyValue,
                   ),
               ],
             ),

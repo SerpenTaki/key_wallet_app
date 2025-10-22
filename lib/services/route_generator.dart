@@ -47,7 +47,10 @@ class RouteGenerator {
         }
         return _errorRoute();
       case '/WalletRecoverPage':
-        return MaterialPageRoute(builder: (context) => WalletRecoverPage());
+        if (args is Wallet) {
+          return MaterialPageRoute(builder: (context) => WalletRecoverPage(wallet: args));
+        }
+        return _errorRoute();
       default:
         return _errorRoute();
     }

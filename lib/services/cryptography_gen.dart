@@ -109,3 +109,7 @@ String convertPublicKeyToBase64String(String publicKey){
 String convertPrivateKeyToBase64String(String privateKey){
   return base64Encode(utf8.encode(privateKey));
 }
+
+String convertBase64StringToKey(String base64String){
+  return utf8.decode(base64Decode(base64String));
+}

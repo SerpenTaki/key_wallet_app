@@ -81,7 +81,7 @@ class _WalletPageState extends State<WalletPage> {
     String? privateKeyValue,
   ) {
     if (privateKeyValue == null || privateKeyValue.isEmpty) {
-      return KeyNotFound();
+      return KeyNotFound(wallet: widget.wallet,);
     } else {
       return DefaultTabController(
         length: 3,

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:key_wallet_app/models/wallet.dart';
 
 class KeyNotFound extends StatelessWidget {
-  const KeyNotFound({super.key});
+  const KeyNotFound({super.key, required this.wallet});
+
+  final Wallet wallet;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +24,7 @@ class KeyNotFound extends StatelessWidget {
             ),
             ElevatedButton(
                   onPressed: (){
-                      Navigator.pushNamed(context, "/WalletRecoverPage");
+                      Navigator.pushNamed(context, "/WalletRecoverPage", arguments: wallet);
                   },
                   style: ElevatedButton.styleFrom(
                     minimumSize: const Size(390, 50),
