@@ -49,7 +49,7 @@ class WalletProvider with ChangeNotifier {
     }
   }
 
-  Future<void> generateAndAddWallet(String userId, String walletName, Color selectedColor, String hBytes, String standard, String device) async {
+  Future<void> generateAndAddWallet(String userId, String email, String walletName, Color selectedColor, String hBytes, String standard, String device) async {
     if (userId.isEmpty) {
       return;
     }
@@ -61,6 +61,7 @@ class WalletProvider with ChangeNotifier {
 
       Map<String, dynamic> walletDataForFirestore = {
         'userId': userId,
+        'email': email,
         'name': tempWallet.name,
         'hBytes': hBytes,
         'standard': standard,

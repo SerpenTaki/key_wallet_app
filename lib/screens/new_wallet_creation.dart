@@ -7,9 +7,9 @@ import 'package:provider/provider.dart';
 import '../providers/wallet_provider.dart';
 
 class NewWalletCreation extends StatefulWidget {
-  const NewWalletCreation({super.key, required this.uid});
+  const NewWalletCreation({super.key, required this.credenziali});
 
-  final String uid;
+  final Map<String, String> credenziali;
 
   @override
   State<NewWalletCreation> createState() => _NewWalletCreationState();
@@ -143,8 +143,8 @@ class _NewWalletCreationState extends State<NewWalletCreation> {
                   ? () async {
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
-                        if (!(await context.read<WalletProvider>().checkIfWalletExists(hBytes, widget.uid))) {
-                          context.read<WalletProvider>().generateAndAddWallet(widget.uid, nome, selectedColor, hBytes, standard, device);
+                        if (!(await context.read<WalletProvider>().checkIfWalletExists(hBytes, widget.credenziali["uid"]!))) {
+                          context.read<WalletProvider>().generateAndAddWallet(widget.credenziali["uid"]!, widget.credenziali["mail"]!, nome, selectedColor, hBytes, standard, device);
                           if(mounted) Navigator.pop(context);
                         }
                         else {

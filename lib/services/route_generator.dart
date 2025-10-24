@@ -26,9 +26,9 @@ class RouteGenerator {
         }
         return _errorRoute();
       case '/NewWalletCreation':
-        if (args is String) {
+        if (args is Map<String, String>) {
           return MaterialPageRoute(
-            builder: (context) => NewWalletCreation(uid: args),
+            builder: (context) => NewWalletCreation(credenziali: args,),
           );
         }
         return _errorRoute();

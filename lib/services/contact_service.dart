@@ -7,23 +7,10 @@ class ContactService {
   Future<List<Map<String, dynamic>>> searchWalletsByEmail(String email) async {
     if (email.isEmpty) return [];
 
-    // Cerca l'utente tramite email
-    final userQuery = await _firestore
-        .collection('users')
-        .where('email', isEqualTo: email)
-        .limit(1)
-        .get();
-
-    if (userQuery.docs.isEmpty) {
-      return []; // Nessun utente trovato con questa email
-    }
-
-    final userId = userQuery.docs.first.id;
-
     // Trova tutti i wallet associati a quell'utente
     final walletQuery = await _firestore
         .collection('wallets')
-        .where('userId', isEqualTo: userId)
+        .where('email', isEqualTo: email)
         .get();
 
     return walletQuery.docs.map((doc) {
