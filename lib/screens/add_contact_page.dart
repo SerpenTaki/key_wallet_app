@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:key_wallet_app/models/wallet.dart';
 import 'package:key_wallet_app/services/contact_service.dart';
+import 'package:key_wallet_app/services/chat_service.dart';
 import 'package:key_wallet_app/services/validators.dart';
 import 'package:key_wallet_app/services/nfc_services.dart';
 import 'package:key_wallet_app/screens/chat_page.dart';
@@ -16,6 +17,7 @@ class AddContactPage extends StatefulWidget {
 class _AddContactPageState extends State<AddContactPage> {
   final TextEditingController _emailController = TextEditingController();
   final ContactService _contactService = ContactService();
+  final ChatService _chatService = ChatService(); // Istanza del ChatService
   List<Map<String, dynamic>> _searchResults = [];
   bool _isLoading = false;
   String hBytes = "";
@@ -35,7 +37,7 @@ class _AddContactPageState extends State<AddContactPage> {
     });
   }
 
-  Future<void> _scanNfcTag() async { //da mettere da un altra parte
+  Future<void> _scanNfcTag() async {
     if (_isScanning) return;
     setState(() {
       _isScanning = true;
@@ -173,6 +175,7 @@ class _AddContactPageState extends State<AddContactPage> {
                   itemCount: _searchResults.length,
                   itemBuilder: (context, index) {
                     final walletData = _searchResults[index];
+                    final receiverWallet = Wallet.fromMap(walletData);
                     return Card(
                       margin: const EdgeInsets.symmetric(vertical: 8),
                       child: ListTile(
@@ -180,8 +183,14 @@ class _AddContactPageState extends State<AddContactPage> {
                         subtitle: Text("Dispositivo: ${walletData['device']}"),
                         trailing: IconButton(
                           icon: const Icon(Icons.chat_bubble_outline),
-                          onPressed: () {
-                            final receiverWallet = Wallet.fromMap(walletData);
+                          onPressed: () async {
+                            // --- INIZIO BLOCCO DI DEBUG ---
+                            print("DEBUG: ID Utente Mittente -> ${widget.senderWallet.userId}");
+                            print("DEBUG: ID Utente Destinatario -> ${receiverWallet.userId}");
+                            // --- FINE BLOCCO DI DEBUG ---
+
+                            await _chatService.createConversationIfNotExists(widget.senderWallet, receiverWallet);
+
                             Navigator.push(
                               context,
                               MaterialPageRoute(

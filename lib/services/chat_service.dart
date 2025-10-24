@@ -53,8 +53,29 @@ class ChatService {
     });
   }
 
+  /// Crea il documento della chat room se non esiste già, usando un'operazione atomica.
+  Future<void> createConversationIfNotExists(Wallet wallet1, Wallet wallet2) async {
+    List<String> walletIds = [wallet1.id, wallet2.id];
+    walletIds.sort();
+    String chatRoomId = walletIds.join("_");
+
+    final chatRoomDocRef = _firestore.collection("chat_rooms").doc(chatRoomId);
+
+    // Usa .set con merge:true. Questo crea il documento se non esiste
+    // o lo aggiorna se esiste, senza bisogno di una lettura preventiva.
+    // Questo risolve il problema del permesso negato.
+    await chatRoomDocRef.set({
+      'participants': walletIds,
+      'participantUids': [wallet1.userId, wallet2.userId],
+      'last_updated': FieldValue.serverTimestamp(),
+    }, SetOptions(merge: true));
+  }
+
   // Invia un messaggio da un wallet a un altro
   Future<void> sendMessage(Wallet receiverWallet, Wallet senderWallet, String message) async{
+    // Assicura che la conversazione esista prima di inviare un messaggio
+    await createConversationIfNotExists(senderWallet, receiverWallet);
+
     final String currentUserId = _auth.currentUser!.uid;
     final Timestamp timestamp = Timestamp.now();
 
@@ -77,13 +98,6 @@ class ChatService {
     String chatRoomId = ids.join("_");
     
     final chatRoomDocRef = _firestore.collection("chat_rooms").doc(chatRoomId);
-
-    await chatRoomDocRef.set({
-      'participants': ids, 
-      'participantUids': [senderWallet.userId, receiverWallet.userId], 
-      'last_updated': timestamp,
-    }, SetOptions(merge: true));
-
     await chatRoomDocRef.collection("messages").add(newMessage.toMap());
   }
 
