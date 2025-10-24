@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:key_wallet_app/models/wallet.dart';
 import 'package:key_wallet_app/services/secure_storage.dart';
-import 'package:key_wallet_app/services/cryptography_gen.dart';
 import 'package:key_wallet_app/widgets/KeysDialogs/delete_privatekey_dialog.dart';
 import 'package:key_wallet_app/widgets/KeysDialogs/delete_privatekey_apple_dialog.dart';
 

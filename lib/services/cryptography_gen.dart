@@ -3,9 +3,6 @@ import 'dart:typed_data';
 import 'dart:math';
 import 'package:pointycastle/export.dart';
 
-// =========================
-// Secure random generator
-// =========================
 SecureRandom getSecureRandom() {
   final secureRandom = FortunaRandom(); //Generatore sicuro
   final seed = Uint8List(32); //Seed di 32 byte casuali
@@ -17,9 +14,6 @@ SecureRandom getSecureRandom() {
   return secureRandom;
 }
 
-// =========================
-// RSA KeyPair generator
-// =========================
 AsymmetricKeyPair<PublicKey, PrivateKey> generateRSAkeyPair(SecureRandom secureRandom) {
   final keyGen = RSAKeyGenerator(); //Generatore di chiavi RSA
   keyGen.init(ParametersWithRandom(RSAKeyGeneratorParameters(BigInt.parse('65537'), 2048, 64), secureRandom,));
@@ -31,9 +25,6 @@ AsymmetricKeyPair<PublicKey, PrivateKey> generateRSAkeyPair(SecureRandom secureR
   return keyGen.generateKeyPair();
 }
 
-// =========================
-// Convert Keys <-> String
-// =========================
 String publicKeyToString(RSAPublicKey publicKey) {
   return jsonEncode({
     "modulus": publicKey.modulus.toString(), //prodotto dei primmi p e q
@@ -49,11 +40,6 @@ String privateKeyToString(RSAPrivateKey privateKey) {
     "q": privateKey.q.toString(), 
   });
 }
-
-
-// =========================
-// RSA Encryption / Decryption with Base64
-// =========================
 
 //Cripta una stringa e restituisce il risultato in base 64
 Future<String?> rsaEncryptBase64(String plainText, RSAPublicKey publicKey) async {

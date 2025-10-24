@@ -7,6 +7,7 @@ import 'package:key_wallet_app/screens/new_wallet_creation.dart';
 import 'package:key_wallet_app/screens/chat_list_page.dart';
 import 'package:key_wallet_app/screens/chat_page.dart';
 import 'package:key_wallet_app/screens/wallet_recover_page.dart';
+import 'package:key_wallet_app/screens/add_contact_page.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -51,6 +52,8 @@ class RouteGenerator {
           return MaterialPageRoute(builder: (context) => WalletRecoverPage(wallet: args));
         }
         return _errorRoute();
+      case '/addContactPage':
+        return MaterialPageRoute(builder: (context) => AddContactPage());
       default:
         return _errorRoute();
     }
