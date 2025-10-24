@@ -14,17 +14,17 @@ class BuildUserList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: chatService.getWalletsStream(),
+      stream: chatService.getContactsStream(senderWallet.id),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return const Center(child: Text('Si è verificato un errore.'));
+          return const Center(child: Text('Si è verificato un errore nel caricamento dei contatti.'));
         }
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         }
         if (!snapshot.hasData || snapshot.data!.isEmpty) {
           return const Center(
-            child: Text("Nessun altro wallet trovato per chattare."),
+            child: Text("Nessun contatto trovato. Aggiungine uno!"),
           );
         }
 

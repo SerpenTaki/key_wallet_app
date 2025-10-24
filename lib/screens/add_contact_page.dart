@@ -1,20 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:key_wallet_app/models/wallet.dart';
+import 'package:key_wallet_app/services/contact_service.dart';
 import 'package:key_wallet_app/services/validators.dart';
 import 'package:key_wallet_app/services/nfc_services.dart';
 
 class AddContactPage extends StatefulWidget {
-  const AddContactPage({super.key});
+  final Wallet senderWallet;
+  const AddContactPage({super.key, required this.senderWallet});
 
   @override
   State<AddContactPage> createState() => _AddContactPageState();
 }
 
 class _AddContactPageState extends State<AddContactPage> {
-  final TextEditingController _email = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final ContactService _contactService = ContactService();
+  List<Map<String, dynamic>> _searchResults = [];
+  bool _isLoading = false;
   String hBytes = "";
   String standard = "";
   bool _isNfcAvailable = false;
   bool _isScanning = false;
+
+  @override
+  void initState() {
+    super.initState();
+    NfcServices().checkAvailability().then((isAvailable) {
+      if (mounted) {
+        setState(() {
+          _isNfcAvailable = isAvailable;
+        });
+      }
+    });
+  }
 
   Future<void> _scanNfcTag() async { //da mettere da un altra parte
     if (_isScanning) return;
@@ -52,86 +70,136 @@ class _AddContactPageState extends State<AddContactPage> {
     }
   }
 
+  Future<void> _searchWalletsEmail() async {
+    if (_emailController.text.isEmpty) return;
+    setState(() {
+      _isLoading = true;
+      _searchResults = [];
+    });
+
+    try {
+      final results = await _contactService.searchWalletsByEmail(_emailController.text);
+      setState(() {
+        _searchResults = results;
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Errore durante la ricerca: $e")),
+      );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
+  Future<void> _searchWalletsNFC() async{
+    try{
+      final results = await _contactService.searchWalletsByNfc(hBytes, standard);
+      setState(() {
+        _searchResults = results;
+      });
+    }catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Errore durante la ricerca: $e")),
+      );
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
+  }
+
+  Future<void> _addContact(String contactWalletId) async {
+    try {
+      await _contactService.addContact(widget.senderWallet.id, contactWalletId);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Contatto aggiunto!"), backgroundColor: Colors.green),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Errore durante l'aggiunta: $e")),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Aggiungi contatto',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
+        title: const Text('Aggiungi Contatto', style: TextStyle(fontWeight: FontWeight.bold)),
         centerTitle: true,
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
-      body: SingleChildScrollView(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisSize: MainAxisSize.max,
-          spacing: 20,
           children: <Widget>[
-            const SizedBox(height: 40,),
-            const Text(
-              "Aggiungi contatto tramite inserimento email",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(9.0),
-              child: TextFormField(
-                controller: _email,
-                keyboardType: TextInputType.emailAddress,
-                textInputAction: TextInputAction.next,
-                validator: (value) {
-                  if (emailValidator(value) == null) {
-                    return null;
-                  }
-                  return emailValidator(value);
-                },
-                decoration: InputDecoration(
-                  label: const Text("Email dell'utente"),
-                  filled: false,
-                  border: OutlineInputBorder(),
-                  ),
-                ),
-            ),
-            ElevatedButton.icon(
-              onPressed: () {},
-              icon: const Icon(Icons.search),
-              label: const Text("Cerca i Wallet dell'utente", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).colorScheme.primary,
-                foregroundColor: Theme.of(context).colorScheme.inversePrimary,
+            TextFormField(
+              controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
+              textInputAction: TextInputAction.search,
+              onFieldSubmitted: (_) => _searchWalletsEmail(),
+              validator: (value) => emailValidator(value),
+              decoration: const InputDecoration(
+                labelText: "Email dell'utente",
+                border: OutlineInputBorder(),
+                suffixIcon: Icon(Icons.search),
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 20.0),
-              child: Divider(thickness: 1),
-            ),
-            const Text(
-              "Cerca tramite scansione NFC documento",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-            ),
+            const SizedBox(height: 16),
+            ElevatedButton.icon(onPressed: _searchWalletsEmail, icon: const Icon(Icons.search), label: const Text('Cerca tramite email')),
+            const SizedBox(height: 16),
             if (_isNfcAvailable)
-              ElevatedButton.icon(
-                onPressed: _isScanning ? null : _scanNfcTag,
-                icon: _isScanning
-                    ? const SizedBox(width: 20, height: 20,
-                    child:  CircularProgressIndicator(strokeWidth: 3, color: Colors.white,)) : const Icon(Icons.nfc_outlined),
-                label: Text(_isScanning ? "Scansione in corso..." : "Scansiona documento"),)
+              Row(
+                children: [
+                  const Text("Cerca tramite NFC"),
+                  const SizedBox(width: 30),
+                  Column(
+                    children: [
+                      ElevatedButton.icon(
+                      onPressed: _isScanning ? null : _scanNfcTag,
+                      icon: _isScanning
+                          ? const SizedBox(width: 20, height: 20,
+                          child:  CircularProgressIndicator(strokeWidth: 3, color: Colors.white,)) : const Icon(Icons.nfc_outlined),
+                      label: Text(_isScanning ? "Scansione in corso..." : "Scansiona documento"),),
+                      const SizedBox(height: 10),
+                      ElevatedButton.icon(onPressed: _searchWalletsNFC, icon: const Icon(Icons.search), label: const Text('Cerca tramite NFC')),
+                    ],
+                  ),
+                ]
+              )
             else // questo non lo vedo mai
               const Center(
                   child: Text("NFC non disponibile su questo dispositivo.", style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold))
               ),
-            ElevatedButton.icon(
-              onPressed: () {},
-              icon: const Icon(Icons.search),
-              label: const Text("Cerca i Wallet dell'utente tramite NFC", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Theme.of(context).colorScheme.primary,
-                foregroundColor: Theme.of(context).colorScheme.inversePrimary,
+            const Divider(height: 32),
+            if (_isLoading)
+              const Center(child: CircularProgressIndicator())
+            else if (_searchResults.isEmpty)
+              const Center(child: Text("Nessun wallet trovato"))
+            else
+              Expanded(
+                child: ListView.builder(
+                  itemCount: _searchResults.length,
+                  itemBuilder: (context, index) {
+                    final walletData = _searchResults[index];
+                    return Card(
+                      margin: const EdgeInsets.symmetric(vertical: 8),
+                      child: ListTile(
+                        title: Text(walletData['name'] ?? 'Senza nome'),
+                        subtitle: Text("Dispositivo: ${walletData['device']}"),
+                        trailing: IconButton(
+                          icon: const Icon(Icons.person_add_alt_1),
+                          onPressed: () => _addContact(walletData['id']!),
+                          tooltip: 'Aggiungi contatto',
+                        ),
+                      ),
+                    );
+                  },
+                ),
               ),
-            ),
           ],
         ),
       ),

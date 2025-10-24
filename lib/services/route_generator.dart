@@ -53,7 +53,10 @@ class RouteGenerator {
         }
         return _errorRoute();
       case '/addContactPage':
-        return MaterialPageRoute(builder: (context) => AddContactPage());
+        if (args is Wallet) {
+          return MaterialPageRoute(builder: (context) => AddContactPage(senderWallet: args));
+        }
+        return _errorRoute();
       default:
         return _errorRoute();
     }

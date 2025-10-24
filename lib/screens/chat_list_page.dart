@@ -13,7 +13,7 @@ class ChatListPage extends StatelessWidget {
       body: BuildUserList(senderWallet: senderWallet),
       floatingActionButton: FloatingActionButton(
         onPressed: (){
-          Navigator.pushNamed(context, "/addContactPage");
+          Navigator.pushNamed(context, "/addContactPage", arguments: senderWallet);
         },
         backgroundColor: Theme.of(context).colorScheme.primary,
         child: const Icon(Icons.add),
