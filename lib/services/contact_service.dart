@@ -40,26 +40,4 @@ class ContactService {
       return data;
     }).toList();
   }
-
-  /// Aggiunge un nuovo walletId alla lista dei contatti del solo senderWallet.
-  Future<void> addContact(String senderWalletId, String contactWalletId) async {
-    if (senderWalletId == contactWalletId) return;
-
-    final senderDocRef = _firestore.collection('wallets').doc(senderWalletId);
-    final contactDocRef = _firestore.collection('wallets').doc(contactWalletId);
-    await senderDocRef.update({
-      'contacts': FieldValue.arrayUnion([contactWalletId])
-    });
-
-    final contactSnap = await contactDocRef.get();
-    final contactData = contactSnap.data();
-
-    if (contactData == null) return;
-
-    List<dynamic> theirContacts = contactData['contacts'] ?? [];
-
-    // Se non c’è già il mittente, chiedi gentilmente all’altro client di aggiungerlo
-    // (se l’altro lato apre la chat o riceve un messaggio, lo aggiungerà)
-  }
-
 }

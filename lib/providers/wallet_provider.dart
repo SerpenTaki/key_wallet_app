@@ -55,7 +55,7 @@ class WalletProvider with ChangeNotifier {
     }
     final secureStorage = SecureStorage();
     try {
-      Wallet tempWallet = await Wallet.generateNew(walletName, selectedColor, hBytes, standard, device);
+      Wallet tempWallet = await Wallet.generateNew(userId, walletName, selectedColor, hBytes, standard, device);
       await secureStorage.writeSecureData(tempWallet.localKeyIdentifier, tempWallet.transientRawPrivateKey!); 
       tempWallet.transientRawPrivateKey = null;
 
@@ -79,6 +79,7 @@ class WalletProvider with ChangeNotifier {
       final Wallet finalWallet = Wallet(
         id: docRef.id,
         name: tempWallet.name,
+        userId: userId, // <-- CAMPO AGGIUNTO
         hBytes: hBytes,
         standard: standard,
         device: device,
@@ -111,11 +112,12 @@ class WalletProvider with ChangeNotifier {
       });
 
       final index = _wallets.indexWhere((wallet) => wallet.id == walletId);
-      if (index != -1) { // indexWhere restituisce -1 se non ci sono portafogli che soddisfano wallet.id == walletId
+      if (index != -1) { 
         final oldWallet = _wallets[index];
-        _wallets[index] = Wallet( // Costruisco un nuovo wallet per il principio di immutabilità di flutter
+        _wallets[index] = Wallet(
           id: oldWallet.id,
           name: oldWallet.name,
+          userId: oldWallet.userId,
           hBytes: oldWallet.hBytes,
           standard: oldWallet.standard,
           device: oldWallet.device,
@@ -124,7 +126,7 @@ class WalletProvider with ChangeNotifier {
           localKeyIdentifier: oldWallet.localKeyIdentifier,
           balance: newBalance,
         );
-        notifyListeners(); // Notifica Flutter che i dati sono stati aggiornati
+        notifyListeners();
       }
     } catch (e) {
       rethrow;

@@ -3,6 +3,7 @@ import 'package:key_wallet_app/models/wallet.dart';
 import 'package:key_wallet_app/services/contact_service.dart';
 import 'package:key_wallet_app/services/validators.dart';
 import 'package:key_wallet_app/services/nfc_services.dart';
+import 'package:key_wallet_app/screens/chat_page.dart';
 
 class AddContactPage extends StatefulWidget {
   final Wallet senderWallet;
@@ -110,19 +111,6 @@ class _AddContactPageState extends State<AddContactPage> {
     }
   }
 
-  Future<void> _addContact(String contactWalletId) async {
-    try {
-      await _contactService.addContact(widget.senderWallet.id, contactWalletId);
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Contatto aggiunto!"), backgroundColor: Colors.green),
-      );
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Errore durante l'aggiunta: $e")),
-      );
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -170,7 +158,7 @@ class _AddContactPageState extends State<AddContactPage> {
                   ),
                 ]
               )
-            else // questo non lo vedo mai
+            else 
               const Center(
                   child: Text("NFC non disponibile su questo dispositivo.", style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold))
               ),
@@ -191,9 +179,20 @@ class _AddContactPageState extends State<AddContactPage> {
                         title: Text(walletData['name'] ?? 'Senza nome'),
                         subtitle: Text("Dispositivo: ${walletData['device']}"),
                         trailing: IconButton(
-                          icon: const Icon(Icons.person_add_alt_1),
-                          onPressed: () => _addContact(walletData['id']!),
-                          tooltip: 'Aggiungi contatto',
+                          icon: const Icon(Icons.chat_bubble_outline),
+                          onPressed: () {
+                            final receiverWallet = Wallet.fromMap(walletData);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ChatPage(
+                                  senderWallet: widget.senderWallet,
+                                  receiverWallet: receiverWallet,
+                                ),
+                              ),
+                            );
+                          },
+                          tooltip: 'Inizia a chattare',
                         ),
                       ),
                     );

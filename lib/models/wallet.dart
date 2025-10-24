@@ -7,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Wallet {
   final String id;
   final String name;
+  final String userId; // <-- CAMPO AGGIUNTO
   final String publicKey;
   final String localKeyIdentifier;
   String? transientRawPrivateKey;
@@ -19,6 +20,7 @@ class Wallet {
   Wallet({
     required this.id,
     required this.name,
+    required this.userId, // <-- CAMPO AGGIUNTO
     required this.publicKey,
     required this.localKeyIdentifier,
     this.transientRawPrivateKey,
@@ -36,11 +38,11 @@ class Wallet {
       throw StateError('Dati mancanti per il documento Wallet con ID: ${doc.id}');
     }
     return Wallet(
-      id: doc.id, // Usa l'ID del documento Firestore
+      id: doc.id,
       name: data['name'] as String? ?? 'Wallet Senza Nome',
+      userId: data['userId'] as String? ?? '', // <-- CAMPO AGGIUNTO
       publicKey: data['publicKey'] as String? ?? '',
       localKeyIdentifier: data['localKeyIdentifier'] as String? ?? '',
-      // Usa la funzione helper per parsificare il colore dalla stringa
       color: _colorFromString(data['color'] as String?),
       hBytes: data['hBytes'] as String? ?? '',
       standard: data['standard'] as String? ?? '',
@@ -54,6 +56,7 @@ class Wallet {
     return Wallet(
       id: map['id'] as String? ?? '',
       name: map['name'] as String? ?? 'Wallet Senza Nome',
+      userId: map['userId'] as String? ?? '', // <-- CAMPO AGGIUNTO
       publicKey: map['publicKey'] as String? ?? '',
       localKeyIdentifier: map['localKeyIdentifier'] as String? ?? '',
       color: _colorFromString(map['color'] as String?),
@@ -69,7 +72,6 @@ class Wallet {
       return Colors.deepPurpleAccent;
     }
 
-    // Cerca di gestire il formato "Color(0xff...)"
     if (colorString.startsWith('Color(') && colorString.endsWith(')')) {
       try {
         final value = int.parse(colorString.substring(8, colorString.length - 1));
@@ -78,42 +80,38 @@ class Wallet {
     }
 
     try {
-      // Gestisce il formato "MaterialColor(primary value: Color(0xff...))"
       var re = RegExp(r'Color\(0x([0-9a-fA-F]+)\)');
       var match = re.firstMatch(colorString);
       if (match != null) {
         final value = int.parse(match.group(1)!, radix: 16);
         return Color(value);
       }
-      // Se nessun formato corrisponde, restituisce il colore di default
       return Colors.deepPurpleAccent;
     } catch (e) {
-      // In caso di errore di parsing, restituisce il colore di default
       return Colors.deepPurpleAccent;
     }
   }
 
 
-  static Future<Wallet> generateNew(String nome, Color selectedColor, String hBytes, String standard, String device) async {
+  static Future<Wallet> generateNew(String userId, String nome, Color selectedColor, String hBytes, String standard, String device) async {
     var uuid = const Uuid();
     final newLocalKeyIdentifier = uuid.v4();
 
-    // Generazione della coppia di chiavi RSA
     final keyPair = generateRSAkeyPair(getSecureRandom());
     final publicKeyObj = keyPair.publicKey as pointy.RSAPublicKey;
     final privateKeyObj = keyPair.privateKey as pointy.RSAPrivateKey;
 
-    // Conversione delle chiavi in stringhe
     String privateKeyString = privateKeyToString(privateKeyObj);
     String publicKeyString = publicKeyToString(publicKeyObj);
 
     return Wallet(
       id: newLocalKeyIdentifier,
       name: nome,
+      userId: userId, // <-- CAMPO AGGIUNTO
       publicKey: publicKeyString,
       localKeyIdentifier: newLocalKeyIdentifier,
       transientRawPrivateKey: privateKeyString,
-      color: selectedColor, // Usa il colore passato come argomento
+      color: selectedColor,
       hBytes: hBytes,
       standard: standard,
       device: device,

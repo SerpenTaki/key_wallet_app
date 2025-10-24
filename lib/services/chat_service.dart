@@ -11,35 +11,43 @@ class ChatService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  /// Ottiene un flusso dei soli wallet presenti nella lista 'contacts' del mittente.
-  Stream<List<Map<String, dynamic>>> getContactsStream(String senderWalletId) {
-    // Ritorna un flusso che ascolta le modifiche al documento del wallet mittente
-    return _firestore.collection('wallets').doc(senderWalletId).snapshots().asyncMap((senderDoc) async {
-      if (!senderDoc.exists) {
-        return <Map<String, dynamic>>[];
-      }
-      
-      final senderData = senderDoc.data();
-      // Controlla se il campo 'contacts' esiste e se è una lista.
-      if (senderData == null || senderData['contacts'] == null || senderData['contacts'] is! List) {
-          return <Map<String, dynamic>>[];
+  /// Ottiene un flusso di tutti i wallet con cui l'utente ha una conversazione attiva.
+  Stream<List<Map<String, dynamic>>> getConversationsStream(String senderWalletId) {
+    final currentUser = _auth.currentUser;
+    if (currentUser == null) {
+      return Stream.value([]);
+    }
+
+    return _firestore
+        .collection('chat_rooms')
+        .where('participantUids', arrayContains: currentUser.uid)
+        .snapshots()
+        .asyncMap((snapshot) async {
+      if (snapshot.docs.isEmpty) {
+        return [];
       }
 
-      final List<dynamic> contactIds = senderData['contacts'];
-      if (contactIds.isEmpty) {
-        return <Map<String, dynamic>>[];
+      final List<String> otherWalletIds = [];
+      for (var doc in snapshot.docs) {
+        final List<dynamic> participants = doc.data()['participants'];
+        final otherId = participants.firstWhere((id) => id != senderWalletId, orElse: () => null);
+        if (otherId != null && !otherWalletIds.contains(otherId)) {
+          otherWalletIds.add(otherId);
+        }
       }
 
-      // Recupera i documenti completi per gli ID dei contatti.
+      if (otherWalletIds.isEmpty) {
+        return [];
+      }
+
       final contactsSnapshot = await _firestore
           .collection('wallets')
-          .where(FieldPath.documentId, whereIn: contactIds)
+          .where(FieldPath.documentId, whereIn: otherWalletIds)
           .get();
 
-      // Mappa i documenti in una lista di dati per la UI.
       return contactsSnapshot.docs.map((doc) {
         final data = doc.data();
-        data['id'] = doc.id; // Assicura che l'ID del documento sia incluso
+        data['id'] = doc.id;
         return data;
       }).toList();
     });
@@ -47,7 +55,6 @@ class ChatService {
 
   // Invia un messaggio da un wallet a un altro
   Future<void> sendMessage(Wallet receiverWallet, Wallet senderWallet, String message) async{
-    // L'ID utente corrente per sapere chi ha inviato il messaggio
     final String currentUserId = _auth.currentUser!.uid;
     final Timestamp timestamp = Timestamp.now();
 
@@ -56,9 +63,8 @@ class ChatService {
     final RSAPublicKey senderKey = parsePublicKeyFromJsonString(senderWallet.publicKey);
     final encryptedForSender = rsaEncryptBase64(message, senderKey);
 
-    // Crea il nuovo messaggio
     final newMessage = Message(
-      currentUserID: currentUserId,
+      senderUserId: currentUserId,
       senderWalletId: senderWallet.id,
       receiverWalletId: receiverWallet.id,
       messageForReceiver: await encryptedForReceiver,
@@ -66,13 +72,19 @@ class ChatService {
       timestamp: timestamp,
     );
 
-    // Costruisce l'ID della chat room (ordinando gli ID dei wallet per coerenza)
     List<String> ids = [senderWallet.id, receiverWallet.id];
     ids.sort();
     String chatRoomId = ids.join("_");
+    
+    final chatRoomDocRef = _firestore.collection("chat_rooms").doc(chatRoomId);
 
-    // Aggiunge il nuovo messaggio alla sottocollezione 'messages' della chat room
-    await _firestore.collection("chat_rooms").doc(chatRoomId).collection("messages").add(newMessage.toMap());
+    await chatRoomDocRef.set({
+      'participants': ids, 
+      'participantUids': [senderWallet.userId, receiverWallet.userId], 
+      'last_updated': timestamp,
+    }, SetOptions(merge: true));
+
+    await chatRoomDocRef.collection("messages").add(newMessage.toMap());
   }
 
   // Ottiene il flusso di messaggi per una specifica chat room

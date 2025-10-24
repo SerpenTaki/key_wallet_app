@@ -14,31 +14,33 @@ class BuildUserList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: chatService.getContactsStream(senderWallet.id),
+      stream: chatService.getConversationsStream(senderWallet.id),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          return const Center(child: Text('Si è verificato un errore nel caricamento dei contatti.'));
+          print(snapshot.error);
+          return const Center(child: Text('Si è verificato un errore nel caricamento delle conversazioni.'));
         }
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
         }
         if (!snapshot.hasData || snapshot.data!.isEmpty) {
           return const Center(
-            child: Text("Nessun contatto trovato. Aggiungine uno!"),
+            child: Text("Nessuna conversazione trovata. Iniziane una!"),
           );
         }
 
         return ListView(
           children: snapshot.data!.map<Widget>((receiverWalletData) {
+            final receiverWallet = Wallet.fromMap(receiverWalletData);
             return UserTile(
-              text: receiverWalletData["name"],
+              text: receiverWallet.name,
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (context) => ChatPage(
                       senderWallet: senderWallet,
-                      receiverWallet: Wallet.fromMap(receiverWalletData),
+                      receiverWallet: receiverWallet,
                     ),
                   ),
                 );
