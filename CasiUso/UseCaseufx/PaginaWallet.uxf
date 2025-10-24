@@ -351,20 +351,6 @@ halign=center</panel_attributes>
     <additional_attributes>10.0;20.0;120.0;20.0</additional_attributes>
   </element>
   <element>
-    <id>UMLNote</id>
-    <coordinates>
-      <x>970</x>
-      <y>650</y>
-      <w>130</w>
-      <h>70</h>
-    </coordinates>
-    <panel_attributes>Bisogna ancora
-aggiungere molto
-qui
-bg=red</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
     <id>UMLActor</id>
     <coordinates>
       <x>170</x>
