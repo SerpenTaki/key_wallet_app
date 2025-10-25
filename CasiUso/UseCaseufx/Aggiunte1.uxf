@@ -71,18 +71,6 @@ halign=center</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
-    <id>UMLGeneric</id>
-    <coordinates>
-      <x>230</x>
-      <y>630</y>
-      <w>210</w>
-      <h>140</h>
-    </coordinates>
-    <panel_attributes>Key Wallet App
-halign=center</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
     <id>Relation</id>
     <coordinates>
       <x>160</x>
@@ -185,17 +173,6 @@ tramite scansione NFC</panel_attributes>
     </coordinates>
     <panel_attributes/>
     <additional_attributes>10.0;20.0;140.0;20.0</additional_attributes>
-  </element>
-  <element>
-    <id>UMLActor</id>
-    <coordinates>
-      <x>150</x>
-      <y>670</y>
-      <w>60</w>
-      <h>110</h>
-    </coordinates>
-    <panel_attributes>Utente</panel_attributes>
-    <additional_attributes/>
   </element>
   <element>
     <id>UMLGeneric</id>
@@ -329,18 +306,6 @@ inserimento email</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
-    <id>UMLUseCase</id>
-    <coordinates>
-      <x>250</x>
-      <y>660</y>
-      <w>180</w>
-      <h>80</h>
-    </coordinates>
-    <panel_attributes>U.C.18 Elimina chiave
-privata dal dispositivo</panel_attributes>
-    <additional_attributes/>
-  </element>
-  <element>
     <id>UMLGeneric</id>
     <coordinates>
       <x>230</x>
@@ -353,17 +318,6 @@ halign=center</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
-    <id>Relation</id>
-    <coordinates>
-      <x>170</x>
-      <y>680</y>
-      <w>100</w>
-      <h>40</h>
-    </coordinates>
-    <panel_attributes/>
-    <additional_attributes>10.0;20.0;80.0;20.0</additional_attributes>
-  </element>
-  <element>
     <id>UMLUseCase</id>
     <coordinates>
       <x>750</x>
@@ -371,7 +325,7 @@ halign=center</panel_attributes>
       <w>180</w>
       <h>80</h>
     </coordinates>
-    <panel_attributes>U.C.19 Recupera
+    <panel_attributes>U.C.18 Recupera
 Wallet</panel_attributes>
     <additional_attributes/>
   </element>
@@ -417,7 +371,7 @@ halign=center</panel_attributes>
       <w>180</w>
       <h>80</h>
     </coordinates>
-    <panel_attributes>U.C.19.1 Inserisci
+    <panel_attributes>U.C.18.1 Inserisci
 chiave privata</panel_attributes>
     <additional_attributes/>
   </element>
@@ -452,7 +406,7 @@ halign=center</panel_attributes>
       <w>180</w>
       <h>80</h>
     </coordinates>
-    <panel_attributes>U.C.19 Recupera
+    <panel_attributes>U.C.18 Recupera
 Wallet</panel_attributes>
     <additional_attributes/>
   </element>

@@ -31,7 +31,7 @@
       <w>180</w>
       <h>80</h>
     </coordinates>
-    <panel_attributes>U.C.20 Visualizza
+    <panel_attributes>U.C.19 Visualizza
 saldo wallet</panel_attributes>
     <additional_attributes/>
   </element>
@@ -55,7 +55,7 @@ halign=center</panel_attributes>
       <w>180</w>
       <h>80</h>
     </coordinates>
-    <panel_attributes>U.C.20 Visualizza
+    <panel_attributes>U.C.19 Visualizza
 saldo wallet</panel_attributes>
     <additional_attributes/>
   </element>
@@ -90,7 +90,7 @@ halign=center</panel_attributes>
       <w>180</w>
       <h>80</h>
     </coordinates>
-    <panel_attributes>U.C.20.1 Aggiungi
+    <panel_attributes>U.C.19.1 Aggiungi
 denaro al wallet</panel_attributes>
     <additional_attributes/>
   </element>
@@ -136,7 +136,7 @@ denaro al wallet</panel_attributes>
       <w>180</w>
       <h>80</h>
     </coordinates>
-    <panel_attributes>U.C.21 Invia denaro</panel_attributes>
+    <panel_attributes>U.C.20 Invia denaro</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
