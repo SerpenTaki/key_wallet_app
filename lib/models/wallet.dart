@@ -12,11 +12,11 @@ class Wallet {
   final String publicKey;
   final String localKeyIdentifier;
   String? transientRawPrivateKey;
-  Color? color;
-  String? hBytes;
-  String? standard;
-  String? device;
-  double? balance;
+  final Color color;
+  final String? hBytes;
+  final String? standard;
+  final String? device;
+  final double balance;
 
   Wallet({
     required this.id,
@@ -27,77 +27,60 @@ class Wallet {
     required this.localKeyIdentifier,
     this.transientRawPrivateKey,
     required this.color,
-    required this.hBytes,
-    required this.standard,
-    required this.device,
+    this.hBytes,
+    this.standard,
+    this.device,
     required this.balance,
   });
 
-  // Factory constructor per creare un'istanza di Wallet da un documento Firestore
   factory Wallet.fromFirestore(DocumentSnapshot<Map<String, dynamic>> doc) {
     final data = doc.data();
     if (data == null) {
       throw StateError('Dati mancanti per il documento Wallet con ID: ${doc.id}');
     }
-    return Wallet(
-      id: doc.id,
-      name: data['name'] as String? ?? 'Wallet Senza Nome',
-      userId: data['userId'] as String? ?? '',
-      email: data['email'] as String? ?? '',
-      publicKey: data['publicKey'] as String? ?? '',
-      localKeyIdentifier: data['localKeyIdentifier'] as String? ?? '',
-      color: _colorFromString(data['color'] as String?),
-      hBytes: data['hBytes'] as String? ?? '',
-      standard: data['standard'] as String? ?? '',
-      device: data['device'] as String? ?? '',
-      balance: data['balance'] as double? ?? 0.0,
-    );
+    return Wallet.fromMap(data, id: doc.id);
   }
 
-  // Factory constructor per creare un'istanza di Wallet da una mappa
-  factory Wallet.fromMap(Map<String, dynamic> map) {
+  factory Wallet.fromMap(Map<String, dynamic> map, {String? id}) {
     return Wallet(
-      id: map['id'] as String? ?? '',
+      id: id ?? map['id'] as String? ?? '',
       name: map['name'] as String? ?? 'Wallet Senza Nome',
       userId: map['userId'] as String? ?? '',
       email: map['email'] as String? ?? '',
       publicKey: map['publicKey'] as String? ?? '',
       localKeyIdentifier: map['localKeyIdentifier'] as String? ?? '',
       color: _colorFromString(map['color'] as String?),
-      hBytes: map['hBytes'] as String? ?? '',
-      standard: map['standard'] as String? ?? '',
-      device: map['device'] as String? ?? '',
-      balance: map['balance'] as double? ?? 0.0,
+      hBytes: map['hBytes'] as String?,
+      standard: map['standard'] as String?,
+      device: map['device'] as String?,
+      balance: (map['balance'] as num?)?.toDouble() ?? 0.0,
     );
   }
 
   static Color _colorFromString(String? colorString) {
     if (colorString == null) {
-      return Colors.deepPurpleAccent;
+      return Colors.deepPurpleAccent; // Default
     }
-
-    if (colorString.startsWith('Color(') && colorString.endsWith(')')) {
-      try {
-        final value = int.parse(colorString.substring(8, colorString.length - 1));
-        return Color(value);
-      } catch (e) { /* non fa nulla, prova il formato successivo */ }
+    final descriptiveMatch = RegExp(r'alpha: ([\d.]+), red: ([\d.]+), green: ([\d.]+), blue: ([\d.]+)').firstMatch(colorString);
+    if (descriptiveMatch != null) {
+        final alpha = double.parse(descriptiveMatch.group(1)!);
+        final red = double.parse(descriptiveMatch.group(2)!);
+        final green = double.parse(descriptiveMatch.group(3)!);
+        final blue = double.parse(descriptiveMatch.group(4)!);
+        return Color.fromRGBO(
+          (red * 255).round(),
+          (green * 255).round(),
+          (blue * 255).round(),
+          alpha,
+        );
     }
-
-    try {
-      var re = RegExp(r'Color\(0x([0-9a-fA-F]+)\)');
-      var match = re.firstMatch(colorString);
-      if (match != null) {
-        final value = int.parse(match.group(1)!, radix: 16);
-        return Color(value);
-      }
-      return Colors.deepPurpleAccent;
-    } catch (e) {
-      return Colors.deepPurpleAccent;
-    }
+    return Colors.deepPurpleAccent; // Default finale
   }
 
-
-  static Future<Wallet> generateNew(String userId, String email, String nome, Color selectedColor, String hBytes, String standard, String device) async {
+  static Future<Wallet> generateNew(
+    String userId, String email, String nome, Color selectedColor, 
+    String hBytes, String standard, String device
+  ) async {
     var uuid = const Uuid();
     final newLocalKeyIdentifier = uuid.v4();
 
@@ -109,7 +92,7 @@ class Wallet {
     String publicKeyString = publicKeyToString(publicKeyObj);
 
     return Wallet(
-      id: newLocalKeyIdentifier,
+      id: newLocalKeyIdentifier, 
       name: nome,
       userId: userId,
       email: email,
