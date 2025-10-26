@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:key_wallet_app/models/wallet.dart';
 import 'package:key_wallet_app/services/secure_storage.dart';
-import 'package:key_wallet_app/screens/ErrorScreens/key_not_found.dart';
+import 'package:key_wallet_app/screens/key_not_found.dart';
 import 'package:key_wallet_app/screens/keys_page.dart';
 import 'package:key_wallet_app/widgets/WalletDialog/delete_apple_wallet_alert.dart';
 import 'package:key_wallet_app/widgets/WalletDialog/delete_wallet_alert.dart';

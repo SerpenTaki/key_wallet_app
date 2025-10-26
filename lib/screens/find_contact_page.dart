@@ -6,18 +6,18 @@ import 'package:key_wallet_app/services/validators.dart';
 import 'package:key_wallet_app/services/nfc_services.dart';
 import 'package:key_wallet_app/screens/chat_page.dart';
 
-class AddContactPage extends StatefulWidget {
+class FindContactPage extends StatefulWidget {
   final Wallet senderWallet;
-  const AddContactPage({super.key, required this.senderWallet});
+  const FindContactPage({super.key, required this.senderWallet});
 
   @override
-  State<AddContactPage> createState() => _AddContactPageState();
+  State<FindContactPage> createState() => _FindContactPageState();
 }
 
-class _AddContactPageState extends State<AddContactPage> {
+class _FindContactPageState extends State<FindContactPage> {
   final TextEditingController _emailController = TextEditingController();
   final ContactService _contactService = ContactService();
-  final ChatService _chatService = ChatService(); // Istanza del ChatService
+  final ChatService _chatService = ChatService();
   List<Map<String, dynamic>> _searchResults = [];
   bool _isLoading = false;
   String hBytes = "";

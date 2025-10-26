@@ -11,7 +11,7 @@ class ChatService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  /// Ottiene un flusso di tutti i wallet con cui l'utente ha una conversazione attiva.
+  // Ottiene un flusso di tutti i wallet con cui l'utente ha una conversazione attiva.
   Stream<List<Map<String, dynamic>>> getConversationsStream(String senderWalletId) {
     final currentUser = _auth.currentUser;
     if (currentUser == null) {
@@ -53,7 +53,7 @@ class ChatService {
     });
   }
 
-  /// Crea il documento della chat room se non esiste già, usando un'operazione atomica.
+  // Crea il documento della chat room se non esiste già.
   Future<void> createConversationIfNotExists(Wallet wallet1, Wallet wallet2) async {
     List<String> walletIds = [wallet1.id, wallet2.id];
     walletIds.sort();

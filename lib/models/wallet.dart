@@ -7,7 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Wallet {
   final String id;
   final String name;
-  final String userId; // <-- CAMPO AGGIUNTO
+  final String userId;
   final String publicKey;
   final String localKeyIdentifier;
   String? transientRawPrivateKey;
@@ -20,7 +20,7 @@ class Wallet {
   Wallet({
     required this.id,
     required this.name,
-    required this.userId, // <-- CAMPO AGGIUNTO
+    required this.userId,
     required this.publicKey,
     required this.localKeyIdentifier,
     this.transientRawPrivateKey,
@@ -40,7 +40,7 @@ class Wallet {
     return Wallet(
       id: doc.id,
       name: data['name'] as String? ?? 'Wallet Senza Nome',
-      userId: data['userId'] as String? ?? '', // <-- CAMPO AGGIUNTO
+      userId: data['userId'] as String? ?? '',
       publicKey: data['publicKey'] as String? ?? '',
       localKeyIdentifier: data['localKeyIdentifier'] as String? ?? '',
       color: _colorFromString(data['color'] as String?),
@@ -56,7 +56,7 @@ class Wallet {
     return Wallet(
       id: map['id'] as String? ?? '',
       name: map['name'] as String? ?? 'Wallet Senza Nome',
-      userId: map['userId'] as String? ?? '', // <-- CAMPO AGGIUNTO
+      userId: map['userId'] as String? ?? '',
       publicKey: map['publicKey'] as String? ?? '',
       localKeyIdentifier: map['localKeyIdentifier'] as String? ?? '',
       color: _colorFromString(map['color'] as String?),
@@ -107,7 +107,7 @@ class Wallet {
     return Wallet(
       id: newLocalKeyIdentifier,
       name: nome,
-      userId: userId, // <-- CAMPO AGGIUNTO
+      userId: userId,
       publicKey: publicKeyString,
       localKeyIdentifier: newLocalKeyIdentifier,
       transientRawPrivateKey: privateKeyString,

@@ -79,7 +79,7 @@ class WalletProvider with ChangeNotifier {
       final Wallet finalWallet = Wallet(
         id: docRef.id,
         name: tempWallet.name,
-        userId: userId, // <-- CAMPO AGGIUNTO
+        userId: userId,
         hBytes: hBytes,
         standard: standard,
         device: device,
