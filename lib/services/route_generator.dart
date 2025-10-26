@@ -40,10 +40,12 @@ class RouteGenerator {
         }
         return _errorRoute();
       case '/chat':
-        if (args is Wallet) {
+        if (args is Map<String, Wallet>) {
           return MaterialPageRoute(
-            builder: (context) =>
-                ChatPage(senderWallet: args, receiverWallet: args),
+            builder: (context) => ChatPage(
+              senderWallet: args['senderWallet']!,
+              receiverWallet: args["receiverWallet"]!,
+            ),
           );
         }
         return _errorRoute();

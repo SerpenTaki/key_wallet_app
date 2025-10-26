@@ -4,7 +4,7 @@ import 'package:key_wallet_app/services/contact_service.dart';
 import 'package:key_wallet_app/services/chat_service.dart';
 import 'package:key_wallet_app/services/validators.dart';
 import 'package:key_wallet_app/services/nfc_services.dart';
-import 'package:key_wallet_app/screens/chat_page.dart';
+
 
 class FindContactPage extends StatefulWidget {
   final Wallet senderWallet;
@@ -184,22 +184,11 @@ class _FindContactPageState extends State<FindContactPage> {
                         trailing: IconButton(
                           icon: const Icon(Icons.chat_bubble_outline),
                           onPressed: () async {
-                            // --- INIZIO BLOCCO DI DEBUG ---
-                            print("DEBUG: ID Utente Mittente -> ${widget.senderWallet.userId}");
-                            print("DEBUG: ID Utente Destinatario -> ${receiverWallet.userId}");
-                            // --- FINE BLOCCO DI DEBUG ---
-
                             await _chatService.createConversationIfNotExists(widget.senderWallet, receiverWallet);
-
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ChatPage(
-                                  senderWallet: widget.senderWallet,
-                                  receiverWallet: receiverWallet,
-                                ),
-                              ),
-                            );
+                            Navigator.pushNamed(context, "/chat", arguments: {
+                              "senderWallet": widget.senderWallet,
+                              "receiverWallet": receiverWallet
+                            });
                           },
                           tooltip: 'Inizia a chattare',
                         ),

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:key_wallet_app/services/chat_service.dart';
 import 'package:key_wallet_app/widgets/chatWidgets/user_tile.dart';
 import 'package:key_wallet_app/models/wallet.dart';
-import 'package:key_wallet_app/screens/chat_page.dart';
 
 class BuildUserList extends StatelessWidget {
   final Wallet senderWallet;
@@ -17,7 +16,7 @@ class BuildUserList extends StatelessWidget {
       stream: chatService.getConversationsStream(senderWallet.id),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
-          print(snapshot.error);
+          //print(snapshot.error);
           return const Center(child: Text('Si è verificato un errore nel caricamento delle conversazioni.'));
         }
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -35,15 +34,7 @@ class BuildUserList extends StatelessWidget {
             return UserTile(
               text: receiverWallet.name,
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ChatPage(
-                      senderWallet: senderWallet,
-                      receiverWallet: receiverWallet,
-                    ),
-                  ),
-                );
+                Navigator.pushNamed(context, "/chat", arguments: {"senderWallet": senderWallet, "receiverWallet": receiverWallet});
               },
             );
           }).toList(),
