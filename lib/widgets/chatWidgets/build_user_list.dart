@@ -31,11 +31,15 @@ class BuildUserList extends StatelessWidget {
         return ListView(
           children: snapshot.data!.map<Widget>((receiverWalletData) {
             final receiverWallet = Wallet.fromMap(receiverWalletData);
-            return UserTile(
-              text: receiverWallet.name,
-              onTap: () {
-                Navigator.pushNamed(context, "/chat", arguments: {"senderWallet": senderWallet, "receiverWallet": receiverWallet});
-              },
+            return Card(
+              margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+              elevation: 4,
+              child: UserTile(
+                text: receiverWallet.name,
+                onTap: () {
+                  Navigator.pushNamed(context, "/chat", arguments: {"senderWallet": senderWallet, "receiverWallet": receiverWallet});
+                },
+              ),
             );
           }).toList(),
         );

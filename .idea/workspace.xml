@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fd9f324-4b81-479f-be21-42b0a387615a" name="Changes" comment="Primo commit">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/screens/find_contact_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/find_contact_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/route_generator.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/route_generator.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/widgets/chatWidgets/build_user_list.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/chatWidgets/build_user_list.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/chatWidgets/user_tile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/chatWidgets/user_tile.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +40,9 @@
     &quot;accountId&quot;: &quot;b64fd5a6-d50f-4418-a6ed-d427f7f9e268&quot;
   }
 }</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/lib/screens/find_contact_page.dart" root0="SKIP_INSPECTION" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 6
 }</component>
@@ -59,6 +63,7 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
+    "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "main",
     "io.flutter.reload.alreadyRun": "true",
     "last_opened_file_path": "/Users/serpentaki/Documents/key_wallet_app",
