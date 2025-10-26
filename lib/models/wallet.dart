@@ -8,6 +8,7 @@ class Wallet {
   final String id;
   final String name;
   final String userId;
+  final String email;
   final String publicKey;
   final String localKeyIdentifier;
   String? transientRawPrivateKey;
@@ -21,6 +22,7 @@ class Wallet {
     required this.id,
     required this.name,
     required this.userId,
+    required this.email,
     required this.publicKey,
     required this.localKeyIdentifier,
     this.transientRawPrivateKey,
@@ -41,6 +43,7 @@ class Wallet {
       id: doc.id,
       name: data['name'] as String? ?? 'Wallet Senza Nome',
       userId: data['userId'] as String? ?? '',
+      email: data['email'] as String? ?? '',
       publicKey: data['publicKey'] as String? ?? '',
       localKeyIdentifier: data['localKeyIdentifier'] as String? ?? '',
       color: _colorFromString(data['color'] as String?),
@@ -57,6 +60,7 @@ class Wallet {
       id: map['id'] as String? ?? '',
       name: map['name'] as String? ?? 'Wallet Senza Nome',
       userId: map['userId'] as String? ?? '',
+      email: map['email'] as String? ?? '',
       publicKey: map['publicKey'] as String? ?? '',
       localKeyIdentifier: map['localKeyIdentifier'] as String? ?? '',
       color: _colorFromString(map['color'] as String?),
@@ -93,7 +97,7 @@ class Wallet {
   }
 
 
-  static Future<Wallet> generateNew(String userId, String nome, Color selectedColor, String hBytes, String standard, String device) async {
+  static Future<Wallet> generateNew(String userId, String email, String nome, Color selectedColor, String hBytes, String standard, String device) async {
     var uuid = const Uuid();
     final newLocalKeyIdentifier = uuid.v4();
 
@@ -108,6 +112,7 @@ class Wallet {
       id: newLocalKeyIdentifier,
       name: nome,
       userId: userId,
+      email: email,
       publicKey: publicKeyString,
       localKeyIdentifier: newLocalKeyIdentifier,
       transientRawPrivateKey: privateKeyString,

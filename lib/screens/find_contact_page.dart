@@ -249,8 +249,11 @@ class _FindContactPageState extends State<FindContactPage> {
                       return Card(
                           margin: const EdgeInsets.symmetric(vertical: 8),
                           elevation: 4,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                           child: UserTile(
                             text: walletData["name"],
+                            subtext: walletData["email"],
+                            color: receiverWallet.color,
                             onTap: () async {
                               await _chatService.createConversationIfNotExists(
                                   widget.senderWallet, receiverWallet);

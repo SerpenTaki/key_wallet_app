@@ -33,9 +33,12 @@ class BuildUserList extends StatelessWidget {
             final receiverWallet = Wallet.fromMap(receiverWalletData);
             return Card(
               margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
               elevation: 4,
               child: UserTile(
                 text: receiverWallet.name,
+                subtext: receiverWallet.email,
+                color: receiverWallet.color,
                 onTap: () {
                   Navigator.pushNamed(context, "/chat", arguments: {"senderWallet": senderWallet, "receiverWallet": receiverWallet});
                 },

@@ -55,7 +55,7 @@ class WalletProvider with ChangeNotifier {
     }
     final secureStorage = SecureStorage();
     try {
-      Wallet tempWallet = await Wallet.generateNew(userId, walletName, selectedColor, hBytes, standard, device);
+      Wallet tempWallet = await Wallet.generateNew(userId, email, walletName, selectedColor, hBytes, standard, device);
       await secureStorage.writeSecureData(tempWallet.localKeyIdentifier, tempWallet.transientRawPrivateKey!); 
       tempWallet.transientRawPrivateKey = null;
 
@@ -80,6 +80,7 @@ class WalletProvider with ChangeNotifier {
         id: docRef.id,
         name: tempWallet.name,
         userId: userId,
+        email: email,
         hBytes: hBytes,
         standard: standard,
         device: device,
@@ -118,6 +119,7 @@ class WalletProvider with ChangeNotifier {
           id: oldWallet.id,
           name: oldWallet.name,
           userId: oldWallet.userId,
+          email: oldWallet.email,
           hBytes: oldWallet.hBytes,
           standard: oldWallet.standard,
           device: oldWallet.device,
