@@ -69,7 +69,7 @@ class ChatService {
         'participantUids': [wallet1.userId, wallet2.userId],
         'last_updated': FieldValue.serverTimestamp(),
       });
-      await sendMessage(wallet1, wallet2, "ciao ${wallet1.name}");
+      await sendMessage(wallet2, wallet1, "ciao ${wallet2.name}");
     } else {
       // Se esiste già, aggiorno solo il timestamp
       await chatRoomDocRef.set({
