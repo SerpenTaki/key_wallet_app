@@ -19,7 +19,7 @@ class _MoneyPageState extends State<MoneyPage> {
   @override
   void initState() {
     super.initState();
-    _currentBalance = widget.wallet.balance!;
+    _currentBalance = widget.wallet.balance;
   }
 
   Future<void> _showAddMoneyDialog() async {

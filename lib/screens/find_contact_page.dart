@@ -147,7 +147,7 @@ class _FindContactPageState extends State<FindContactPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Aggiungi Contatto',
+          'Cerca/Aggiungi Contatto',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,

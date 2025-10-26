@@ -16,7 +16,7 @@ class ChatListPage extends StatelessWidget {
           Navigator.pushNamed(context, "/findContactsPage", arguments: senderWallet);
         },
         backgroundColor: Theme.of(context).colorScheme.primary,
-        child: const Icon(Icons.add),
+        child: const Icon(Icons.person_add_alt_1_outlined),
       )
     );
   }
