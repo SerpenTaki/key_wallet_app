@@ -11,8 +11,61 @@
   <component name="ChangeListManager">
     <list default="true" id="4fd9f324-4b81-479f-be21-42b0a387615a" name="Changes" comment="Primo commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classi/PresentationLayer.uxf" beforeDir="false" afterPath="$PROJECT_DIR$/Classi/PresentationLayer.uxf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/find_contact_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/find_contact_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/U.C.11_1_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC10.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC10_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC11.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC12.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC13.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC14.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC15.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC16.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC16_1_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC17.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC17_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC18.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC18_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC1_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC1_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC1_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC2_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC2_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC2_3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC3.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC5.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC5_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC5_2_3_4.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC6.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC6_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC6_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC7_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC7_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC8.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC9.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC9_1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC9_2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCasePDF/Aggiunte1.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCasePDF/PaginaConversazione.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCasePDF/PaginaCreazioneWallet.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCasePDF/PaginaListaWallet.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCasePDF/PaginaWallet.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCasePDF/Registrazione.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCasePDF/login.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseufx/Aggiunte1.uxf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseufx/PaginaConversazione.uxf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseufx/PaginaCreazioneWallet.uxf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseufx/PaginaListaWallet.uxf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseufx/PaginaWallet.uxf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseufx/Registrazione.uxf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseufx/aggiunte2.uxf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseufx/login.uxf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classi/PresentationLayer.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classi/PresentationLayer.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classi/PresentationLayer.uxf" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,26 +108,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Flutter.main.dart.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "main",
-    "io.flutter.reload.alreadyRun": "true",
-    "last_opened_file_path": "/Users/serpentaki/Documents/key_wallet_app",
-    "settings.editor.selected.configurable": "AndroidSdkUpdater",
-    "show.migrate.to.gradle.popup": "false"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Flutter.main.dart.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/serpentaki/Documents/key_wallet_app&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;AndroidSdkUpdater&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/lib/services" />
