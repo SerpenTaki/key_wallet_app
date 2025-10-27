@@ -1,16 +1,23 @@
-import 'package:key_wallet_app/services/cryptography_gen.dart';
+import 'package:key_wallet_app/services/crypto_utils.dart';
 
-Future<bool> checkIfRight(String publicKey, String privateKeyString) async {
-  if (privateKeyString.trim().isEmpty) {
-    return false;
-  }
-  try {
-    const String testString = "ciao";
-    final dynamic encoded = await rsaEncryptBase64(testString, parsePublicKeyFromJsonString(publicKey));
-    final dynamic decoded = await rsaDecryptBase64(encoded, parsePrivateKeyFromJsonString(privateKeyString));
-    return decoded == testString;
-  } catch (e) {
-    //print("error: $e");
-    return false;
+class RecoverService {
+  Future<bool> checkIfRight(String publicKey, String privateKeyString) async {
+    final cryptoUtils = CryptoUtils();
+    if (privateKeyString
+        .trim()
+        .isEmpty) {
+      return false;
+    }
+    try {
+      const String testString = "ciao";
+      final dynamic encoded = await cryptoUtils.rsaEncryptBase64(
+          testString, cryptoUtils.parsePublicKeyFromJsonString(publicKey));
+      final dynamic decoded = await cryptoUtils.rsaDecryptBase64(
+          encoded, cryptoUtils.parsePrivateKeyFromJsonString(privateKeyString));
+      return decoded == testString;
+    } catch (e) {
+      //print("error: $e");
+      return false;
+    }
   }
 }

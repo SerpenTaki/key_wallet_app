@@ -13,6 +13,7 @@ class AuthPage extends StatefulWidget {
 class AuthPageState extends State<AuthPage> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
+  final validator = Validator();
   bool isLogin = true;
   final _formKey = GlobalKey<FormState>();
 
@@ -85,10 +86,10 @@ class AuthPageState extends State<AuthPage> {
                           keyboardType: TextInputType.emailAddress,
                           textInputAction: TextInputAction.next,
                           validator: (value) {
-                            if (emailValidator(value) == null) {
+                            if (validator.emailValidator(value) == null) {
                               return null;
                             }
-                            return emailValidator(value);
+                            return validator.emailValidator(value);
                           },
                           decoration: InputDecoration(
                             label: const Text("Email"),
@@ -103,10 +104,10 @@ class AuthPageState extends State<AuthPage> {
                         const SizedBox(height: 30),
                         TextFormField(
                           validator: (value) {
-                            if (passwordValidator(value) == null) {
+                            if (validator.passwordValidator(value) == null) {
                               return null;
                             }
-                            return passwordValidator(value);
+                            return validator.passwordValidator(value);
                           },
                           controller: _password,
                           obscureText: true,

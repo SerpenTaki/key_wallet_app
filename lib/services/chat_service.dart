@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:key_wallet_app/models/message.dart';
-import 'package:key_wallet_app/services/cryptography_gen.dart';
+import 'package:key_wallet_app/services/crypto_utils.dart';
 import 'package:key_wallet_app/models/wallet.dart';
 import 'package:pointycastle/asymmetric/api.dart';
 import 'package:key_wallet_app/services/secure_storage.dart';
@@ -81,16 +81,17 @@ class ChatService {
 
   // Invia un messaggio da un wallet a un altro
   Future<void> sendMessage(Wallet receiverWallet, Wallet senderWallet, String message) async{
+    final cryptoUtils = CryptoUtils();
     // Assicura che la conversazione esista prima di inviare un messaggio
     await createConversationIfNotExists(senderWallet, receiverWallet);
 
     final String currentUserId = _auth.currentUser!.uid;
     final Timestamp timestamp = Timestamp.now();
 
-    final RSAPublicKey receiverKey = parsePublicKeyFromJsonString(receiverWallet.publicKey);
-    final encryptedForReceiver = rsaEncryptBase64(message, receiverKey);
-    final RSAPublicKey senderKey = parsePublicKeyFromJsonString(senderWallet.publicKey);
-    final encryptedForSender = rsaEncryptBase64(message, senderKey);
+    final RSAPublicKey receiverKey = cryptoUtils.parsePublicKeyFromJsonString(receiverWallet.publicKey);
+    final encryptedForReceiver = cryptoUtils.rsaEncryptBase64(message, receiverKey);
+    final RSAPublicKey senderKey = cryptoUtils.parsePublicKeyFromJsonString(senderWallet.publicKey);
+    final encryptedForSender = cryptoUtils.rsaEncryptBase64(message, senderKey);
 
     final newMessage = Message(
       senderUserId: currentUserId,
@@ -126,13 +127,14 @@ class ChatService {
   // Funzione per decifrare un messaggio
   Future<String?> translateMessage(String message, Wallet wallet) async {
     final secureStorage = SecureStorage();
+    final CryptoUtils cryptoUtils = CryptoUtils();
     final walletPrivateKeyJson = await secureStorage.readSecureData(wallet.localKeyIdentifier);
     if (walletPrivateKeyJson == null) return "[ERRORE: nessuna chiave trovata]";
 
-    final RSAPrivateKey receiverKey = parsePrivateKeyFromJsonString(walletPrivateKeyJson);
+    final RSAPrivateKey receiverKey = cryptoUtils.parsePrivateKeyFromJsonString(walletPrivateKeyJson);
 
     try {
-      final decryptedMessage = await rsaDecryptBase64(message, receiverKey);
+      final decryptedMessage = await cryptoUtils.rsaDecryptBase64(message, receiverKey);
 
       if (decryptedMessage == null || decryptedMessage.isEmpty) {
         return "[Vuoto dopo decriptazione]";

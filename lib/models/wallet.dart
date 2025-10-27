@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
-import 'package:key_wallet_app/services/cryptography_gen.dart';
+import 'package:key_wallet_app/services/crypto_utils.dart';
 import 'package:pointycastle/asymmetric/api.dart' as pointy;
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -81,15 +81,16 @@ class Wallet {
     String userId, String email, String nome, Color selectedColor, 
     String hBytes, String standard, String device
   ) async {
+    final cryptoUtils = CryptoUtils();
     var uuid = const Uuid();
     final newLocalKeyIdentifier = uuid.v4();
 
-    final keyPair = generateRSAkeyPair(getSecureRandom());
+    final keyPair = cryptoUtils.generateRSAkeyPair(cryptoUtils.getSecureRandom());
     final publicKeyObj = keyPair.publicKey as pointy.RSAPublicKey;
     final privateKeyObj = keyPair.privateKey as pointy.RSAPrivateKey;
 
-    String privateKeyString = privateKeyToString(privateKeyObj);
-    String publicKeyString = publicKeyToString(publicKeyObj);
+    String privateKeyString = cryptoUtils.privateKeyToString(privateKeyObj);
+    String publicKeyString = cryptoUtils.publicKeyToString(publicKeyObj);
 
     return Wallet(
       id: newLocalKeyIdentifier, 

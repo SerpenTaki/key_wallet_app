@@ -317,13 +317,6 @@
             </list>
           </value>
         </entry>
-        <entry key="js">
-          <value>
-            <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/js-0.7.2/lib" />
-            </list>
-          </value>
-        </entry>
         <entry key="json_annotation">
           <value>
             <list>
@@ -474,7 +467,7 @@
         <entry key="pointycastle">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/pointycastle-3.9.1/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dev/pointycastle-4.0.0/lib" />
             </list>
           </value>
         </entry>
@@ -674,7 +667,6 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/http-1.5.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/http_parser-4.1.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/image-4.5.4/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/js-0.7.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/json_annotation-4.9.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/leak_tracker-11.0.2/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/leak_tracker_flutter_testing-3.0.10/lib" />
@@ -696,7 +688,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/petitparser-7.0.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/platform-3.1.6/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/plugin_platform_interface-2.1.8/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/pointycastle-3.9.1/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/pointycastle-4.0.0/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/posix-6.0.3/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/process-5.0.5/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dev/provider-6.1.5+1/lib" />

@@ -20,6 +20,7 @@ class _WalletRecoverPageState extends State<WalletRecoverPage> {
   bool _isNfcAvailable = false;
   bool _isScanning = false;
   final SecureStorage secureStorage = SecureStorage();
+  final recoverService = RecoverService();
   bool _isRecoverButtonEnabled = false;
 
   @override
@@ -52,7 +53,7 @@ class _WalletRecoverPageState extends State<WalletRecoverPage> {
       return;
     }
 
-    final bool isKeyValid = await checkIfRight(
+    final bool isKeyValid = await recoverService.checkIfRight(
       widget.wallet.publicKey,
       _privateKeyController.text,
     );

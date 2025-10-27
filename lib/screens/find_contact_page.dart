@@ -19,6 +19,7 @@ class _FindContactPageState extends State<FindContactPage> {
   final TextEditingController _emailController = TextEditingController();
   final ContactService _contactService = ContactService();
   final ChatService _chatService = ChatService();
+  final validator = Validator();
   List<Map<String, dynamic>> _searchResults = [];
   bool _isLoading = false;
   String hBytes = "";
@@ -172,7 +173,7 @@ class _FindContactPageState extends State<FindContactPage> {
                     keyboardType: TextInputType.emailAddress,
                     textInputAction: TextInputAction.search,
                     onFieldSubmitted: (_) => _searchWalletsEmail(),
-                    validator: (value) => emailValidator(value),
+                    validator: (value) => validator.emailValidator(value),
                     decoration: const InputDecoration(
                       labelText: "Email dell'utente",
                       border: OutlineInputBorder(),
