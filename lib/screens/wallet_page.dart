@@ -6,7 +6,6 @@ import 'package:key_wallet_app/screens/keys_page.dart';
 import 'package:key_wallet_app/widgets/WalletDialog/delete_apple_wallet_alert.dart';
 import 'package:key_wallet_app/widgets/WalletDialog/delete_wallet_alert.dart';
 import 'package:key_wallet_app/screens/chat_list_page.dart';
-import 'package:key_wallet_app/screens/money_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
 import 'package:key_wallet_app/providers/wallet_provider.dart';
@@ -84,7 +83,7 @@ class _WalletPageState extends State<WalletPage> {
       return KeyNotFound(wallet: widget.wallet,);
     } else {
       return DefaultTabController(
-        length: 3,
+        length: 2,
         child: Scaffold(
           appBar: AppBar(
             title: Text(
@@ -155,10 +154,6 @@ class _WalletPageState extends State<WalletPage> {
               unselectedLabelColor: Colors.grey,
               automaticIndicatorColorAdjustment: true,
               tabs: [
-                Tab(
-                  text: "Portfolio",
-                  icon: Icon(Icons.wallet_outlined),
-                ),
                 Tab(text: "Chat", icon: Icon(Icons.chat_outlined)),
                 Tab(text: 'Chiavi', icon: Icon(Icons.key_outlined)),
               ],
@@ -166,7 +161,6 @@ class _WalletPageState extends State<WalletPage> {
           ),
           body: TabBarView(
             children: [
-              MoneyPage(wallet: widget.wallet),
               ChatListPage(senderWallet: widget.wallet),
               KeysPage(
                 wallet: widget.wallet,
@@ -180,15 +174,3 @@ class _WalletPageState extends State<WalletPage> {
     }
   }
 }
-
-//IconButton(
-//icon: const Icon(Icons.science_outlined),
-//onPressed: () {
-//Navigator.push(
-// context,
-// MaterialPageRoute(
-//   builder: (context) => RsaTestPage(initialPrivateKeyString: privateKeyValue, initialPublicKeyString: widget.wallet.publicKey,),
-// ),
-// );
-//},
-//),

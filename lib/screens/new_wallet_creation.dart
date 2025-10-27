@@ -3,7 +3,6 @@ import 'dart:io' show Platform;
 import 'package:key_wallet_app/widgets/color_picker_dialog.dart';
 import 'package:key_wallet_app/services/nfc_services.dart';
 import 'package:provider/provider.dart';
-
 import '../providers/wallet_provider.dart';
 
 class NewWalletCreation extends StatefulWidget {

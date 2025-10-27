@@ -5,17 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fd9f324-4b81-479f-be21-42b0a387615a" name="Changes" comment="Primo commit">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/wallet.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/wallet.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/auth_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/auth_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/find_contact_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/find_contact_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/wallet_recover_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/wallet_recover_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/chat_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/chat_service.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/cryptography_gen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/CryptoUtils.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/recover_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/recover_service.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/validators.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/validators.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/money_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/money_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/new_wallet_creation.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/new_wallet_creation.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/wallet_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/wallet_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/MoneyAlertDialogs/add_money_alert_dialog.dart" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
