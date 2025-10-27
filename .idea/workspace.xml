@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AndroidLayouts">
+    <shared>
+      <config />
+    </shared>
+  </component>
   <component name="AutoImportSettings">
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fd9f324-4b81-479f-be21-42b0a387615a" name="Changes" comment="Primo commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/money_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/money_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/new_wallet_creation.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/new_wallet_creation.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/wallet_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/wallet_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/MoneyAlertDialogs/add_money_alert_dialog.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Classi/PresentationLayer.uxf" beforeDir="false" afterPath="$PROJECT_DIR$/Classi/PresentationLayer.uxf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/find_contact_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/find_contact_page.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

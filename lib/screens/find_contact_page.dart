@@ -147,19 +147,10 @@ class _FindContactPageState extends State<FindContactPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Cerca/Aggiungi Contatto',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
+        title: const Text('Cerca/Aggiungi Contatto', style: TextStyle(fontWeight: FontWeight.bold),),
         centerTitle: true,
-        backgroundColor: Theme
-            .of(context)
-            .colorScheme
-            .primary,
-        foregroundColor: Theme
-            .of(context)
-            .colorScheme
-            .inversePrimary,
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        foregroundColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -182,9 +173,7 @@ class _FindContactPageState extends State<FindContactPage> {
                 ),
                 const SizedBox(width: 8),
                 ElevatedButton.icon(
-                  onPressed: _emailController.text
-                      .trim()
-                      .isEmpty
+                  onPressed: _emailController.text.trim().isEmpty
                       ? null
                       : _searchWalletsEmail,
                   icon: const Icon(Icons.search),
