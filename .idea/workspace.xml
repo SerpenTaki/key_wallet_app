@@ -11,61 +11,9 @@
   <component name="ChangeListManager">
     <list default="true" id="4fd9f324-4b81-479f-be21-42b0a387615a" name="Changes" comment="Primo commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/U.C.11_1_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC10.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC10_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC11.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC12.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC13.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC14.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC15.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC16.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC16_1_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC17.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC17_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC18.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC18_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC1_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC1_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC1_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC2_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC2_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC2_3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC3.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC5.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC5_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC5_2_3_4.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC6.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC6_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC6_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC7.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC7_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC7_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC8.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC9.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC9_1.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseImg/UC9_2.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCasePDF/Aggiunte1.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCasePDF/PaginaConversazione.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCasePDF/PaginaCreazioneWallet.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCasePDF/PaginaListaWallet.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCasePDF/PaginaWallet.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCasePDF/Registrazione.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCasePDF/login.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseufx/Aggiunte1.uxf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseufx/PaginaConversazione.uxf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseufx/PaginaCreazioneWallet.uxf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseufx/PaginaListaWallet.uxf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseufx/PaginaWallet.uxf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseufx/Registrazione.uxf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseufx/aggiunte2.uxf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/CasiUso/UseCaseufx/login.uxf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classi/PresentationLayer.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classi/PresentationLayer.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Classi/PresentationLayer.uxf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Diagrammi/Classi/PresentationLayer.pdf" beforeDir="false" afterPath="$PROJECT_DIR$/Diagrammi/Classi/PresentationLayer.pdf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Diagrammi/Classi/PresentationLayer.svg" beforeDir="false" afterPath="$PROJECT_DIR$/Diagrammi/Classi/PresentationLayer.svg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Diagrammi/Classi/PresentationLayer.uxf" beforeDir="false" afterPath="$PROJECT_DIR$/Diagrammi/Classi/PresentationLayer.uxf" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
