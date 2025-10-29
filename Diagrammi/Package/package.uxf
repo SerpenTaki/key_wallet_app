@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="15.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLHierarchy</id>
+    <coordinates>
+      <x>20</x>
+      <y>20</y>
+      <w>290</w>
+      <h>340</h>
+    </coordinates>
+    <panel_attributes>type=Package
+lib
+	models
+	providers
+	screens
+	services
+	widgets
+		chatWidgets
+		KeysDialogs
+		WalletDialog
+		ColorPickerDialog
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>360</x>
+      <y>20</y>
+      <w>120</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>models
+--
+message.dart
+wallet.dart
+
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>360</x>
+      <y>120</y>
+      <w>170</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>wallet_provider
+--
+wallet_provider.dart
+
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>360</x>
+      <y>220</y>
+      <w>240</w>
+      <h>200</h>
+    </coordinates>
+    <panel_attributes>screens
+--
+auth_page.dart
+chat_list_page.dart
+chat_page.dart
+find_contact_page.dart
+key_not_found.dart
+keys_page.dart
+landing_page.dart
+new_wallet_creation.dart
+wallet_page.dart
+wallet_recover_page.dart
+
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>640</x>
+      <y>30</y>
+      <w>170</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>services
+--
+
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLPackage</id>
+    <coordinates>
+      <x>640</x>
+      <y>150</y>
+      <w>170</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>widgets
+--
+
+halign=left</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>
