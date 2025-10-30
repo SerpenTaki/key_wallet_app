@@ -24,7 +24,7 @@
 /dev/docs/pubspec.yaml
 /dev/integration_tests/**/xcuserdata
 /dev/integration_tests/**/Pods
-/packages/flutter/coverage/
+#/packages/flutter/coverage/
 version
 analysis_benchmark.json
 
