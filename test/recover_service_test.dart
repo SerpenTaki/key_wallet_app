@@ -39,4 +39,37 @@ void main() {
       expect(isMatch, isFalse);
     });
   });
+
+  group("Assicura che il ciclo di generazione e crittografia sia superiore al 95%;", (){
+    const int nCicli = 100;
+
+    test("Deve avere successo per $nCicli cicli di generazione e verifica", () async {
+      int count = 0;
+
+      for( int i = 0; i < nCicli; i++){
+      //Chiavi valide
+      final validKeyPair = cryptoUtils.generateRSAkeyPair(cryptoUtils.getSecureRandom());
+      final publicKey = validKeyPair.publicKey as pointy.RSAPublicKey;
+      final privateKey = validKeyPair.privateKey as pointy.RSAPrivateKey;
+      final publicKeyString = cryptoUtils.publicKeyToString(publicKey);
+      final privateKeyString = cryptoUtils.privateKeyToString(privateKey);
+
+      //Chiavi Sbagliate
+      final wrongKeyPair = cryptoUtils.generateRSAkeyPair(cryptoUtils.getSecureRandom());
+      final wrongPrivateKey = wrongKeyPair.privateKey as pointy.RSAPrivateKey;
+      final wrongPrivateKeyString = cryptoUtils.privateKeyToString(wrongPrivateKey);
+
+      final bool isCorrectMatch = await recoverService.checkIfRight(publicKeyString, privateKeyString);
+      final bool isWrongMatch = await recoverService.checkIfRight(publicKeyString, wrongPrivateKeyString);
+
+      if (isCorrectMatch == true && isWrongMatch == false){
+        count++;
+      }else{
+        fail('Il ciclo di test #${i + 1} è fallito. Corretta: $isCorrectMatch, Sbagliata: $isWrongMatch');
+      }
+    }
+      print("Accutatezza del test: ${(count / nCicli)*100} % su $nCicli cicli di generazione e verifica");
+      expect(count, greaterThanOrEqualTo(nCicli*0.95));
+    });
+  });
 }
