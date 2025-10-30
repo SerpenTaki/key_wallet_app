@@ -10,8 +10,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fd9f324-4b81-479f-be21-42b0a387615a" name="Changes" comment="Primo commit">
+      <change afterPath="$PROJECT_DIR$/integration_test/integration_test.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/recover_service_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/recover_service_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/crypto_utils_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/UnitTest/crypto_utils_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/recover_service_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/UnitTest/recover_service_test.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,17 +81,28 @@
       <recent name="$PROJECT_DIR$/lib/services" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/test/UnitTest" />
       <recent name="$PROJECT_DIR$/lib/screens" />
       <recent name="$PROJECT_DIR$/lib/widgets/WalletDialog" />
       <recent name="$PROJECT_DIR$/lib/services" />
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Flutter Test.tests in integration_test.dart">
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
       <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
       <method v="2" />
     </configuration>
+    <configuration name="tests in integration_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testFile" value="$PROJECT_DIR$/integration_test/integration_test.dart" />
+      <option name="useRegexp" value="false" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Flutter Test.tests in integration_test.dart" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
