@@ -10,7 +10,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fd9f324-4b81-479f-be21-42b0a387615a" name="Changes" comment="Primo commit">
-      <change beforePath="$PROJECT_DIR$/integration_test/integration_test.dart" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/UnitTest/Services/route_generator_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/crypto_utils.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/crypto_utils.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/UnitTest/crypto_utils_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/UnitTest/Services/crypto_utils_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/UnitTest/recover_service_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/UnitTest/Services/recover_service_test.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +62,9 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Flutter Test.convertKeysToBase64String.executor": "Run",
     "Flutter Test.tests in integration_test.dart.executor": "Run",
+    "Flutter Test.tests in route_generator_test.dart.executor": "Run",
     "Flutter Test.tests in wallet_generation_performance_test.dart.executor": "Run",
     "Flutter.main.dart.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
@@ -71,6 +80,9 @@
     "git-widget-placeholder": "main",
     "io.flutter.reload.alreadyRun": "true",
     "last_opened_file_path": "/Users/serpentaki/Documents/key_wallet_app",
+    "project.structure.last.edited": "Global Libraries",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "AndroidSdkUpdater",
     "show.migrate.to.gradle.popup": "false"
   }
@@ -80,20 +92,31 @@
       <recent name="$PROJECT_DIR$/lib/services" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/test/UnitTest/Services" />
       <recent name="$PROJECT_DIR$/test/UnitTest" />
       <recent name="$PROJECT_DIR$/lib/screens" />
       <recent name="$PROJECT_DIR$/lib/widgets/WalletDialog" />
       <recent name="$PROJECT_DIR$/lib/services" />
-      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Flutter Test.tests in wallet_generation_performance_test.dart">
+  <component name="RunManager" selected="Flutter Test.tests in route_generator_test.dart">
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
       <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
       <method v="2" />
     </configuration>
+    <configuration name="convertKeysToBase64String" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="convertKeysToBase64String" />
+      <option name="testFile" value="$PROJECT_DIR$/test/UnitTest/crypto_utils_test.dart" />
+      <option name="useRegexp" value="false" />
+      <method v="2" />
+    </configuration>
     <configuration name="tests in integration_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
       <option name="testFile" value="$PROJECT_DIR$/integration_test/integration_test.dart" />
+      <option name="useRegexp" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="tests in route_generator_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testFile" value="$PROJECT_DIR$/test/UnitTest/Services/route_generator_test.dart" />
       <option name="useRegexp" value="false" />
       <method v="2" />
     </configuration>
@@ -104,6 +127,8 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Flutter Test.tests in route_generator_test.dart" />
+        <item itemvalue="Flutter Test.convertKeysToBase64String" />
         <item itemvalue="Flutter Test.tests in wallet_generation_performance_test.dart" />
         <item itemvalue="Flutter Test.tests in integration_test.dart" />
       </list>

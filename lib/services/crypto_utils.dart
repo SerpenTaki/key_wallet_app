@@ -98,15 +98,11 @@ class CryptoUtils {
     return RSAPrivateKey(modulus, privateExponent, p, q);
   }
 
-  String convertPublicKeyToBase64String(String publicKey) {
-    return base64Encode(utf8.encode(publicKey));
+  String convertKeyToBase64String(String key) {
+    return base64Encode(utf8.encode(key));
   }
 
-  String convertPrivateKeyToBase64String(String privateKey) {
-    return base64Encode(utf8.encode(privateKey));
-  }
-
-  String convertBase64StringToKey(String base64String) {
+  String convertBase64ToString(String base64String) {
     return utf8.decode(base64Decode(base64String));
   }
 }

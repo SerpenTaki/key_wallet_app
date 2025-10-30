@@ -84,4 +84,39 @@ void main() {
     });
 
   });
+
+  group("convertKeysToBase64String", () {
+    late pointy.RSAPrivateKey privateKey;
+    late pointy.RSAPublicKey publicKey;
+
+    setUp(() {
+      final keypair = cryptoUtils.generateRSAkeyPair(cryptoUtils.getSecureRandom());
+      publicKey = keypair.publicKey as pointy.RSAPublicKey;
+      privateKey = keypair.privateKey as pointy.RSAPrivateKey;
+    });
+
+    test('convert to base64 from string', () {
+      String publicKeyString = cryptoUtils.publicKeyToString(publicKey);
+      String privateKeyString = cryptoUtils.privateKeyToString(privateKey);
+
+      String encodedPublicKey = cryptoUtils.convertKeyToBase64String(publicKeyString);
+      String encodedPrivateKey = cryptoUtils.convertKeyToBase64String(privateKeyString);
+
+      expect(encodedPublicKey, isNotNull);
+      expect(encodedPrivateKey, isNotNull);
+      expect(encodedPublicKey, isNotEmpty);
+      expect(encodedPrivateKey, isNotEmpty);
+
+      String decodedPublicKey = cryptoUtils.convertBase64ToString(encodedPublicKey);
+      String decodedPrivateKey = cryptoUtils.convertBase64ToString(encodedPrivateKey);
+
+      expect(decodedPublicKey, isNotNull);
+      expect(decodedPrivateKey, isNotNull);
+      expect(decodedPublicKey, isNotEmpty);
+      expect(decodedPrivateKey, isNotEmpty);
+      expect(decodedPublicKey, equals(publicKeyString));
+      expect(decodedPrivateKey, equals(privateKeyString));
+
+    });
+  });
 }
