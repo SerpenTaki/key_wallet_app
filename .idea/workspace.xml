@@ -10,10 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fd9f324-4b81-479f-be21-42b0a387615a" name="Changes" comment="Primo commit">
-      <change afterPath="$PROJECT_DIR$/integration_test/integration_test.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/crypto_utils_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/UnitTest/crypto_utils_test.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/recover_service_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/UnitTest/recover_service_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/integration_test/integration_test.dart" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,6 +55,8 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Flutter Test.tests in integration_test.dart.executor": "Run",
+    "Flutter Test.tests in wallet_generation_performance_test.dart.executor": "Run",
     "Flutter.main.dart.executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
@@ -88,7 +87,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Flutter Test.tests in integration_test.dart">
+  <component name="RunManager" selected="Flutter Test.tests in wallet_generation_performance_test.dart">
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
       <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
       <method v="2" />
@@ -98,8 +97,14 @@
       <option name="useRegexp" value="false" />
       <method v="2" />
     </configuration>
+    <configuration name="tests in wallet_generation_performance_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testFile" value="$PROJECT_DIR$/integration_test/wallet_generation_performance_test.dart" />
+      <option name="useRegexp" value="false" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Flutter Test.tests in wallet_generation_performance_test.dart" />
         <item itemvalue="Flutter Test.tests in integration_test.dart" />
       </list>
     </recent_temporary>

@@ -24,11 +24,9 @@ void main() {
       const Duration timeThreshold = Duration(seconds: 2); // Soglia di 2 secondi
 
       // Misuriamo il tempo di esecuzione
-      final stopwatch = Stopwatch()..start(); // Avvia il cronometro
+      final stopwatch = Stopwatch()..start();
 
-      // --- AZIONE: Esegui la funzione da testare ---
-      // Usiamo direttamente il metodo statico di Wallet che contiene tutta la logica.
-      // Questo testa la parte più "pesante": la generazione delle chiavi crittografiche.
+      // --- Esegui la funzione da testare ---
       final Wallet newWallet = await Wallet.generateNew(
         testUserId,
         testEmail,
