@@ -10,14 +10,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fd9f324-4b81-479f-be21-42b0a387615a" name="Changes" comment="Primo commit">
-      <change afterPath="$PROJECT_DIR$/test/UnitTest/Services/route_generator_test.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/deviceStreaming.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/UnitTest/Widgets/color_picker_dialog.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/crypto_utils.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/crypto_utils.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/UnitTest/crypto_utils_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/UnitTest/Services/crypto_utils_test.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/UnitTest/recover_service_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/UnitTest/Services/recover_service_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/UnitTest/Services/route_generator_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/UnitTest/Services/route_generator_test.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,6 +59,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Flutter Test.convertKeysToBase64String.executor": "Run",
+    "Flutter Test.tests in color_picker_dialog.dart.executor": "Run",
     "Flutter Test.tests in integration_test.dart.executor": "Run",
     "Flutter Test.tests in route_generator_test.dart.executor": "Run",
     "Flutter Test.tests in wallet_generation_performance_test.dart.executor": "Run",
@@ -99,7 +96,7 @@
       <recent name="$PROJECT_DIR$/lib/services" />
     </key>
   </component>
-  <component name="RunManager" selected="Flutter Test.tests in route_generator_test.dart">
+  <component name="RunManager" selected="Flutter Test.tests in color_picker_dialog.dart">
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
       <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
       <method v="2" />
@@ -107,6 +104,11 @@
     <configuration name="convertKeysToBase64String" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
       <option name="testName" value="convertKeysToBase64String" />
       <option name="testFile" value="$PROJECT_DIR$/test/UnitTest/crypto_utils_test.dart" />
+      <option name="useRegexp" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="tests in color_picker_dialog.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testFile" value="$PROJECT_DIR$/test/UnitTest/Widgets/color_picker_dialog.dart" />
       <option name="useRegexp" value="false" />
       <method v="2" />
     </configuration>
@@ -127,6 +129,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Flutter Test.tests in color_picker_dialog.dart" />
         <item itemvalue="Flutter Test.tests in route_generator_test.dart" />
         <item itemvalue="Flutter Test.convertKeysToBase64String" />
         <item itemvalue="Flutter Test.tests in wallet_generation_performance_test.dart" />

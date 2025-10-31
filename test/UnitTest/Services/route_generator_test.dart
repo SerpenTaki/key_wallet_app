@@ -19,7 +19,7 @@ Wallet createMockWallet(String id) {
     userId: 'mock_user_id',
     email: 'mock@test.com',
     publicKey: 'mock_public_key',
-    localKeyIdentifier: 'mock_local_id',
+    localKeyIdentifier: 'mock_local_id', //
     color: Colors.blue,
     balance: 0.0,
   );
