@@ -10,10 +10,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fd9f324-4b81-479f-be21-42b0a387615a" name="Changes" comment="Primo commit">
-      <change afterPath="$PROJECT_DIR$/test/UnitTest/Widgets/color_picker_dialog.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/services/i_auth.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/services/i_chat_service.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/services/i_nfc_service.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/services/nfc_kit_wrapper.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/UnitTest/Services/auth_test.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/UnitTest/Services/nfc_services_test.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/UnitTest/Services/secure_storage_test.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/UnitTest/Services/validators_test.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/UnitTest/WidgetTest/landing_page_test.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/UnitTest/Services/route_generator_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/UnitTest/Services/route_generator_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/coverage_fix.sh" beforeDir="false" afterPath="$PROJECT_DIR$/coverage_fix.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/landing_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/landing_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/auth.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/auth.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/chat_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/chat_service.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/nfc_services.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/nfc_services.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/secure_storage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/secure_storage.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/validators.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/validators.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/UnitTest/Widgets/color_picker_dialog.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/UnitTest/WidgetTest/color_picker_dialog.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +111,7 @@
       <recent name="$PROJECT_DIR$/lib/services" />
     </key>
   </component>
-  <component name="RunManager" selected="Flutter Test.tests in color_picker_dialog.dart">
+  <component name="RunManager" selected="Flutter.main.dart">
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
       <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
       <method v="2" />

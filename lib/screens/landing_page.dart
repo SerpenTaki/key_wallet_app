@@ -1,10 +1,10 @@
 import 'dart:async';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:key_wallet_app/services/auth.dart';
+import 'package:key_wallet_app/services/i_auth.dart';
 import 'package:key_wallet_app/providers/wallet_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -15,12 +15,13 @@ class LandingPage extends StatefulWidget {
 
 class _LandingPageState extends State<LandingPage> {
   StreamSubscription<User?>? _authSubscription;
-  final Auth _authService = Auth(); // Istanza del servizio Auth
 
   @override
   void initState() {
     super.initState();
-    _authSubscription = _authService.authStateChanges.listen((User? user) {
+    final authService = context.read<IAuth>();
+
+    _authSubscription = authService.authStateChanges.listen((User? user) {
       if (!mounted) return;
       final walletProvider = Provider.of<WalletProvider>(
         context,
@@ -35,7 +36,8 @@ class _LandingPageState extends State<LandingPage> {
   }
 
   Future<void> _refreshData() async {
-    final user = _authService.currentUser;
+    final authService = context.read<IAuth>();
+    final user = authService.currentUser;
     if (user != null) {
       await Provider.of<WalletProvider>(
         context,
@@ -51,7 +53,8 @@ class _LandingPageState extends State<LandingPage> {
   }
 
   Future<void> signOut() async {
-    await _authService.signOut();
+    final authService = context.read<IAuth>();
+    await authService.signOut();
   }
 
   //Il body cambia in base a 3 condizioni, se si sta aspettando il caricamento, se il database per l'utente è vuoto
@@ -153,7 +156,8 @@ class _LandingPageState extends State<LandingPage> {
       floatingActionButton: FloatingActionButton(
         heroTag: 'addWallet',
         onPressed: () async {
-          final user = _authService.currentUser;
+          final authService = context.read<IAuth>();
+          final user = authService.currentUser;
           if (user == null) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(

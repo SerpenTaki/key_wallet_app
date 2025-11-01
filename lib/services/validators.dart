@@ -25,7 +25,7 @@ class Validator {
       return 'Inserisci una password';
     }
     if (value.length < minLength) {
-      return 'La password non valida';
+      return 'Password non valida';
     }
     return null;
   }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/services.dart';
+import 'package:key_wallet_app/services/i_auth.dart';
 import 'package:key_wallet_app/services/route_generator.dart';
 import 'package:key_wallet_app/services/auth.dart';
 import 'package:key_wallet_app/screens/landing_page.dart';
@@ -23,20 +24,18 @@ void main() async {
   ]);
   runApp(
     MultiProvider(
-        providers: [ChangeNotifierProvider(create: (_) => WalletProvider())],
-        child: MyApp(),
+        providers: [
+          ChangeNotifierProvider(create: (_) => WalletProvider()),
+          Provider<IAuth>(create: (_) => Auth()), //Fornisce un'unica istanza di autenticazione
+        ],
+        child: const  MyApp(),
     )
   );
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -49,7 +48,7 @@ class _MyAppState extends State<MyApp> {
       ),
       themeMode: ThemeMode.system, // o ThemeMode.light o ThemeMode.dark
       home: StreamBuilder(
-        stream: Auth().authStateChanges,
+        stream: context.watch<IAuth>().authStateChanges,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             return LandingPage();

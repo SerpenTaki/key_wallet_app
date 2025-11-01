@@ -5,13 +5,15 @@ import 'package:key_wallet_app/services/crypto_utils.dart';
 import 'package:key_wallet_app/models/wallet.dart';
 import 'package:pointycastle/asymmetric/api.dart';
 import 'package:key_wallet_app/services/secure_storage.dart';
+import 'package:key_wallet_app/services/i_chat_service.dart';
 
 
-class ChatService {
+class ChatService implements IChatService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
   // Ottiene un flusso di tutti i wallet con cui l'utente ha una conversazione attiva.
+  @override
   Stream<List<Map<String, dynamic>>> getConversationsStream(String senderWalletId) {
     final currentUser = _auth.currentUser;
     if (currentUser == null) {
@@ -54,6 +56,7 @@ class ChatService {
   }
 
   // Crea il documento della chat room se non esiste già.
+  @override
   Future<void> createConversationIfNotExists(Wallet wallet1, Wallet wallet2) async {
     List<String> walletIds = [wallet1.id, wallet2.id];
     walletIds.sort();
@@ -80,6 +83,7 @@ class ChatService {
 
 
   // Invia un messaggio da un wallet a un altro
+  @override
   Future<void> sendMessage(Wallet receiverWallet, Wallet senderWallet, String message) async{
     final cryptoUtils = CryptoUtils();
     // Assicura che la conversazione esista prima di inviare un messaggio
@@ -111,6 +115,7 @@ class ChatService {
   }
 
   // Ottiene il flusso di messaggi per una specifica chat room
+  @override
   Stream<QuerySnapshot> getMessages(Wallet senderWallet, Wallet receiverWallet) {
     List<String> ids = [senderWallet.id, receiverWallet.id];
     ids.sort();
@@ -125,6 +130,7 @@ class ChatService {
   }
 
   // Funzione per decifrare un messaggio
+  @override
   Future<String?> translateMessage(String message, Wallet wallet) async {
     final secureStorage = SecureStorage();
     final CryptoUtils cryptoUtils = CryptoUtils();

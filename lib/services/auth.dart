@@ -1,22 +1,36 @@
+import 'package:key_wallet_app/services/i_auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-class Auth{
-  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance; //abbiamo aperto un istanza di firebaseauth che si occupa dell' autenticazione
-  User? get currentUser => _firebaseAuth.currentUser; //prendiamo il nostro utente
-  Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges(); //prendiamo lo stato dell'utente
+class Auth implements IAuth {
+  final FirebaseAuth _firebaseAuth;
 
+  Auth({FirebaseAuth? firebaseAuth})
+      : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
 
-  Future<void> signInWithEmailAndPassword({required String email, required String password}) async{ //gli passo una mappa con email e password
+  @override
+  User? get currentUser => _firebaseAuth.currentUser;
+
+  @override
+  Stream<User?> get authStateChanges => _firebaseAuth.authStateChanges();
+
+  @override
+  Future<void> signInWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
     await _firebaseAuth.signInWithEmailAndPassword(email: email, password: password);
-
   }
 
-  Future<void> createUserWithEmailAndPassword({required String email, required String password}) async{ //gli passo una mappa con email e password
+  @override
+  Future<void> createUserWithEmailAndPassword({
+    required String email,
+    required String password,
+  }) async {
     await _firebaseAuth.createUserWithEmailAndPassword(email: email, password: password);
   }
 
-  Future<void> signOut() async{
+  @override
+  Future<void> signOut() async {
     await _firebaseAuth.signOut();
   }
-
 }
