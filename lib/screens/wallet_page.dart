@@ -8,7 +8,7 @@ import 'package:key_wallet_app/widgets/WalletDialog/delete_wallet_alert.dart';
 import 'package:key_wallet_app/screens/chat_list_page.dart';
 import 'package:flutter/foundation.dart';
 import 'package:provider/provider.dart';
-import 'package:key_wallet_app/providers/wallet_provider.dart';
+import 'package:key_wallet_app/services/i_wallet_service.dart';
 
 class WalletPage extends StatefulWidget {
   const WalletPage({super.key, required this.wallet});
@@ -119,7 +119,7 @@ class _WalletPageState extends State<WalletPage> {
                         widget.wallet.localKeyIdentifier,
                       );
                       if (mounted) {
-                        await Provider.of<WalletProvider>(
+                        await Provider.of<IWalletService>(
                           context,
                           listen: false,
                         ).deleteWalletDBandList(widget.wallet);

@@ -3,16 +3,26 @@ import 'package:flutter/cupertino.dart';
 import 'package:key_wallet_app/models/wallet.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:key_wallet_app/services/secure_storage.dart';
+import 'package:key_wallet_app/services/i_wallet_service.dart';
 
-class WalletProvider with ChangeNotifier {
+class WalletService with ChangeNotifier implements IWalletService{
   final List<Wallet> _wallets = [];
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseFirestore _firestore;
+  final SecureStorage _secureStorage;
+
+  WalletService({FirebaseFirestore? firestore, SecureStorage? secureStorage})
+  : _firestore = firestore ?? FirebaseFirestore.instance,
+    _secureStorage = secureStorage ?? SecureStorage();
+
 
   bool _isLoading = false; 
-  bool get isLoading => _isLoading; 
+  @override
+  bool get isLoading => _isLoading;
 
+  @override
   List<Wallet> get wallets => List.unmodifiable(_wallets);
 
+  @override
   Future<void> fetchUserWallets(String userId) async {
     _isLoading = true;
     notifyListeners();
@@ -34,6 +44,7 @@ class WalletProvider with ChangeNotifier {
     }
   }
 
+  @override
   Future<bool> checkIfWalletExists(String hBytes, String userId) async {
     if (hBytes.isEmpty) return false;
     try {
@@ -49,14 +60,14 @@ class WalletProvider with ChangeNotifier {
     }
   }
 
+  @override
   Future<void> generateAndAddWallet(String userId, String email, String walletName, Color selectedColor, String hBytes, String standard, String device) async {
     if (userId.isEmpty) {
       return;
     }
-    final secureStorage = SecureStorage();
     try {
       Wallet tempWallet = await Wallet.generateNew(userId, email, walletName, selectedColor, hBytes, standard, device);
-      await secureStorage.writeSecureData(tempWallet.localKeyIdentifier, tempWallet.transientRawPrivateKey!); 
+      await _secureStorage.writeSecureData(tempWallet.localKeyIdentifier, tempWallet.transientRawPrivateKey!);
       tempWallet.transientRawPrivateKey = null;
 
       Map<String, dynamic> walletDataForFirestore = {
@@ -96,6 +107,7 @@ class WalletProvider with ChangeNotifier {
     }
   }
 
+  @override
   Future<void> deleteWalletDBandList(Wallet wallet) async {
     try {
       await _firestore.collection('wallets').doc(wallet.id).delete();
@@ -106,6 +118,7 @@ class WalletProvider with ChangeNotifier {
     }
   }
   
+  @override
   Future<void> updateBalance(String walletId, double newBalance) async {
     try {
       await _firestore.collection('wallets').doc(walletId).update({

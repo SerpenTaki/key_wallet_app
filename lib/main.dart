@@ -8,9 +8,12 @@ import 'package:key_wallet_app/screens/landing_page.dart';
 import 'package:key_wallet_app/screens/auth_page.dart';
 import 'services/firebase_options.dart';
 import 'package:provider/provider.dart';
-import 'package:key_wallet_app/providers/wallet_provider.dart';
+import 'package:key_wallet_app/services/i_wallet_service.dart';
+import 'package:key_wallet_app/services/wallet_service.dart';
 import 'package:key_wallet_app/services/i_chat_service.dart';
 import 'package:key_wallet_app/services/chat_service.dart';
+import 'package:key_wallet_app/services/i_contact_service.dart';
+import 'package:key_wallet_app/services/contact_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,9 +30,10 @@ void main() async {
   runApp(
     MultiProvider(
         providers: [
-          ChangeNotifierProvider(create: (_) => WalletProvider()),
-          Provider<IAuth>(create: (_) => Auth()), //Fornisce un'unica istanza di autenticazione
+          ChangeNotifierProvider<IWalletService>(create: (_) => WalletService()),
+          Provider<IAuth>(create: (_) => Auth()),
           Provider<IChatService>(create: (_) => ChatService()),
+          Provider<IContactService>(create: (_) => ContactService()),
         ],
         child: const  MyApp(),
     )

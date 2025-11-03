@@ -1,3 +1,4 @@
+// coverage:ignore-file
 import 'package:flutter_nfc_kit/flutter_nfc_kit.dart';
 
 /// Questa classe "avvolge" i metodi statici di FlutterNfcKit

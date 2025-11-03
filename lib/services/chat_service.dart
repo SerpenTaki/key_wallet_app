@@ -8,8 +8,18 @@ import 'package:key_wallet_app/services/secure_storage.dart';
 import 'package:key_wallet_app/services/i_chat_service.dart';
 
 class ChatService implements IChatService {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseFirestore _firestore;
+  final FirebaseAuth _auth;
+  final SecureStorage _secureStorage;
+
+  ChatService(
+      {FirebaseFirestore? firestore,
+      FirebaseAuth? auth,
+      SecureStorage? secureStorage})
+      : _firestore = firestore ?? FirebaseFirestore.instance,
+        _auth = auth ?? FirebaseAuth.instance,
+        _secureStorage = secureStorage ?? SecureStorage();
+
 
   // Ottiene le conversazioni per uno specifico wallet.
   @override
@@ -147,9 +157,8 @@ class ChatService implements IChatService {
   // Funzione per decifrare un messaggio
   @override
   Future<String?> translateMessage(String message, Wallet wallet) async {
-    final secureStorage = SecureStorage();
     final CryptoUtils cryptoUtils = CryptoUtils();
-    final walletPrivateKeyJson = await secureStorage.readSecureData(
+    final walletPrivateKeyJson = await _secureStorage.readSecureData(
       wallet.localKeyIdentifier,
     );
     if (walletPrivateKeyJson == null) return "[ERRORE: nessuna chiave trovata]";

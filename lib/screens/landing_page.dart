@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:key_wallet_app/services/i_auth.dart';
-import 'package:key_wallet_app/providers/wallet_provider.dart';
+import 'package:key_wallet_app/services/i_wallet_service.dart';
 import 'package:provider/provider.dart';
 
 class LandingPage extends StatefulWidget {
@@ -23,7 +23,7 @@ class _LandingPageState extends State<LandingPage> {
 
     _authSubscription = authService.authStateChanges.listen((User? user) {
       if (!mounted) return;
-      final walletProvider = Provider.of<WalletProvider>(
+      final walletProvider = Provider.of<IWalletService>(
         context,
         listen: false,
       );
@@ -39,7 +39,7 @@ class _LandingPageState extends State<LandingPage> {
     final authService = context.read<IAuth>();
     final user = authService.currentUser;
     if (user != null) {
-      await Provider.of<WalletProvider>(
+      await Provider.of<IWalletService>(
         context,
         listen: false,
       ).fetchUserWallets(user.uid);
@@ -59,7 +59,7 @@ class _LandingPageState extends State<LandingPage> {
 
   //Il body cambia in base a 3 condizioni, se si sta aspettando il caricamento, se il database per l'utente è vuoto
   // e se invece ci sono wallet da mostrare
-  Widget _buildBody(BuildContext context, WalletProvider walletProvider) {
+  Widget _buildBody(BuildContext context, IWalletService walletProvider) {
     if (walletProvider.isLoading) {
       // se il caricamento è in corso
       return const SliverFillRemaining(
@@ -120,7 +120,7 @@ class _LandingPageState extends State<LandingPage> {
 
   @override
   Widget build(BuildContext context) {
-    final walletProvider = context.watch<WalletProvider>();
+    final walletProvider = context.watch<IWalletService>();
 
     return Scaffold(
       body: CustomScrollView(

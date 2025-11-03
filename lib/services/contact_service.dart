@@ -1,9 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:key_wallet_app/services/i_contact_service.dart';
 
-class ContactService {
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+class ContactService implements IContactService{
+  final FirebaseFirestore _firestore;
+
+  ContactService({FirebaseFirestore? firestore})
+      : _firestore = firestore ?? FirebaseFirestore.instance;
 
   // Cerca i wallet associati a un'email.
+  @override
   Future<List<Map<String, dynamic>>> searchWalletsByEmail(String email) async {
     if (email.isEmpty) return [];
 
@@ -21,6 +26,7 @@ class ContactService {
   }
 
   // Cerca i wallet tramite NFC
+  @override
   Future<List<Map<String, dynamic>>> searchWalletsByNfc(String hBytes, String standard) async {
     if (hBytes.isEmpty || standard.isEmpty) return [];
 
@@ -29,10 +35,6 @@ class ContactService {
         .where('hBytes', isEqualTo: hBytes)
         .where('standard', isEqualTo: standard)
         .get();
-
-    if (walletQuery.docs.isEmpty) {
-      return []; // Nessun Wallet trovato
-    }
 
     return walletQuery.docs.map((doc) {
       final data = doc.data();
