@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:key_wallet_app/services/chat_service.dart';
+import 'package:key_wallet_app/services/i_chat_service.dart';
 import 'package:key_wallet_app/widgets/chatWidgets/user_tile.dart';
 import 'package:key_wallet_app/models/wallet.dart';
+import 'package:provider/provider.dart';
 
 class BuildUserList extends StatelessWidget {
   final Wallet senderWallet;
 
-  BuildUserList({super.key, required this.senderWallet});
-
-  final ChatService chatService = ChatService();
+  const BuildUserList({super.key, required this.senderWallet});
 
   @override
   Widget build(BuildContext context) {
+    final chatService = context.watch<IChatService>();
     return StreamBuilder(
-      stream: chatService.getConversationsStream(senderWallet.id),
+      stream: chatService.getConversationsStream(senderWallet.id, senderWallet.localKeyIdentifier),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           //print(snapshot.error);

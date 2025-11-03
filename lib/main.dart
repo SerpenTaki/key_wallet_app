@@ -9,6 +9,8 @@ import 'package:key_wallet_app/screens/auth_page.dart';
 import 'services/firebase_options.dart';
 import 'package:provider/provider.dart';
 import 'package:key_wallet_app/providers/wallet_provider.dart';
+import 'package:key_wallet_app/services/i_chat_service.dart';
+import 'package:key_wallet_app/services/chat_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,6 +29,7 @@ void main() async {
         providers: [
           ChangeNotifierProvider(create: (_) => WalletProvider()),
           Provider<IAuth>(create: (_) => Auth()), //Fornisce un'unica istanza di autenticazione
+          Provider<IChatService>(create: (_) => ChatService()),
         ],
         child: const  MyApp(),
     )

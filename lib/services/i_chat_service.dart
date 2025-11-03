@@ -5,7 +5,7 @@ import 'package:key_wallet_app/models/wallet.dart';
 abstract class IChatService {
   /// Restituisce un flusso di conversazioni attive per un dato wallet.
   /// Ogni conversazione è rappresentata come una mappa di dati del wallet del contatto.
-  Stream<List<Map<String, dynamic>>> getConversationsStream(String senderWalletId);
+  Stream<List<Map<String, dynamic>>> getConversationsStream(String senderWalletId, String localKeyIdentifier);
 
   /// Crea una conversazione tra due wallet se non esiste già.
   /// Se esiste, aggiorna il timestamp dell'ultima interazione.

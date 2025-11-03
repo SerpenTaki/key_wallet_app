@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:key_wallet_app/models/wallet.dart';
 import 'package:key_wallet_app/services/contact_service.dart';
-import 'package:key_wallet_app/services/chat_service.dart';
+import 'package:key_wallet_app/services/i_chat_service.dart';
 import 'package:key_wallet_app/services/validators.dart';
 import 'package:key_wallet_app/services/nfc_services.dart';
 import 'package:key_wallet_app/widgets/chatWidgets/user_tile.dart';
+import 'package:provider/provider.dart';
 
 class FindContactPage extends StatefulWidget {
   final Wallet senderWallet;
@@ -18,7 +19,6 @@ class FindContactPage extends StatefulWidget {
 class _FindContactPageState extends State<FindContactPage> {
   final TextEditingController _emailController = TextEditingController();
   final ContactService _contactService = ContactService();
-  final ChatService _chatService = ChatService();
   final validator = Validator();
   List<Map<String, dynamic>> _searchResults = [];
   bool _isLoading = false;
@@ -145,6 +145,7 @@ class _FindContactPageState extends State<FindContactPage> {
 
   @override
   Widget build(BuildContext context) {
+    final chatService = context.read<IChatService>();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cerca/Aggiungi Contatto', style: TextStyle(fontWeight: FontWeight.bold),),
@@ -245,7 +246,7 @@ class _FindContactPageState extends State<FindContactPage> {
                             subtext: walletData["email"],
                             color: receiverWallet.color,
                             onTap: () async {
-                              await _chatService.createConversationIfNotExists(
+                              await chatService.createConversationIfNotExists(
                                   widget.senderWallet, receiverWallet);
                               Navigator.pushNamed(context, "/chat", arguments: {
                                 "senderWallet": widget.senderWallet,

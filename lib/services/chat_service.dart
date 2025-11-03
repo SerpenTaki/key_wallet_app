@@ -7,117 +7,162 @@ import 'package:pointycastle/asymmetric/api.dart';
 import 'package:key_wallet_app/services/secure_storage.dart';
 import 'package:key_wallet_app/services/i_chat_service.dart';
 
-
 class ChatService implements IChatService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   final FirebaseAuth _auth = FirebaseAuth.instance;
 
-  // Ottiene un flusso di tutti i wallet con cui l'utente ha una conversazione attiva.
+  // Ottiene le conversazioni per uno specifico wallet.
   @override
-  Stream<List<Map<String, dynamic>>> getConversationsStream(String senderWalletId) {
-    final currentUser = _auth.currentUser;
-    if (currentUser == null) {
-      return Stream.value([]);
-    }
-
+  Stream<List<Map<String, dynamic>>> getConversationsStream(
+    String senderWalletId,
+    String senderWalletLocalKey,
+  ) {
+    // 1. ESEGUI LA QUERY BASATA SUL localKeyIdentifier
+    //    Questa query è ora PERMESSA dalle nuove regole di sicurezza (if request.auth != null).
     return _firestore
         .collection('chat_rooms')
-        .where('participantUids', arrayContains: currentUser.uid)
+        .where('participants', arrayContains: senderWalletLocalKey)
         .snapshots()
-        .asyncMap((snapshot) async {
-      if (snapshot.docs.isEmpty) {
-        return [];
-      }
+        .asyncMap((chatRoomsSnapshot) async {
+          if (chatRoomsSnapshot.docs.isEmpty) {
+            return [];
+          }
 
-      final List<String> otherWalletIds = [];
-      for (var doc in snapshot.docs) {
-        final List<dynamic> participants = doc.data()['participants'];
-        final otherId = participants.firstWhere((id) => id != senderWalletId, orElse: () => null);
-        if (otherId != null && !otherWalletIds.contains(otherId)) {
-          otherWalletIds.add(otherId);
-        }
-      }
+          // 2. ESTRAI GLI ID DEGLI ALTRI PARTECIPANTI
+          final List<String> otherParticipantLocalKeys = [];
+          for (var doc in chatRoomsSnapshot.docs) {
+            final List<dynamic> participants = doc.data()['participants'];
+            final otherId = participants.firstWhere(
+              (id) => id != senderWalletLocalKey,
+              orElse: () => null,
+            );
 
-      if (otherWalletIds.isEmpty) {
-        return [];
-      }
+            if (otherId != null &&
+                !otherParticipantLocalKeys.contains(otherId)) {
+              otherParticipantLocalKeys.add(otherId);
+            }
+          }
 
-      final contactsSnapshot = await _firestore
-          .collection('wallets')
-          .where(FieldPath.documentId, whereIn: otherWalletIds)
-          .get();
+          if (otherParticipantLocalKeys.isEmpty) {
+            return [];
+          }
 
-      return contactsSnapshot.docs.map((doc) {
-        final data = doc.data();
-        data['id'] = doc.id;
-        return data;
-      }).toList();
-    });
+          // 3. RECUPERA I DETTAGLI DEI CONTATTI CON UNA QUERY SICURA
+          //    Questa query è permessa dalla regola `allow read: if request.auth != null;` su /wallets.
+          final contactsSnapshot = await _firestore
+              .collection('wallets')
+              .where('localKeyIdentifier', whereIn: otherParticipantLocalKeys)
+              .get();
+
+          return contactsSnapshot.docs.map((doc) {
+            final data = doc.data();
+            data['id'] = doc.id;
+            return data;
+          }).toList();
+        });
   }
 
-  // Crea il documento della chat room se non esiste già.
+  // Crea una conversazione se non esiste.
   @override
-  Future<void> createConversationIfNotExists(Wallet wallet1, Wallet wallet2) async {
-    List<String> walletIds = [wallet1.id, wallet2.id];
-    walletIds.sort();
-    String chatRoomId = walletIds.join("_");
+  Future<void> createConversationIfNotExists(
+    Wallet wallet1,
+    Wallet wallet2,
+  ) async {
+    List<String> chatID = [
+      wallet1.localKeyIdentifier,
+      wallet2.localKeyIdentifier,
+    ];
+    chatID.sort();
+    String chatRoomId = chatID.join("_");
 
     final chatRoomDocRef = _firestore.collection("chat_rooms").doc(chatRoomId);
     final chatRoomDoc = await chatRoomDocRef.get();
 
-    // Se la chat NON esiste ancora, la creiamo
     if (!chatRoomDoc.exists) {
       await chatRoomDocRef.set({
-        'participants': walletIds,
+        'participants': chatID,
+        // Array di localKeyIdentifier
         'participantUids': [wallet1.userId, wallet2.userId],
+        // Array di userId per le regole
         'last_updated': FieldValue.serverTimestamp(),
       });
+      // Invia un messaggio di benvenuto o di sistema, se necessario.
       await sendMessage(wallet2, wallet1, "ciao ${wallet2.name}");
     } else {
-      // Se esiste già, aggiorno solo il timestamp
-      await chatRoomDocRef.set({
+      await chatRoomDocRef.update({
         'last_updated': FieldValue.serverTimestamp(),
-      }, SetOptions(merge: true));
+      });
     }
   }
 
-
-  // Invia un messaggio da un wallet a un altro
+  // Invia un messaggio.
   @override
-  Future<void> sendMessage(Wallet receiverWallet, Wallet senderWallet, String message) async{
-    final cryptoUtils = CryptoUtils();
-    // Assicura che la conversazione esista prima di inviare un messaggio
-    await createConversationIfNotExists(senderWallet, receiverWallet);
+  Future<void> sendMessage(
+    Wallet receiverWallet,
+    Wallet senderWallet,
+    String message,
+  ) async {
+    if (message.trim().isEmpty) {
+      return;
+    }
 
+    final cryptoUtils = CryptoUtils();
     final String currentUserId = _auth.currentUser!.uid;
     final Timestamp timestamp = Timestamp.now();
 
-    final RSAPublicKey receiverKey = cryptoUtils.parsePublicKeyFromJsonString(receiverWallet.publicKey);
-    final encryptedForReceiver = cryptoUtils.rsaEncryptBase64(message, receiverKey);
-    final RSAPublicKey senderKey = cryptoUtils.parsePublicKeyFromJsonString(senderWallet.publicKey);
-    final encryptedForSender = cryptoUtils.rsaEncryptBase64(message, senderKey);
+    final RSAPublicKey receiverKey = cryptoUtils.parsePublicKeyFromJsonString(
+      receiverWallet.publicKey,
+    );
+    final encryptedForReceiver = await cryptoUtils.rsaEncryptBase64(
+      message,
+      receiverKey,
+    );
+    final RSAPublicKey senderKey = cryptoUtils.parsePublicKeyFromJsonString(
+      senderWallet.publicKey,
+    );
+    final encryptedForSender = await cryptoUtils.rsaEncryptBase64(
+      message,
+      senderKey,
+    );
 
     final newMessage = Message(
       senderUserId: currentUserId,
       senderWalletId: senderWallet.id,
+      // L'ID del documento va bene qui
       receiverWalletId: receiverWallet.id,
-      messageForReceiver: await encryptedForReceiver,
-      messageForSender: await encryptedForSender,
+      // L'ID del documento va bene qui
+      messageForReceiver: encryptedForReceiver,
+      messageForSender: encryptedForSender,
       timestamp: timestamp,
     );
 
-    List<String> ids = [senderWallet.id, receiverWallet.id];
-    ids.sort();
-    String chatRoomId = ids.join("_");
-    
+    List<String> chatId = [
+      senderWallet.localKeyIdentifier,
+      receiverWallet.localKeyIdentifier,
+    ];
+    chatId.sort();
+    String chatRoomId = chatId.join("_");
+
     final chatRoomDocRef = _firestore.collection("chat_rooms").doc(chatRoomId);
-    await chatRoomDocRef.collection("messages").add(newMessage.toMap());
+
+    // Esegui la scrittura del messaggio e l'aggiornamento della chat room in un batch per atomicità
+    final batch = _firestore.batch();
+    final messageRef = chatRoomDocRef.collection("messages").doc();
+    batch.set(messageRef, newMessage.toMap());
+    batch.update(chatRoomDocRef, {'last_updated': timestamp});
+    await batch.commit();
   }
 
-  // Ottiene il flusso di messaggi per una specifica chat room
+  // Ottiene i messaggi di una conversazione.
   @override
-  Stream<QuerySnapshot> getMessages(Wallet senderWallet, Wallet receiverWallet) {
-    List<String> ids = [senderWallet.id, receiverWallet.id];
+  Stream<QuerySnapshot> getMessages(
+    Wallet senderWallet,
+    Wallet receiverWallet,
+  ) {
+    List<String> ids = [
+      senderWallet.localKeyIdentifier,
+      receiverWallet.localKeyIdentifier,
+    ];
     ids.sort();
     String chatRoomId = ids.join("_");
 
@@ -134,13 +179,20 @@ class ChatService implements IChatService {
   Future<String?> translateMessage(String message, Wallet wallet) async {
     final secureStorage = SecureStorage();
     final CryptoUtils cryptoUtils = CryptoUtils();
-    final walletPrivateKeyJson = await secureStorage.readSecureData(wallet.localKeyIdentifier);
+    final walletPrivateKeyJson = await secureStorage.readSecureData(
+      wallet.localKeyIdentifier,
+    );
     if (walletPrivateKeyJson == null) return "[ERRORE: nessuna chiave trovata]";
 
-    final RSAPrivateKey receiverKey = cryptoUtils.parsePrivateKeyFromJsonString(walletPrivateKeyJson);
+    final RSAPrivateKey receiverKey = cryptoUtils.parsePrivateKeyFromJsonString(
+      walletPrivateKeyJson,
+    );
 
     try {
-      final decryptedMessage = await cryptoUtils.rsaDecryptBase64(message, receiverKey);
+      final decryptedMessage = await cryptoUtils.rsaDecryptBase64(
+        message,
+        receiverKey,
+      );
 
       if (decryptedMessage == null || decryptedMessage.isEmpty) {
         return "[Vuoto dopo decriptazione]";
