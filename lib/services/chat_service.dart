@@ -17,8 +17,6 @@ class ChatService implements IChatService {
     String senderWalletId,
     String senderWalletLocalKey,
   ) {
-    // 1. ESEGUI LA QUERY BASATA SUL localKeyIdentifier
-    //    Questa query è ora PERMESSA dalle nuove regole di sicurezza (if request.auth != null).
     return _firestore
         .collection('chat_rooms')
         .where('participants', arrayContains: senderWalletLocalKey)
@@ -28,7 +26,7 @@ class ChatService implements IChatService {
             return [];
           }
 
-          // 2. ESTRAI GLI ID DEGLI ALTRI PARTECIPANTI
+          // Estrae id dei partecipanti per id intendiamo gli le local key
           final List<String> otherParticipantLocalKeys = [];
           for (var doc in chatRoomsSnapshot.docs) {
             final List<dynamic> participants = doc.data()['participants'];
@@ -37,8 +35,7 @@ class ChatService implements IChatService {
               orElse: () => null,
             );
 
-            if (otherId != null &&
-                !otherParticipantLocalKeys.contains(otherId)) {
+            if (otherId != null && !otherParticipantLocalKeys.contains(otherId)) {
               otherParticipantLocalKeys.add(otherId);
             }
           }
@@ -47,8 +44,6 @@ class ChatService implements IChatService {
             return [];
           }
 
-          // 3. RECUPERA I DETTAGLI DEI CONTATTI CON UNA QUERY SICURA
-          //    Questa query è permessa dalla regola `allow read: if request.auth != null;` su /wallets.
           final contactsSnapshot = await _firestore
               .collection('wallets')
               .where('localKeyIdentifier', whereIn: otherParticipantLocalKeys)
@@ -64,10 +59,7 @@ class ChatService implements IChatService {
 
   // Crea una conversazione se non esiste.
   @override
-  Future<void> createConversationIfNotExists(
-    Wallet wallet1,
-    Wallet wallet2,
-  ) async {
+  Future<void> createConversationIfNotExists(Wallet wallet1, Wallet wallet2,) async {
     List<String> chatID = [
       wallet1.localKeyIdentifier,
       wallet2.localKeyIdentifier,
@@ -81,13 +73,10 @@ class ChatService implements IChatService {
     if (!chatRoomDoc.exists) {
       await chatRoomDocRef.set({
         'participants': chatID,
-        // Array di localKeyIdentifier
         'participantUids': [wallet1.userId, wallet2.userId],
-        // Array di userId per le regole
         'last_updated': FieldValue.serverTimestamp(),
       });
-      // Invia un messaggio di benvenuto o di sistema, se necessario.
-      await sendMessage(wallet2, wallet1, "ciao ${wallet2.name}");
+      // await sendMessage(wallet2, wallet1, "ciao ${wallet2.name}");
     } else {
       await chatRoomDocRef.update({
         'last_updated': FieldValue.serverTimestamp(),
@@ -97,11 +86,7 @@ class ChatService implements IChatService {
 
   // Invia un messaggio.
   @override
-  Future<void> sendMessage(
-    Wallet receiverWallet,
-    Wallet senderWallet,
-    String message,
-  ) async {
+  Future<void> sendMessage(Wallet receiverWallet, Wallet senderWallet, String message,) async {
     if (message.trim().isEmpty) {
       return;
     }
@@ -110,27 +95,15 @@ class ChatService implements IChatService {
     final String currentUserId = _auth.currentUser!.uid;
     final Timestamp timestamp = Timestamp.now();
 
-    final RSAPublicKey receiverKey = cryptoUtils.parsePublicKeyFromJsonString(
-      receiverWallet.publicKey,
-    );
-    final encryptedForReceiver = await cryptoUtils.rsaEncryptBase64(
-      message,
-      receiverKey,
-    );
-    final RSAPublicKey senderKey = cryptoUtils.parsePublicKeyFromJsonString(
-      senderWallet.publicKey,
-    );
-    final encryptedForSender = await cryptoUtils.rsaEncryptBase64(
-      message,
-      senderKey,
-    );
+    final RSAPublicKey receiverKey = cryptoUtils.parsePublicKeyFromJsonString(receiverWallet.publicKey,);
+    final encryptedForReceiver = await cryptoUtils.rsaEncryptBase64(message, receiverKey,);
+    final RSAPublicKey senderKey = cryptoUtils.parsePublicKeyFromJsonString(senderWallet.publicKey,);
+    final encryptedForSender = await cryptoUtils.rsaEncryptBase64(message, senderKey,);
 
     final newMessage = Message(
       senderUserId: currentUserId,
       senderWalletId: senderWallet.id,
-      // L'ID del documento va bene qui
       receiverWalletId: receiverWallet.id,
-      // L'ID del documento va bene qui
       messageForReceiver: encryptedForReceiver,
       messageForSender: encryptedForSender,
       timestamp: timestamp,
@@ -155,10 +128,7 @@ class ChatService implements IChatService {
 
   // Ottiene i messaggi di una conversazione.
   @override
-  Stream<QuerySnapshot> getMessages(
-    Wallet senderWallet,
-    Wallet receiverWallet,
-  ) {
+  Stream<QuerySnapshot> getMessages(Wallet senderWallet, Wallet receiverWallet,) {
     List<String> ids = [
       senderWallet.localKeyIdentifier,
       receiverWallet.localKeyIdentifier,
