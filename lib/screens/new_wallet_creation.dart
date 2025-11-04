@@ -3,7 +3,7 @@ import 'dart:io' show Platform;
 import 'package:key_wallet_app/widgets/color_picker_dialog.dart';
 import 'package:key_wallet_app/services/nfc_services.dart';
 import 'package:provider/provider.dart';
-import '../services/wallet_service.dart';
+import 'package:key_wallet_app/services/i_wallet_service.dart';
 
 class NewWalletCreation extends StatefulWidget {
   const NewWalletCreation({super.key, required this.credenziali});
@@ -142,8 +142,9 @@ class _NewWalletCreationState extends State<NewWalletCreation> {
                   ? () async {
                       if (_formKey.currentState!.validate()) {
                         _formKey.currentState!.save();
-                        if (!(await context.read<WalletService>().checkIfWalletExists(hBytes, widget.credenziali["uid"]!))) {
-                          context.read<WalletService>().generateAndAddWallet(widget.credenziali["uid"]!, widget.credenziali["mail"]!, nome, selectedColor, hBytes, standard, device);
+                        final walletService = context.read<IWalletService>();
+                        if (!(await walletService.checkIfWalletExists(hBytes, widget.credenziali["uid"]!))) {
+                         walletService.generateAndAddWallet(widget.credenziali["uid"]!, widget.credenziali["mail"]!, nome, selectedColor, hBytes, standard, device);
                           if(mounted) Navigator.pop(context);
                         }
                         else {
