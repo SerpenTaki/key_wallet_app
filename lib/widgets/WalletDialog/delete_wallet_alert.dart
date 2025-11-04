@@ -15,15 +15,14 @@ class DeleteWalletAlert extends StatelessWidget {
       ),
       actions: <Widget>[
         TextButton(
+          key: Key("Annulla Bottone"),
           child: const Text('Annulla'),
           onPressed: () =>
               Navigator.of(dialogContext).pop(false),
         ),
         TextButton(
-          child: const Text(
-            'Elimina',
-            style: TextStyle(color: Colors.red),
-          ),
+          key: Key("Elimina Bottone"),
+          child: const Text('Elimina', style: TextStyle(color: Colors.red),),
           onPressed: () =>
               Navigator.of(dialogContext).pop(true),
         ),
