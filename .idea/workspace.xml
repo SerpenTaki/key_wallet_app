@@ -10,12 +10,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fd9f324-4b81-479f-be21-42b0a387615a" name="Changes" comment="Primo commit">
-      <change afterPath="$PROJECT_DIR$/test/UnitTest/WidgetTest/delete_apple_wallet_alert_test.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/models/message.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/models/message.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/chat_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/chat_service.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/crypto_utils.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/crypto_utils.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/chatWidgets/build_user_input.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/chatWidgets/build_user_input.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/WalletDialog/delete_apple_wallet_alert.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/WalletDialog/delete_apple_wallet_alert.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/WalletDialog/delete_wallet_alert.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/WalletDialog/delete_wallet_alert.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/UnitTest/WidgetTest/delete_apple_wallet_alert_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/UnitTest/WidgetTest/delete_apple_wallet_alert_test.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -75,7 +73,6 @@
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "main",
     "io.flutter.reload.alreadyRun": "true",
     "last_opened_file_path": "/Users/serpentaki/Documents/key_wallet_app",

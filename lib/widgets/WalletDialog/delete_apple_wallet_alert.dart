@@ -16,11 +16,13 @@ class DeleteAppleWalletAlert extends StatelessWidget {
       ),
       actions: <Widget>[
         CupertinoDialogAction(
+          key: const Key("Annulla"),
           child: const Text('Annulla'),
           onPressed: () =>
               Navigator.of(dialogContext).pop(false),
         ),
         CupertinoDialogAction(
+          key: const Key("Elimina"),
           isDestructiveAction: true,
           child: const Text('Elimina'),
           onPressed: () =>
