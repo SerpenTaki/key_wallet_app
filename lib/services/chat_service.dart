@@ -114,8 +114,8 @@ class ChatService implements IChatService {
       senderUserId: currentUserId,
       senderWalletId: senderWallet.id,
       receiverWalletId: receiverWallet.id,
-      messageForReceiver: encryptedForReceiver,
-      messageForSender: encryptedForSender,
+      messageForReceiver: encryptedForReceiver!,
+      messageForSender: encryptedForSender!,
       timestamp: timestamp,
     );
 

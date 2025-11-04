@@ -4,8 +4,8 @@ class Message {
   final String senderUserId;
   final String senderWalletId;
   final String receiverWalletId;
-  final String? messageForReceiver;
-  final String? messageForSender;
+  final String messageForReceiver;
+  final String messageForSender;
   final Timestamp timestamp;
 
   Message({

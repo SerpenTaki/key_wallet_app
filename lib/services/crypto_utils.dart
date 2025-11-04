@@ -48,8 +48,7 @@ class CryptoUtils {
   }
 
 //Cripta una stringa e restituisce il risultato in base 64
-  Future<String?> rsaEncryptBase64(String plainText,
-      RSAPublicKey publicKey) async {
+  Future<String?> rsaEncryptBase64(String plainText, RSAPublicKey publicKey) async {
     final engine = OAEPEncoding(
         RSAEngine()); //https://it.wikipedia.org/wiki/Optimal_Asymmetric_Encryption_Padding
     engine.init(true, PublicKeyParameter<RSAPublicKey>(publicKey));

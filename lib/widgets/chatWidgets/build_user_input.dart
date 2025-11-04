@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:key_wallet_app/models/wallet.dart';
-import 'package:key_wallet_app/services/chat_service.dart';
+import 'package:key_wallet_app/services/i_chat_service.dart';
+import 'package:provider/provider.dart';
 
 class BuildUserInput extends StatefulWidget {
   final Wallet senderWallet;
@@ -18,12 +19,13 @@ class BuildUserInput extends StatefulWidget {
 
 class _BuildUserInputState extends State<BuildUserInput> {
   final TextEditingController _messageController = TextEditingController();
-  final ChatService _chatService = ChatService();
 
   void sendMessage() async {
     if (_messageController.text.isNotEmpty) {
       try { //Passo al chat service i 2 wallet e il messaggio da inviare
-        await _chatService.sendMessage(
+        final chatService = context.read<IChatService>();
+
+        await chatService.sendMessage(
           widget.receiverWallet,
           widget.senderWallet,
           _messageController.text,
@@ -32,7 +34,7 @@ class _BuildUserInputState extends State<BuildUserInput> {
       } catch (e) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("Errore durante l'invio: ${e.toString()}")),
+            SnackBar(content: Text("Errore durante l'invio del messaggio: $e")),
           );
         }
       }
@@ -47,6 +49,7 @@ class _BuildUserInputState extends State<BuildUserInput> {
         children: [
           Expanded(
             child: TextField(
+              maxLength: 180,
               controller: _messageController,
               decoration: const InputDecoration(
                 hintText: "Scrivi un messaggio...",
