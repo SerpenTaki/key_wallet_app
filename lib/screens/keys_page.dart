@@ -91,7 +91,7 @@ class _KeysPageState extends State<KeysPage>
                             context: context,
                             builder: (BuildContext dialogContext) {
                               if (defaultTargetPlatform == TargetPlatform.iOS) {
-                                return DeletePrivatekeyAppleDialog(dialogContext: dialogContext);
+                                return DeletePrivatekeyAppleDialog();
                               }
                               else {
                                 return DeletePrivatekeyDialog();
