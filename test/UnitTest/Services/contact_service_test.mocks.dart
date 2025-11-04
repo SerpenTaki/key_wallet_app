@@ -381,6 +381,7 @@ class MockFirebaseFirestore extends _i1.Mock implements _i4.FirebaseFirestore {
 /// A class which mocks [CollectionReference].
 ///
 /// See the documentation for Mockito's code generation for more information.
+// ignore: must_be_immutable
 class MockCollectionReference<T extends Object?> extends _i1.Mock
     implements _i4.CollectionReference<T> {
   MockCollectionReference() {
@@ -792,6 +793,7 @@ class MockCollectionReference<T extends Object?> extends _i1.Mock
 /// A class which mocks [Query].
 ///
 /// See the documentation for Mockito's code generation for more information.
+// ignore: must_be_immutable
 class MockQuery<T extends Object?> extends _i1.Mock implements _i4.Query<T> {
   MockQuery() {
     _i1.throwOnMissingStub(this);
