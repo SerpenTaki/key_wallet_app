@@ -10,10 +10,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fd9f324-4b81-479f-be21-42b0a387615a" name="Changes" comment="Primo commit">
+      <change afterPath="$PROJECT_DIR$/lib/widgets/keys_dialogs/delete_privatekey_dialog.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/UnitTest/WidgetTest/delete_privatekey_dialog_test.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/WalletDialog/delete_apple_wallet_alert.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/WalletDialog/delete_apple_wallet_alert.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/WalletDialog/delete_wallet_alert.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/WalletDialog/delete_wallet_alert.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/keys_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/keys_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/wallet_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/wallet_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/KeysDialogs/delete_privatekey_apple_dialog.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/keys_dialogs/delete_privatekey_apple_dialog.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/KeysDialogs/delete_privatekey_dialog.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/WalletDialog/delete_apple_wallet_alert.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/wallets_dialogs/delete_apple_wallet_alert.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/WalletDialog/delete_wallet_alert.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/wallets_dialogs/delete_wallet_alert.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/UnitTest/WidgetTest/delete_apple_wallet_alert_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/UnitTest/WidgetTest/delete_apple_wallet_alert_test.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/UnitTest/WidgetTest/delete_wallet_alert_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/UnitTest/WidgetTest/delete_wallet_alert_test.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

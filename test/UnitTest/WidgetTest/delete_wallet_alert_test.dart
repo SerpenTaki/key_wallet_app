@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:key_wallet_app/widgets/WalletDialog/delete_wallet_alert.dart';
+import 'package:key_wallet_app/widgets/wallets_dialogs/delete_wallet_alert.dart';
 
 void main() {
   testWidgets('Mostra titolo, contenuto e pulsanti', (WidgetTester tester) async {

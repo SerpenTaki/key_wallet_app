@@ -2,8 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:key_wallet_app/models/wallet.dart';
 import 'package:key_wallet_app/services/secure_storage.dart';
-import 'package:key_wallet_app/widgets/KeysDialogs/delete_privatekey_dialog.dart';
-import 'package:key_wallet_app/widgets/KeysDialogs/delete_privatekey_apple_dialog.dart';
+import 'package:key_wallet_app/widgets/keys_dialogs/delete_privatekey_dialog.dart';
+import 'package:key_wallet_app/widgets/keys_dialogs/delete_privatekey_apple_dialog.dart';
 
 class KeysPage extends StatefulWidget {
   final Wallet wallet;
@@ -94,7 +94,7 @@ class _KeysPageState extends State<KeysPage>
                                 return DeletePrivatekeyAppleDialog(dialogContext: dialogContext);
                               }
                               else {
-                                return DeletePrivatekeyDialog(dialogContext: dialogContext);
+                                return DeletePrivatekeyDialog();
                               }
                             }
                         );

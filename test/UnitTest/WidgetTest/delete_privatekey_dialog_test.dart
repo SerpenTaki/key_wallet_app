@@ -1,26 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:key_wallet_app/widgets/wallets_dialogs/delete_apple_wallet_alert.dart';
+import 'package:key_wallet_app/widgets/keys_dialogs/delete_privatekey_dialog.dart';
 
 void main() {
-  testWidgets("Mostra titolo, contenuto e pulsanti", (WidgetTester tester,) async {
-    const walletName = "Test Wallet";
-
+  testWidgets("Mostra titolo, contenuto e pulsanti", (WidgetTester tester) async {
     await tester.pumpWidget(
-      MaterialApp(
-        home: Builder(
-          builder: (context) => DeleteAppleWalletAlert(
-            walletName: walletName,
-            dialogContext: context,
-          ),
-        ),
+      const MaterialApp(
+        home: DeletePrivatekeyDialog(),
       ),
     );
 
-    expect(find.text('Conferma Eliminazione'), findsOneWidget);
+    expect(find.text("Elimina chiave privata dal dispositivo"), findsOneWidget);
     expect(
       find.text(
-        'Sei sicuro di voler eliminare il wallet "$walletName"? Questa azione è irreversibile e la chiave privata verrà rimossa da questo dispositivo.',
+        "Sei sicuro di voler eliminare la chiave privata dal dispositivo? Assicurati di essertela segnata",
       ),
       findsOneWidget,
     );
@@ -28,7 +21,7 @@ void main() {
     expect(find.byKey(const Key("Elimina")), findsOneWidget);
   });
 
-  testWidgets("Clic su Annulla chiude il dialog con false", (WidgetTester tester,) async {
+  testWidgets("Clic su Annulla chiude il dialog con false", (WidgetTester tester) async {
     bool? result;
 
     await tester.pumpWidget(
@@ -38,10 +31,7 @@ void main() {
             onPressed: () async {
               result = await showDialog<bool>(
                 context: context,
-                builder: (_) => DeleteAppleWalletAlert(
-                  walletName: "Test Wallet",
-                  dialogContext: context,
-                ),
+                builder: (_) => const DeletePrivatekeyDialog(),
               );
             },
             child: const Text("Apri Dialog"),
@@ -50,15 +40,18 @@ void main() {
       ),
     );
 
+    // Apri il dialog
     await tester.tap(find.text("Apri Dialog"));
     await tester.pumpAndSettle();
 
+    // Premi "Annulla"
     await tester.tap(find.byKey(const Key("Annulla")));
     await tester.pumpAndSettle();
+
     expect(result, isFalse);
   });
 
-  testWidgets("Clic su Elimina chiude il dialog con true", (WidgetTester tester,) async {
+  testWidgets("Clic su Elimina chiude il dialog con true", (WidgetTester tester) async {
     bool? result;
 
     await tester.pumpWidget(
@@ -68,10 +61,7 @@ void main() {
             onPressed: () async {
               result = await showDialog<bool>(
                 context: context,
-                builder: (_) => DeleteAppleWalletAlert(
-                  walletName: "Test Wallet",
-                  dialogContext: context,
-                ),
+                builder: (_) => const DeletePrivatekeyDialog(),
               );
             },
             child: const Text("Apri Dialog"),
@@ -80,11 +70,14 @@ void main() {
       ),
     );
 
+    // Apri il dialog
     await tester.tap(find.text("Apri Dialog"));
     await tester.pumpAndSettle();
 
+    // Premi "Elimina"
     await tester.tap(find.byKey(const Key("Elimina")));
     await tester.pumpAndSettle();
+
     expect(result, isTrue);
   });
 }
