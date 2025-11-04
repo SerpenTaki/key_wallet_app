@@ -1,25 +1,25 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:key_wallet_app/services/chat_service.dart';
+import 'package:key_wallet_app/services/i_chat_service.dart';
 import 'package:key_wallet_app/widgets/chatWidgets/chat_bubble.dart';
 import 'package:key_wallet_app/models/wallet.dart';
+import 'package:provider/provider.dart';
 
 class BuildMessageList extends StatelessWidget {
   final Wallet senderWallet;
   final Wallet receiverWallet;
 
-  BuildMessageList({
+  const BuildMessageList({
     super.key,
     required this.senderWallet,
     required this.receiverWallet,
   });
 
-  final ChatService _chatService = ChatService();
-
   @override
   Widget build(BuildContext context) {
+    final chatService = context.watch<IChatService>();
     return StreamBuilder(
-      stream: _chatService.getMessages(senderWallet, receiverWallet),
+      stream: chatService.getMessages(senderWallet, receiverWallet),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           //print("Errore: ${snapshot.error}");
@@ -31,16 +31,17 @@ class BuildMessageList extends StatelessWidget {
 
         return ListView(
           children: snapshot.data!.docs
-              .map((doc) => _buildMessageItem(doc))
+              .map((doc) => _buildMessageItem(doc, context))
               .toList(),
         );
       },
     );
   }
 
-  Widget _buildMessageItem(DocumentSnapshot doc) {
+  Widget _buildMessageItem(DocumentSnapshot doc, BuildContext context) {
     Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
     bool isCurrentUser = data['senderWalletId'] == senderWallet.id;
+    final chatService = context.read<IChatService>();
 
     return FutureBuilder<String?>(
       /*
@@ -50,7 +51,7 @@ class BuildMessageList extends StatelessWidget {
         - I messaggi che io invio vengono criptati per il destinatario con la sua chiave pubblica, ma per la mia view sono criptati
           con la mia privata quindi del sender.
        */
-      future: _chatService.translateMessage(isCurrentUser? data['messageForSender'] : data['messageForReceiver'], senderWallet,),
+      future: chatService.translateMessage(isCurrentUser? data['messageForSender'] : data['messageForReceiver'], senderWallet,),
       builder: (context, snapshot) {
         final text = snapshot.data ?? "[Errore decriptazione]";
         return _buildBubble(text, isCurrentUser);
