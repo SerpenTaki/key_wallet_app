@@ -212,3 +212,56 @@ class MockQueryDocumentSnapshot<T extends Object?> extends _i1.Mock
   dynamic operator [](Object? field) =>
       super.noSuchMethod(Invocation.method(#[], [field]));
 }
+
+/// A class which mocks [DocumentSnapshot].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockDocumentSnapshot<T extends Object?> extends _i1.Mock
+    implements _i2.DocumentSnapshot<T> {
+  MockDocumentSnapshot() {
+    _i1.throwOnMissingStub(this);
+  }
+
+  @override
+  String get id =>
+      (super.noSuchMethod(
+            Invocation.getter(#id),
+            returnValue: _i6.dummyValue<String>(this, Invocation.getter(#id)),
+          )
+          as String);
+
+  @override
+  _i2.DocumentReference<T> get reference =>
+      (super.noSuchMethod(
+            Invocation.getter(#reference),
+            returnValue: _FakeDocumentReference_1<T>(
+              this,
+              Invocation.getter(#reference),
+            ),
+          )
+          as _i2.DocumentReference<T>);
+
+  @override
+  _i2.SnapshotMetadata get metadata =>
+      (super.noSuchMethod(
+            Invocation.getter(#metadata),
+            returnValue: _FakeSnapshotMetadata_0(
+              this,
+              Invocation.getter(#metadata),
+            ),
+          )
+          as _i2.SnapshotMetadata);
+
+  @override
+  bool get exists =>
+      (super.noSuchMethod(Invocation.getter(#exists), returnValue: false)
+          as bool);
+
+  @override
+  dynamic get(Object? field) =>
+      super.noSuchMethod(Invocation.method(#get, [field]));
+
+  @override
+  dynamic operator [](Object? field) =>
+      super.noSuchMethod(Invocation.method(#[], [field]));
+}

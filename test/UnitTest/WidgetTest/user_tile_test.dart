@@ -4,7 +4,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:key_wallet_app/widgets/chatWidgets/user_tile.dart';
 
 void main() {
-  group("User Tile Android", () {
+  group("User Tile", () {
 
     testWidgets('Mostra User Tile', (WidgetTester tester) async {
       await tester.pumpWidget(
