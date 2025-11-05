@@ -3,7 +3,7 @@ import 'package:key_wallet_app/models/wallet.dart';
 import 'package:key_wallet_app/services/i_contact_service.dart';
 import 'package:key_wallet_app/services/i_chat_service.dart';
 import 'package:key_wallet_app/services/validators.dart';
-import 'package:key_wallet_app/services/nfc_services.dart';
+import 'package:key_wallet_app/services/i_nfc_service.dart';
 import 'package:key_wallet_app/widgets/chatWidgets/user_tile.dart';
 import 'package:provider/provider.dart';
 
@@ -29,7 +29,8 @@ class _FindContactPageState extends State<FindContactPage> {
   @override
   void initState() {
     super.initState();
-    NfcServices().checkAvailability().then((isAvailable) {
+    final nfcService = context.read<INfcService>();
+    nfcService.checkAvailability().then((isAvailable) {
       _emailController.addListener(() {
         setState(() {});
       });
@@ -54,7 +55,8 @@ class _FindContactPageState extends State<FindContactPage> {
     });
 
     try {
-      dynamic tagData = await NfcServices().fetchNfcData();
+      final nfcService = context.read<INfcService>();
+      dynamic tagData = await nfcService.fetchNfcData();
       if (tagData != null && mounted) {
         setState(() {
           hBytes = tagData.historicalBytes?.toString() ?? 'N/D';
@@ -176,6 +178,7 @@ class _FindContactPageState extends State<FindContactPage> {
                 ),
                 const SizedBox(width: 8),
                 ElevatedButton.icon(
+                  key: const Key("searchButtonEmail"),
                   onPressed: _emailController.text.trim().isEmpty
                       ? null
                       : _searchWalletsEmail,

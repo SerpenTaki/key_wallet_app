@@ -10,9 +10,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fd9f324-4b81-479f-be21-42b0a387615a" name="Changes" comment="Primo commit">
-      <change afterPath="$PROJECT_DIR$/test/UnitTest/screens/chat_page_test.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/UnitTest/screens/find_contact_page_test.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/find_contact_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/find_contact_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/UnitTest/Services/chat_service_test.mocks.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/UnitTest/Services/chat_service_test.mocks.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/UnitTest/Services/contact_service_test.mocks.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/UnitTest/Services/contact_service_test.mocks.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/UnitTest/Services/wallet_service_test.mocks.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/UnitTest/Services/wallet_service_test.mocks.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,6 +60,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Flutter Test.Chiama createConversation e naviga quando si tocca un risultato.executor": "Run",
     "Flutter Test.Il widget si costruisce correttamente e accede a IChatService.executor": "Run",
     "Flutter Test.Non chiama nessun metodo se il form non \\u00e8 valido.executor": "Run",
     "Flutter Test.Non chiama nessun metodo se il form non valido.executor": "Run",
@@ -71,6 +75,7 @@
     "Flutter Test.tests in chat_list_page_test.dart.executor": "Run",
     "Flutter Test.tests in chat_page_test.dart.executor": "Run",
     "Flutter Test.tests in color_picker_dialog.dart.executor": "Run",
+    "Flutter Test.tests in find_contact_page_test.dart.executor": "Run",
     "Flutter Test.tests in integration_test.dart.executor": "Run",
     "Flutter Test.tests in route_generator_test.dart.executor": "Run",
     "Flutter Test.tests in user_tile_test.dart.executor": "Run",
@@ -108,26 +113,20 @@
       <recent name="$PROJECT_DIR$/lib/widgets/WalletDialog" />
     </key>
   </component>
-  <component name="RunManager" selected="Flutter Test.tests in chat_page_test.dart">
+  <component name="RunManager" selected="Flutter Test.Mostra i risultati della ricerca dopo aver cercato via email">
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
       <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
       <method v="2" />
     </configuration>
-    <configuration name="Non chiama nessun metodo se il form non valido" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testName" value="Non chiama nessun metodo se il form non valido" />
-      <option name="testFile" value="$PROJECT_DIR$/test/UnitTest/screens/auth_page_test.dart" />
+    <configuration name="Chiama createConversation e naviga quando si tocca un risultato" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="Chiama createConversation e naviga quando si tocca un risultato" />
+      <option name="testFile" value="$PROJECT_DIR$/test/UnitTest/screens/find_contact_page_test.dart" />
       <option name="useRegexp" value="true" />
       <method v="2" />
     </configuration>
-    <configuration name="Passa alla modalit\u00e0 Registrazione quando si tocca il testo apposito" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testName" value="Passa alla modalit\u00e0 Registrazione quando si tocca il testo apposito" />
-      <option name="testFile" value="$PROJECT_DIR$/test/UnitTest/screens/auth_page_test.dart" />
-      <option name="useRegexp" value="true" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Passa alla modalita Registrazione quando si tocca il testo apposito" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testName" value="Passa alla modalita Registrazione quando si tocca il testo apposito" />
-      <option name="testFile" value="$PROJECT_DIR$/test/UnitTest/screens/auth_page_test.dart" />
+    <configuration name="Mostra i risultati della ricerca dopo aver cercato via email" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="Mostra i risultati della ricerca dopo aver cercato via email" />
+      <option name="testFile" value="$PROJECT_DIR$/test/UnitTest/screens/find_contact_page_test.dart" />
       <option name="useRegexp" value="true" />
       <method v="2" />
     </configuration>
@@ -141,13 +140,18 @@
       <option name="useRegexp" value="false" />
       <method v="2" />
     </configuration>
+    <configuration name="tests in find_contact_page_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testFile" value="$PROJECT_DIR$/test/UnitTest/screens/find_contact_page_test.dart" />
+      <option name="useRegexp" value="false" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Flutter Test.Mostra i risultati della ricerca dopo aver cercato via email" />
+        <item itemvalue="Flutter Test.tests in find_contact_page_test.dart" />
+        <item itemvalue="Flutter Test.Chiama createConversation e naviga quando si tocca un risultato" />
         <item itemvalue="Flutter Test.tests in chat_page_test.dart" />
         <item itemvalue="Flutter Test.tests in auth_page_test.dart" />
-        <item itemvalue="Flutter Test.Passa alla modalita Registrazione quando si tocca il testo apposito" />
-        <item itemvalue="Flutter Test.Passa alla modalit\u00e0 Registrazione quando si tocca il testo apposito" />
-        <item itemvalue="Flutter Test.Non chiama nessun metodo se il form non valido" />
       </list>
     </recent_temporary>
   </component>
