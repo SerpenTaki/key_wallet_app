@@ -48,6 +48,7 @@ dependencies:
   flutter_colorpicker: ^1.1.0
 
 dev_dependencies:
+  fake_cloud_firestore: ^4.0.0
   flutter_test:
     sdk: flutter
   mockito: ^5.4.4

@@ -10,9 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fd9f324-4b81-479f-be21-42b0a387615a" name="Changes" comment="Primo commit">
-      <change afterPath="$PROJECT_DIR$/test/UnitTest/screens/auth_page_test.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/UnitTest/screens/chat_page_test.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/auth_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/auth_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +60,8 @@
     "Flutter Test.Il widget si costruisce correttamente e accede a IChatService.executor": "Run",
     "Flutter Test.Non chiama nessun metodo se il form non \\u00e8 valido.executor": "Run",
     "Flutter Test.Non chiama nessun metodo se il form non valido.executor": "Run",
+    "Flutter Test.Passa alla modalit\\u00e0 Registrazione quando si tocca il testo apposito.executor": "Run",
+    "Flutter Test.Passa alla modalita Registrazione quando si tocca il testo apposito.executor": "Run",
     "Flutter Test.convertKeysToBase64String.executor": "Run",
     "Flutter Test.tests in auth_page_test.dart.executor": "Run",
     "Flutter Test.tests in build_message_list_test.dart.executor": "Run",
@@ -67,6 +69,7 @@
     "Flutter Test.tests in build_user_list_test.dart.executor": "Run",
     "Flutter Test.tests in chat_bubble_test.dart.executor": "Debug",
     "Flutter Test.tests in chat_list_page_test.dart.executor": "Run",
+    "Flutter Test.tests in chat_page_test.dart.executor": "Run",
     "Flutter Test.tests in color_picker_dialog.dart.executor": "Run",
     "Flutter Test.tests in integration_test.dart.executor": "Run",
     "Flutter Test.tests in route_generator_test.dart.executor": "Run",
@@ -105,15 +108,9 @@
       <recent name="$PROJECT_DIR$/lib/widgets/WalletDialog" />
     </key>
   </component>
-  <component name="RunManager" selected="Flutter Test.tests in auth_page_test.dart">
+  <component name="RunManager" selected="Flutter Test.tests in chat_page_test.dart">
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
       <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Non chiama nessun metodo se il form non \u00e8 valido" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testName" value="Non chiama nessun metodo se il form non \u00e8 valido" />
-      <option name="testFile" value="$PROJECT_DIR$/test/UnitTest/screens/auth_page_test.dart" />
-      <option name="useRegexp" value="true" />
       <method v="2" />
     </configuration>
     <configuration name="Non chiama nessun metodo se il form non valido" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
@@ -139,13 +136,18 @@
       <option name="useRegexp" value="false" />
       <method v="2" />
     </configuration>
+    <configuration name="tests in chat_page_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testFile" value="$PROJECT_DIR$/test/UnitTest/screens/chat_page_test.dart" />
+      <option name="useRegexp" value="false" />
+      <method v="2" />
+    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Flutter Test.tests in chat_page_test.dart" />
         <item itemvalue="Flutter Test.tests in auth_page_test.dart" />
         <item itemvalue="Flutter Test.Passa alla modalita Registrazione quando si tocca il testo apposito" />
         <item itemvalue="Flutter Test.Passa alla modalit\u00e0 Registrazione quando si tocca il testo apposito" />
         <item itemvalue="Flutter Test.Non chiama nessun metodo se il form non valido" />
-        <item itemvalue="Flutter Test.Non chiama nessun metodo se il form non \u00e8 valido" />
       </list>
     </recent_temporary>
   </component>
