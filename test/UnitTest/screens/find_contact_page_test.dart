@@ -65,18 +65,18 @@ void main() {
   }
 
   group('FindContactPage Widget Tests', () {
-    testWidgets('La pagina si costruisce correttamente e mostra lo stato iniziale',
-            (WidgetTester tester) async {
-          // ACT: Costruisci la pagina.
-          await tester.pumpWidget(buildTestableWidget());
+    testWidgets('La pagina si costruisce correttamente e mostra lo stato iniziale', (WidgetTester tester) async {
+        // ACT: Costruisci la pagina.
+        await tester.pumpWidget(buildTestableWidget());
 
-          // ASSERT: Verifica che i componenti iniziali siano presenti.
-          expect(find.widgetWithText(AppBar, 'Cerca/Aggiungi Contatto'), findsOneWidget);
-          expect(find.byType(TextFormField), findsOneWidget);
-          expect(find.widgetWithText(ElevatedButton, 'Cerca'), findsOneWidget);
-          expect(find.text("Nessun wallet trovato"), findsOneWidget,
-              reason: "Allo stato iniziale, non ci devono essere risultati");
-        });
+        // ASSERT: Verifica che i componenti iniziali siano presenti.
+        expect(find.widgetWithText(AppBar, 'Cerca/Aggiungi Contatto'), findsOneWidget);
+        expect(find.byType(TextFormField), findsOneWidget);
+        expect(find.byKey(const Key("searchButtonEmail")), findsOneWidget);
+        expect(find.text("Nessun wallet trovato"), findsOneWidget, reason: "Allo stato iniziale, non ci devono essere risultati",);
+      },
+    );
+
 
     testWidgets('Mostra i risultati della ricerca dopo aver cercato via email',
             (WidgetTester tester) async {
@@ -102,21 +102,16 @@ void main() {
           // ACT
           await tester.pumpWidget(buildTestableWidget());
 
-          // 1. Inserisci l'email nel campo di testo
           await tester.enterText(find.byType(TextFormField), searchEmail);
-          // 2. Tocca il pulsante di ricerca
-          await tester.tap(find.widgetWithText(ElevatedButton, 'Cerca'));
-          // 3. Attendi il completamento del caricamento e la ricostruzione della UI
+          await tester.pump();
+          await tester.tap(find.byKey(Key("searchButtonEmail")));
           await tester.pumpAndSettle();
 
           // ASSERT
-          expect(find.text("Nessun wallet trovato"), findsNothing,
-              reason: "Il messaggio di 'nessun risultato' deve scomparire");
-          expect(find.text('Contatto Trovato'), findsOneWidget,
-              reason: "Il nome del contatto trovato deve essere visibile");
-          expect(find.text(searchEmail), findsOneWidget,
-              reason: "L'email del contatto trovato deve essere visibile");
-        });
+          expect(find.text("Nessun wallet trovato"), findsNothing, reason: "Il messaggio di 'nessun risultato' deve scomparire");
+          expect(find.text('Contatto Trovato'), findsOneWidget, reason: "Il nome del contatto trovato deve essere visibile");
+          expect(find.text(searchEmail), findsNWidgets(2));
+    });
 
     testWidgets('Chiama createConversation e naviga quando si tocca un risultato',
             (WidgetTester tester) async {
