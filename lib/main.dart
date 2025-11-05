@@ -18,6 +18,8 @@ import 'package:key_wallet_app/services/i_recover_service.dart';
 import 'package:key_wallet_app/services/recover_service.dart';
 import 'package:key_wallet_app/services/i_secure_storage.dart';
 import 'package:key_wallet_app/services/secure_storage.dart';
+import 'package:key_wallet_app/services/i_nfc_service.dart';
+import 'package:key_wallet_app/services/nfc_services.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -40,6 +42,7 @@ void main() async {
           Provider<IChatService>(create: (_) => ChatService()),
           Provider<IContactService>(create: (_) => ContactService()),
           Provider<IRecoverService>(create: (_) => RecoverService()),
+          Provider<INfcService>(create: (_) => NfcServices()),
         ],
         child: const  MyApp(),
     )
