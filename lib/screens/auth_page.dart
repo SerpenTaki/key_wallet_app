@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:key_wallet_app/services/validators.dart';
-import 'package:key_wallet_app/services/auth.dart';
+import 'package:key_wallet_app/services/i_auth.dart';
+import 'package:provider/provider.dart';
 
 class AuthPage extends StatefulWidget {
   const AuthPage({super.key});
@@ -19,7 +20,8 @@ class AuthPageState extends State<AuthPage> {
 
   Future<void> signIn() async {
     try {
-      await Auth().signInWithEmailAndPassword(
+      final authService = context.read<IAuth>();
+      await authService.signInWithEmailAndPassword(
         email: _email.text,
         password: _password.text,
       );
@@ -30,7 +32,8 @@ class AuthPageState extends State<AuthPage> {
 
   Future<void> createUser() async {
     try {
-      await Auth().createUserWithEmailAndPassword(
+      final authService = context.read<IAuth>();
+      await authService.createUserWithEmailAndPassword(
         email: _email.text,
         password: _password.text,
       );
@@ -82,6 +85,7 @@ class AuthPageState extends State<AuthPage> {
                     child: Column(
                       children: [
                         TextFormField(
+                          key: const Key("emailField"),
                           controller: _email,
                           keyboardType: TextInputType.emailAddress,
                           textInputAction: TextInputAction.next,
@@ -103,6 +107,7 @@ class AuthPageState extends State<AuthPage> {
                         ),
                         const SizedBox(height: 30),
                         TextFormField(
+                          key: const Key("passwordField"),
                           validator: (value) {
                             if (validator.passwordValidator(value) == null) {
                               return null;
@@ -126,6 +131,7 @@ class AuthPageState extends State<AuthPage> {
                         Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: ElevatedButton(
+                            key: const Key("actionButton"),
                             onPressed: () {
                               if (_formKey.currentState!.validate()) {
                                 isLogin ? signIn() : createUser();
