@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:key_wallet_app/models/wallet.dart';
-import 'package:key_wallet_app/services/recover_service.dart';
-import 'package:key_wallet_app/services/nfc_services.dart';
-import "package:key_wallet_app/services/secure_storage.dart";
+import 'package:key_wallet_app/services/i_recover_service.dart';
+import 'package:key_wallet_app/services/i_nfc_service.dart';
+import "package:key_wallet_app/services/i_secure_storage.dart";
+import 'package:provider/provider.dart';
 
 class WalletRecoverPage extends StatefulWidget {
   const WalletRecoverPage({super.key, required this.wallet});
@@ -19,15 +20,14 @@ class _WalletRecoverPageState extends State<WalletRecoverPage> {
   String standard = "";
   bool _isNfcAvailable = false;
   bool _isScanning = false;
-  final SecureStorage secureStorage = SecureStorage();
-  final recoverService = RecoverService();
   bool _isRecoverButtonEnabled = false;
 
   @override
   void initState() {
     super.initState();
     _privateKeyController.addListener(_validateInputs);
-    NfcServices().checkAvailability().then((isAvailable) {
+    final nfcService = context.read<INfcService>();
+    nfcService.checkAvailability().then((isAvailable) {
       if (mounted) {
         setState(() {
           _isNfcAvailable = isAvailable;
@@ -52,7 +52,7 @@ class _WalletRecoverPageState extends State<WalletRecoverPage> {
       }
       return;
     }
-
+    final recoverService = context.read<IRecoverService>();
     final bool isKeyValid = await recoverService.checkIfRight(
       widget.wallet.publicKey,
       _privateKeyController.text,
@@ -77,7 +77,8 @@ class _WalletRecoverPageState extends State<WalletRecoverPage> {
     });
 
     try {
-      dynamic tagData = await NfcServices().fetchNfcData();
+      final nfcService = context.read<INfcService>();
+      dynamic tagData = await nfcService.fetchNfcData();
       if (tagData != null && mounted) {
         setState(() {
           hBytes = tagData.historicalBytes?.toString() ?? 'N/D';
@@ -168,6 +169,7 @@ class _WalletRecoverPageState extends State<WalletRecoverPage> {
               ),
               if (_isNfcAvailable)
                 ElevatedButton.icon(
+                  key: const Key("scanNfcButton"),
                   onPressed: _isScanning ? null : _scanNfcTag,
                   icon: _isScanning
                       ? const SizedBox(
@@ -196,6 +198,7 @@ class _WalletRecoverPageState extends State<WalletRecoverPage> {
               ElevatedButton(
                 onPressed: _isRecoverButtonEnabled
                     ? () async {
+                        final secureStorage = context.read<ISecureStorage>();
                         await secureStorage.writeSecureData(
                           widget.wallet.localKeyIdentifier,
                           _privateKeyController.text,

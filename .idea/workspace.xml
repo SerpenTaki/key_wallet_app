@@ -10,12 +10,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fd9f324-4b81-479f-be21-42b0a387615a" name="Changes" comment="Primo commit">
-      <change afterPath="$PROJECT_DIR$/test/UnitTest/screens/key_not_found_test.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/services/i_recover_service.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/services/i_secure_storage.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/UnitTest/screens/wallet_recover_page_test.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/wallet_recover_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/wallet_recover_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/recover_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/recover_service.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/services/secure_storage.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/secure_storage.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/UnitTest/Services/chat_service_test.mocks.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/UnitTest/Services/chat_service_test.mocks.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/UnitTest/Services/contact_service_test.mocks.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/UnitTest/Services/contact_service_test.mocks.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/UnitTest/Services/wallet_service_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/UnitTest/Services/wallet_service_test.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test/UnitTest/Services/wallet_service_test.mocks.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/UnitTest/Services/wallet_service_test.mocks.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/UnitTest/screens/find_contact_page_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/UnitTest/screens/find_contact_page_test.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,13 +67,18 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Flutter Test.Chiama createConversation e naviga quando si tocca un risultato.executor": "Run",
+    "Flutter Test.Il pulsante di recupero rimane disabilitato se la chiave \\u00e8 sbagliata.executor": "Run",
+    "Flutter Test.Il pulsante di recupero si abilita e funziona quando chiave e NFC sono corretti.executor": "Run",
     "Flutter Test.Il widget si costruisce correttamente e accede a IChatService.executor": "Run",
     "Flutter Test.La pagina si costruisce correttamente e mostra lo stato iniziale.executor": "Run",
+    "Flutter Test.La pagina si costruisce e il pulsante di recupero \\u00e8 disabilitato.executor": "Run",
+    "Flutter Test.La pagina si costruisce e il pulsante di recupero disabilitato.executor": "Run",
     "Flutter Test.Mostra i risultati della ricerca dopo aver cercato via email.executor": "Run",
     "Flutter Test.Non chiama nessun metodo se il form non \\u00e8 valido.executor": "Run",
     "Flutter Test.Non chiama nessun metodo se il form non valido.executor": "Run",
     "Flutter Test.Passa alla modalit\\u00e0 Registrazione quando si tocca il testo apposito.executor": "Run",
     "Flutter Test.Passa alla modalita Registrazione quando si tocca il testo apposito.executor": "Run",
+    "Flutter Test.WalletRecoverPage Tests.executor": "Run",
     "Flutter Test.convertKeysToBase64String.executor": "Run",
     "Flutter Test.tests in auth_page_test.dart.executor": "Run",
     "Flutter Test.tests in build_message_list_test.dart.executor": "Run",
@@ -116,46 +127,48 @@
       <recent name="$PROJECT_DIR$/lib/widgets/WalletDialog" />
     </key>
   </component>
-  <component name="RunManager" selected="Flutter Test.tests in key_not_found_test.dart">
+  <component name="RunManager" selected="Flutter Test.WalletRecoverPage Tests">
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
       <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
       <method v="2" />
     </configuration>
-    <configuration name="Chiama createConversation e naviga quando si tocca un risultato" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testName" value="Chiama createConversation e naviga quando si tocca un risultato" />
-      <option name="testFile" value="$PROJECT_DIR$/test/UnitTest/screens/find_contact_page_test.dart" />
+    <configuration name="Il pulsante di recupero rimane disabilitato se la chiave \u00e8 sbagliata" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="Il pulsante di recupero rimane disabilitato se la chiave \u00e8 sbagliata" />
+      <option name="testFile" value="$PROJECT_DIR$/test/UnitTest/screens/wallet_recover_page_test.dart" />
       <option name="useRegexp" value="true" />
       <method v="2" />
     </configuration>
-    <configuration name="La pagina si costruisce correttamente e mostra lo stato iniziale" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testName" value="La pagina si costruisce correttamente e mostra lo stato iniziale" />
-      <option name="testFile" value="$PROJECT_DIR$/test/UnitTest/screens/find_contact_page_test.dart" />
+    <configuration name="Il pulsante di recupero si abilita e funziona quando chiave e NFC sono corretti" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="Il pulsante di recupero si abilita e funziona quando chiave e NFC sono corretti" />
+      <option name="testFile" value="$PROJECT_DIR$/test/UnitTest/screens/wallet_recover_page_test.dart" />
       <option name="useRegexp" value="true" />
       <method v="2" />
     </configuration>
-    <configuration name="Mostra i risultati della ricerca dopo aver cercato via email" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testName" value="Mostra i risultati della ricerca dopo aver cercato via email" />
-      <option name="testFile" value="$PROJECT_DIR$/test/UnitTest/screens/find_contact_page_test.dart" />
+    <configuration name="La pagina si costruisce e il pulsante di recupero \u00e8 disabilitato" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="La pagina si costruisce e il pulsante di recupero \u00e8 disabilitato" />
+      <option name="testFile" value="$PROJECT_DIR$/test/UnitTest/screens/wallet_recover_page_test.dart" />
       <option name="useRegexp" value="true" />
       <method v="2" />
     </configuration>
-    <configuration name="tests in find_contact_page_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testFile" value="$PROJECT_DIR$/test/UnitTest/screens/find_contact_page_test.dart" />
-      <option name="useRegexp" value="false" />
+    <configuration name="La pagina si costruisce e il pulsante di recupero disabilitato" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="La pagina si costruisce e il pulsante di recupero disabilitato" />
+      <option name="testFile" value="$PROJECT_DIR$/test/UnitTest/screens/wallet_recover_page_test.dart" />
+      <option name="useRegexp" value="true" />
       <method v="2" />
     </configuration>
-    <configuration name="tests in key_not_found_test.dart" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testFile" value="$PROJECT_DIR$/test/UnitTest/screens/key_not_found_test.dart" />
+    <configuration name="WalletRecoverPage Tests" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="WalletRecoverPage Tests" />
+      <option name="testFile" value="$PROJECT_DIR$/test/UnitTest/screens/wallet_recover_page_test.dart" />
       <option name="useRegexp" value="false" />
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Flutter Test.tests in key_not_found_test.dart" />
-        <item itemvalue="Flutter Test.tests in find_contact_page_test.dart" />
-        <item itemvalue="Flutter Test.La pagina si costruisce correttamente e mostra lo stato iniziale" />
-        <item itemvalue="Flutter Test.Mostra i risultati della ricerca dopo aver cercato via email" />
-        <item itemvalue="Flutter Test.Chiama createConversation e naviga quando si tocca un risultato" />
+        <item itemvalue="Flutter Test.WalletRecoverPage Tests" />
+        <item itemvalue="Flutter Test.Il pulsante di recupero rimane disabilitato se la chiave \u00e8 sbagliata" />
+        <item itemvalue="Flutter Test.Il pulsante di recupero si abilita e funziona quando chiave e NFC sono corretti" />
+        <item itemvalue="Flutter Test.La pagina si costruisce e il pulsante di recupero disabilitato" />
+        <item itemvalue="Flutter Test.La pagina si costruisce e il pulsante di recupero \u00e8 disabilitato" />
       </list>
     </recent_temporary>
   </component>

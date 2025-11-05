@@ -14,6 +14,10 @@ import 'package:key_wallet_app/services/i_chat_service.dart';
 import 'package:key_wallet_app/services/chat_service.dart';
 import 'package:key_wallet_app/services/i_contact_service.dart';
 import 'package:key_wallet_app/services/contact_service.dart';
+import 'package:key_wallet_app/services/i_recover_service.dart';
+import 'package:key_wallet_app/services/recover_service.dart';
+import 'package:key_wallet_app/services/i_secure_storage.dart';
+import 'package:key_wallet_app/services/secure_storage.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,10 +34,12 @@ void main() async {
   runApp(
     MultiProvider(
         providers: [
+          Provider<ISecureStorage>(create: (_) => SecureStorage()),
           ChangeNotifierProvider<IWalletService>(create: (_) => WalletService()),
           Provider<IAuth>(create: (_) => Auth()),
           Provider<IChatService>(create: (_) => ChatService()),
           Provider<IContactService>(create: (_) => ContactService()),
+          Provider<IRecoverService>(create: (_) => RecoverService()),
         ],
         child: const  MyApp(),
     )

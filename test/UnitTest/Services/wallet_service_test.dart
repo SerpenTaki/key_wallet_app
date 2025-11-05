@@ -1,6 +1,5 @@
-// test/UnitTest/Services/wallet_service_test.dart
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+// ignore: depend_on_referenced_packages
 import 'package:fake_async/fake_async.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +26,7 @@ import 'package:mockito/mockito.dart';
 import 'wallet_service_test.mocks.dart';
 
 // Helper per mockare la chiamata a FieldValue.serverTimestamp()
+// ignore: must_be_immutable
 class MockFieldValue extends Mock implements FieldValue {
   static final serverTimestamp = MockFieldValue();
 }
