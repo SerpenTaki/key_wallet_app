@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:key_wallet_app/models/wallet.dart';
-import 'package:key_wallet_app/services/secure_storage.dart';
+import 'package:key_wallet_app/services/i_secure_storage.dart';
 import 'package:key_wallet_app/screens/key_not_found.dart';
 import 'package:key_wallet_app/screens/keys_page.dart';
 import 'package:key_wallet_app/widgets/wallets_dialogs/delete_apple_wallet_alert.dart';
@@ -20,12 +20,26 @@ class WalletPage extends StatefulWidget {
 }
 
 class _WalletPageState extends State<WalletPage> {
-  final SecureStorage _secureStorage = SecureStorage();
+  ISecureStorage? _secureStorage;
+  Future<String?>? _privateKeyFuture;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    // Inizializza le dipendenze e il Future solo se non sono già stati inizializzati.
+    if (_secureStorage == null) {
+      // Ottieni l'istanza dal Provider.
+      _secureStorage = Provider.of<ISecureStorage>(context);
+      // Assegna il future alla variabile di stato.
+      _privateKeyFuture = _secureStorage!.readSecureData(widget.wallet.localKeyIdentifier);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<dynamic>(
-      future: _secureStorage.readSecureData(widget.wallet.localKeyIdentifier),
+      future: _privateKeyFuture,
       builder: (BuildContext context, AsyncSnapshot<dynamic> mainSnapshot) {
         if (mainSnapshot.connectionState == ConnectionState.waiting) {
           return _buildLoadingScaffold(context, "Caricamento dati sicuri...");
@@ -115,7 +129,7 @@ class _WalletPageState extends State<WalletPage> {
                   );
                   if (confirmDelete == true) {
                     try {
-                      await _secureStorage.deleteSecureData(
+                      await _secureStorage!.deleteSecureData(
                         widget.wallet.localKeyIdentifier,
                       );
                       if (mounted) {
@@ -165,7 +179,7 @@ class _WalletPageState extends State<WalletPage> {
               KeysPage(
                 wallet: widget.wallet,
                 privateKeyValue: privateKeyValue,
-                secureStorage: _secureStorage,
+                secureStorage: _secureStorage!,
               ),
             ],
           ),
