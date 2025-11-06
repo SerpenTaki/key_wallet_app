@@ -18,7 +18,7 @@ class RecoverService implements IRecoverService{
       final dynamic encoded = await _cryptoUtils.rsaEncryptBase64(
           testString, _cryptoUtils.parsePublicKeyFromJsonString(publicKey));
       final dynamic decoded = await _cryptoUtils.rsaDecryptBase64(
-          encoded, _cryptoUtils.parsePrivateKeyFromJsonString(privateKeyString));
+          encoded, _cryptoUtils.parsePrivateKeyFromJsonString(privateKeyString.trim()));
       return decoded == testString;
     } catch (e) {
       //print("error: $e");

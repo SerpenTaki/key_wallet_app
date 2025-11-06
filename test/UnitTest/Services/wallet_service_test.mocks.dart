@@ -2,7 +2,7 @@
 // in key_wallet_app/test/UnitTest/Services/wallet_service_test.dart.
 // Do not manually edit this file.
 
-// ignore_for_file: no_leading_underscores_for_library_prefixes
+// ignore_for_file: no_leading_underscores_for_library_prefixes, duplicate_ignore
 import 'dart:async' as _i5;
 import 'dart:typed_data' as _i8;
 
