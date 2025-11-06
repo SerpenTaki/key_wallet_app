@@ -1,14 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:key_wallet_app/models/wallet.dart';
-import 'package:key_wallet_app/services/secure_storage.dart';
+import 'package:key_wallet_app/services/i_secure_storage.dart';
 import 'package:key_wallet_app/widgets/keys_dialogs/delete_privatekey_dialog.dart';
 import 'package:key_wallet_app/widgets/keys_dialogs/delete_privatekey_apple_dialog.dart';
 
 class KeysPage extends StatefulWidget {
   final Wallet wallet;
   final String privateKeyValue;
-  final SecureStorage secureStorage;
+  final ISecureStorage secureStorage;
 
   const KeysPage({
     super.key,
