@@ -10,12 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fd9f324-4b81-479f-be21-42b0a387615a" name="Changes" comment="Primo commit">
-      <change afterPath="$PROJECT_DIR$/test/UnitTest/screens/landing_page_test.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/recover_service.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/recover_service.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/UnitTest/Services/chat_service_test.mocks.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/UnitTest/Services/chat_service_test.mocks.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/UnitTest/Services/contact_service_test.mocks.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/UnitTest/Services/contact_service_test.mocks.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/UnitTest/Services/wallet_service_test.mocks.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/UnitTest/Services/wallet_service_test.mocks.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
