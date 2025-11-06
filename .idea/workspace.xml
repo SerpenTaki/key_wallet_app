@@ -10,12 +10,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4fd9f324-4b81-479f-be21-42b0a387615a" name="Changes" comment="Primo commit">
-      <change afterPath="$PROJECT_DIR$/test/UnitTest/screens/keys_page_test.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/keys_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/keys_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/UnitTest/Services/chat_service_test.mocks.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/UnitTest/Services/chat_service_test.mocks.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/UnitTest/Services/contact_service_test.mocks.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/UnitTest/Services/contact_service_test.mocks.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/UnitTest/Services/wallet_service_test.mocks.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/UnitTest/Services/wallet_service_test.mocks.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/UnitTest/screens/keys_page_test.dart" beforeDir="false" afterPath="$PROJECT_DIR$/test/UnitTest/screens/keys_page_test.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,6 +56,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Flutter Test.Cancellazione chiave privata.executor": "Run",
     "Flutter Test.Chiama createConversation e naviga quando si tocca un risultato.executor": "Run",
     "Flutter Test.Il pulsante di recupero rimane disabilitato se la chiave \\u00e8 sbagliata.executor": "Run",
     "Flutter Test.Il pulsante di recupero si abilita e funziona quando chiave e NFC sono corretti.executor": "Run",
@@ -123,19 +120,19 @@
       <recent name="$PROJECT_DIR$/lib/widgets/WalletDialog" />
     </key>
   </component>
-  <component name="RunManager" selected="Flutter Test.tests in keys_page_test.dart">
+  <component name="RunManager" selected="Flutter Test.Cancellazione chiave privata">
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
       <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
       <method v="2" />
     </configuration>
-    <configuration name="Il pulsante di recupero rimane disabilitato se la chiave \u00e8 sbagliata" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testName" value="Il pulsante di recupero rimane disabilitato se la chiave \u00e8 sbagliata" />
-      <option name="testFile" value="$PROJECT_DIR$/test/UnitTest/screens/wallet_recover_page_test.dart" />
-      <option name="useRegexp" value="true" />
+    <configuration name="Cancellazione chiave privata" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="Cancellazione chiave privata" />
+      <option name="testFile" value="$PROJECT_DIR$/test/UnitTest/screens/keys_page_test.dart" />
+      <option name="useRegexp" value="false" />
       <method v="2" />
     </configuration>
-    <configuration name="Il pulsante di recupero si abilita e funziona quando chiave e NFC sono corretti" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
-      <option name="testName" value="Il pulsante di recupero si abilita e funziona quando chiave e NFC sono corretti" />
+    <configuration name="Il pulsante di recupero rimane disabilitato se la chiave \u00e8 sbagliata" type="FlutterTestConfigType" factoryName="Flutter Test" temporary="true" nameIsGenerated="true">
+      <option name="testName" value="Il pulsante di recupero rimane disabilitato se la chiave \u00e8 sbagliata" />
       <option name="testFile" value="$PROJECT_DIR$/test/UnitTest/screens/wallet_recover_page_test.dart" />
       <option name="useRegexp" value="true" />
       <method v="2" />
@@ -158,11 +155,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Flutter Test.Cancellazione chiave privata" />
         <item itemvalue="Flutter Test.tests in keys_page_test.dart" />
         <item itemvalue="Flutter Test.tests in wallet_recover_page_test.dart" />
         <item itemvalue="Flutter Test.WalletRecoverPage Tests" />
         <item itemvalue="Flutter Test.Il pulsante di recupero rimane disabilitato se la chiave \u00e8 sbagliata" />
-        <item itemvalue="Flutter Test.Il pulsante di recupero si abilita e funziona quando chiave e NFC sono corretti" />
       </list>
     </recent_temporary>
   </component>

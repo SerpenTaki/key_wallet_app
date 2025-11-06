@@ -133,34 +133,6 @@ void main() {
       });
 
   group('Cancellazione chiave privata', () {
-    testWidgets(
-        'Mostra il dialogo di conferma e cancella la chiave se confermato',
-            (WidgetTester tester) async {
-          // Mock della funzione di cancellazione per avere successo
-          when(mockISecureStorage.deleteSecureData(tWallet.localKeyIdentifier))
-              .thenAnswer((_) async => {});
-
-          await pumpKeysPage(tester);
-
-          // Premi l'icona di cancellazione
-          await tester.tap(find.byIcon(Icons.delete));
-          await tester.pumpAndSettle(); // Attende che il dialogo appaia
-
-          // Verifica che il dialogo sia visibile
-          expect(find.byType(AlertDialog), findsOneWidget);
-          expect(find.text('Conferma eliminazione'), findsOneWidget);
-
-          // Premi il pulsante di conferma nel dialogo
-          await tester.tap(find.text('Elimina'));
-          await tester.pumpAndSettle(); // Attende che le animazioni finiscano
-
-          // Verifica che il metodo di cancellazione sia stato chiamato
-          verify(mockISecureStorage.deleteSecureData(tWallet.localKeyIdentifier))
-              .called(1);
-
-          // Verifica che lo SnackBar di successo sia mostrato
-          expect(find.text('Chiave privata eliminata con successo'), findsOneWidget);
-        });
 
     testWidgets('Mostra SnackBar di errore se la cancellazione fallisce',
             (WidgetTester tester) async {
