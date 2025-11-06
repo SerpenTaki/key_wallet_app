@@ -53,7 +53,7 @@ void main() {
       ],
       child: MaterialApp(
         home: Builder(
-          // 🔹 il Builder crea un nuovo BuildContext sotto ai Provider
+          // il Builder crea un nuovo BuildContext sotto ai Provider
           builder: (context) {
             return WalletRecoverPage(wallet: testWallet);
           },

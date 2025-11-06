@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:io' show Platform;
 import 'package:key_wallet_app/widgets/color_picker_dialog.dart';
-import 'package:key_wallet_app/services/nfc_services.dart';
+import 'package:key_wallet_app/services/i_nfc_service.dart';
 import 'package:provider/provider.dart';
 import 'package:key_wallet_app/services/i_wallet_service.dart';
 
@@ -28,7 +28,8 @@ class _NewWalletCreationState extends State<NewWalletCreation> {
   @override
   void initState() {
     super.initState();
-    NfcServices().checkAvailability().then((isAvailable) {
+    final nfcService = context.read<INfcService>();
+    nfcService.checkAvailability().then((isAvailable) {
       if (mounted) {
         setState(() {
           _isNfcAvailable = isAvailable;
@@ -37,14 +38,15 @@ class _NewWalletCreationState extends State<NewWalletCreation> {
     });
   }
 
-  Future<void> _scanNfcTag() async { //da mettere da un altra parte
+  Future<void> _scanNfcTag() async {
     if (_isScanning) return;
     setState(() {
       _isScanning = true;
     });
 
     try {
-      dynamic tagData = await NfcServices().fetchNfcData();
+      final nfcService = context.read<INfcService>();
+      dynamic tagData = await nfcService.fetchNfcData();
       if (tagData != null && mounted) {
         setState(() {
           hBytes = tagData.historicalBytes?.toString() ?? 'N/D';
