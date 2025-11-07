@@ -20,9 +20,7 @@ class CryptoUtils {
   AsymmetricKeyPair<PublicKey, PrivateKey> generateRSAkeyPair(
       SecureRandom secureRandom) {
     final keyGen = RSAKeyGenerator(); //Generatore di chiavi RSA
-    keyGen.init(ParametersWithRandom(
-      RSAKeyGeneratorParameters(BigInt.parse('65537'), 2048, 64),
-      secureRandom,));
+    keyGen.init(ParametersWithRandom(RSAKeyGeneratorParameters(BigInt.parse('65537'), 2048, 64), secureRandom,));
     // Inizializza il generatore di chiavi RSA con i parametri specificati
     //65537 è il valore di default per il parametro publicExponent
     //2048 bit è il valore di default per il parametro keyLength sicura per l'uso moderno
