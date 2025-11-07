@@ -80,9 +80,7 @@ class WalletService with ChangeNotifier implements IWalletService{
         'color': selectedColor.toString(),
         'publicKey': tempWallet.publicKey,
         'localKeyIdentifier': tempWallet.localKeyIdentifier,
-        'algorithm': 'RSA',
         'createdAt': FieldValue.serverTimestamp(),
-        'backedUp': false,
         'balance' : tempWallet.balance,
       };
 

@@ -4,7 +4,6 @@ import 'package:key_wallet_app/services/i_secure_storage.dart';
 class SecureStorage implements ISecureStorage {
   final FlutterSecureStorage storage;
 
-  // Costruttore: se non viene fornito uno storage, usa quello di default. Ci consente di iniettare il mock
   SecureStorage({FlutterSecureStorage? storage}) : storage = storage ?? const FlutterSecureStorage();
 
   @override
