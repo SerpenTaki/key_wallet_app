@@ -70,6 +70,8 @@ class WalletService with ChangeNotifier implements IWalletService{
       await _secureStorage.writeSecureData(tempWallet.localKeyIdentifier, tempWallet.transientRawPrivateKey!);
       tempWallet.transientRawPrivateKey = null;
 
+      final colorString = 'alpha: ${selectedColor.alpha / 255}, red: ${selectedColor.red / 255}, green: ${selectedColor.green / 255}, blue: ${selectedColor.blue / 255}';
+
       Map<String, dynamic> walletDataForFirestore = {
         'userId': userId,
         'email': email,
@@ -77,7 +79,7 @@ class WalletService with ChangeNotifier implements IWalletService{
         'hBytes': hBytes,
         'standard': standard,
         'device': device,
-        'color': selectedColor.toString(),
+        'color': colorString,
         'publicKey': tempWallet.publicKey,
         'localKeyIdentifier': tempWallet.localKeyIdentifier,
         'createdAt': FieldValue.serverTimestamp(),

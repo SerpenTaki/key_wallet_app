@@ -4,8 +4,8 @@
   <element>
     <id>UMLInterface</id>
     <coordinates>
-      <x>110</x>
-      <y>660</y>
+      <x>70</x>
+      <y>880</y>
       <w>460</w>
       <h>120</h>
     </coordinates>
@@ -20,8 +20,8 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>110</x>
-      <y>800</y>
+      <x>70</x>
+      <y>1020</y>
       <w>460</w>
       <h>130</h>
     </coordinates>
@@ -40,8 +40,8 @@ bg=yellow</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>330</x>
-      <y>680</y>
+      <x>290</x>
+      <y>900</y>
       <w>30</w>
       <h>140</h>
     </coordinates>
@@ -51,8 +51,8 @@ bg=yellow</panel_attributes>
   <element>
     <id>UMLInterface</id>
     <coordinates>
-      <x>640</x>
-      <y>480</y>
+      <x>600</x>
+      <y>560</y>
       <w>560</w>
       <h>150</h>
     </coordinates>
@@ -69,8 +69,8 @@ bg=pink</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>640</x>
-      <y>660</y>
+      <x>600</x>
+      <y>720</y>
       <w>570</w>
       <h>160</h>
     </coordinates>
@@ -91,19 +91,19 @@ bg=pink</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>910</x>
-      <y>500</y>
+      <x>870</x>
+      <y>580</y>
       <w>30</w>
-      <h>180</h>
+      <h>160</h>
     </coordinates>
     <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;160.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;140.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>640</x>
-      <y>20</y>
+      <x>600</x>
+      <y>100</y>
       <w>230</w>
       <h>150</h>
     </coordinates>
@@ -124,8 +124,8 @@ bg=red
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>600</x>
-      <y>160</y>
+      <x>560</x>
+      <y>240</y>
       <w>180</w>
       <h>570</h>
     </coordinates>
@@ -135,8 +135,8 @@ bg=red
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>920</x>
-      <y>0</y>
+      <x>880</x>
+      <y>100</y>
       <w>550</w>
       <h>270</h>
     </coordinates>
@@ -163,8 +163,8 @@ bg=red</panel_attributes>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>40</x>
-      <y>20</y>
+      <x>0</x>
+      <y>100</y>
       <w>570</w>
       <h>200</h>
     </coordinates>
@@ -187,33 +187,34 @@ bg=green</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>910</x>
-      <y>260</y>
+      <x>870</x>
+      <y>360</y>
       <w>310</w>
-      <h>250</h>
+      <h>230</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>290.0;10.0;290.0;90.0;10.0;90.0;10.0;230.0</additional_attributes>
+    <additional_attributes>290.0;10.0;290.0;70.0;10.0;70.0;10.0;210.0</additional_attributes>
   </element>
   <element>
     <id>UMLInterface</id>
     <coordinates>
-      <x>680</x>
-      <y>820</y>
+      <x>640</x>
+      <y>970</y>
       <w>500</w>
       <h>100</h>
     </coordinates>
     <panel_attributes>IContactService
 --
 searchWalletsByEmail(String): Future&lt;List&lt;Map&lt;String, dynamic&gt; &gt; &gt;
-searchWalletsByNfc(String): Future&lt;List&lt;Map&lt;String, dynamic&gt; &gt; &gt;</panel_attributes>
+searchWalletsByNfc(String): Future&lt;List&lt;Map&lt;String, dynamic&gt; &gt; &gt;
+bg=yellow</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>680</x>
-      <y>940</y>
+      <x>640</x>
+      <y>1080</y>
       <w>510</w>
       <h>70</h>
     </coordinates>
@@ -221,25 +222,26 @@ searchWalletsByNfc(String): Future&lt;List&lt;Map&lt;String, dynamic&gt; &gt; &g
 --
 --
 + searchWalletsByEmail(String): Future&lt;List&lt;Map&lt;String, dynamic&gt; &gt; &gt;
-+ searchWalletsByNfc(String): Future&lt;List&lt;Map&lt;String, dynamic&gt; &gt; &gt;</panel_attributes>
++ searchWalletsByNfc(String): Future&lt;List&lt;Map&lt;String, dynamic&gt; &gt; &gt;
+bg=yellow</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>920</x>
-      <y>840</y>
+      <x>880</x>
+      <y>990</y>
       <w>30</w>
-      <h>120</h>
+      <h>110</h>
     </coordinates>
     <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>550</x>
-      <y>210</y>
+      <x>510</x>
+      <y>290</y>
       <w>110</w>
       <h>540</h>
     </coordinates>
@@ -249,22 +251,23 @@ searchWalletsByNfc(String): Future&lt;List&lt;Map&lt;String, dynamic&gt; &gt; &g
   <element>
     <id>UMLInterface</id>
     <coordinates>
-      <x>1240</x>
-      <y>810</y>
+      <x>1200</x>
+      <y>970</y>
       <w>260</w>
       <h>100</h>
     </coordinates>
     <panel_attributes>INfcService
 --
 checkAvailability(): Future&lt;bool&gt;
-fetchNfcData(): Future&lt;NFCTag?&gt;</panel_attributes>
+fetchNfcData(): Future&lt;NFCTag?&gt;
+bg=blue</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1240</x>
-      <y>930</y>
+      <x>1200</x>
+      <y>1080</y>
       <w>250</w>
       <h>80</h>
     </coordinates>
@@ -273,25 +276,26 @@ fetchNfcData(): Future&lt;NFCTag?&gt;</panel_attributes>
 - nfcKitWrapper
 --
 + checkAvailability(): Future&lt;bool&gt;
-+ fetchNfcData(): Future&lt;NFCTag?&gt;</panel_attributes>
++ fetchNfcData(): Future&lt;NFCTag?&gt;
+bg=blue</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1360</x>
-      <y>830</y>
+      <x>1320</x>
+      <y>990</y>
       <w>30</w>
-      <h>120</h>
+      <h>110</h>
     </coordinates>
     <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;100.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;90.0</additional_attributes>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1320</x>
-      <y>1050</y>
+      <x>1490</x>
+      <y>1110</y>
       <w>100</w>
       <h>30</h>
     </coordinates>
@@ -302,45 +306,47 @@ bg=blue</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1350</x>
-      <y>1000</y>
-      <w>30</w>
-      <h>70</h>
+      <x>1440</x>
+      <y>1110</y>
+      <w>70</w>
+      <h>30</h>
     </coordinates>
     <panel_attributes>lt=&lt;-</panel_attributes>
-    <additional_attributes>10.0;50.0;10.0;10.0</additional_attributes>
+    <additional_attributes>50.0;10.0;10.0;10.0</additional_attributes>
   </element>
   <element>
     <id>UMLInterface</id>
     <coordinates>
-      <x>200</x>
-      <y>270</y>
+      <x>160</x>
+      <y>350</y>
       <w>300</w>
       <h>90</h>
     </coordinates>
     <panel_attributes>IRecoverService
 --
-checkIfRight(String, String): Future&lt;bool&gt;</panel_attributes>
+checkIfRight(String, String): Future&lt;bool&gt;
+bg=cyan</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>190</x>
-      <y>370</y>
+      <x>150</x>
+      <y>450</y>
       <w>310</w>
       <h>50</h>
     </coordinates>
     <panel_attributes>RecoverService
 --
-+checkIfRight(String, String): Future&lt;bool&gt;</panel_attributes>
++checkIfRight(String, String): Future&lt;bool&gt;
+bg=cyan</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>340</x>
-      <y>290</y>
+      <x>300</x>
+      <y>370</y>
       <w>30</w>
       <h>100</h>
     </coordinates>
@@ -350,8 +356,8 @@ checkIfRight(String, String): Future&lt;bool&gt;</panel_attributes>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>490</x>
-      <y>210</y>
+      <x>450</x>
+      <y>290</y>
       <w>50</w>
       <h>200</h>
     </coordinates>
@@ -361,8 +367,8 @@ checkIfRight(String, String): Future&lt;bool&gt;</panel_attributes>
   <element>
     <id>UMLInterface</id>
     <coordinates>
-      <x>190</x>
-      <y>430</y>
+      <x>150</x>
+      <y>510</y>
       <w>340</w>
       <h>120</h>
     </coordinates>
@@ -370,29 +376,31 @@ checkIfRight(String, String): Future&lt;bool&gt;</panel_attributes>
 --
 writeSecureData(String, String): Future&lt;void&gt;
 readSecureData(String): Future&lt;String?&gt;
-deleteSecureData(String): Future&lt;void&gt;</panel_attributes>
+deleteSecureData(String): Future&lt;void&gt;
+bg=orange</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>200</x>
-      <y>560</y>
-      <w>320</w>
+      <x>140</x>
+      <y>640</y>
+      <w>340</w>
       <h>80</h>
     </coordinates>
     <panel_attributes>SecureStorage
 --
-writeSecureData(String, String): Future&lt;void&gt;
-readSecureData(String): Future&lt;String?&gt;
-deleteSecureData(String): Future&lt;void&gt;</panel_attributes>
++ writeSecureData(String, String): Future&lt;void&gt;
++ readSecureData(String): Future&lt;String?&gt;
++ deleteSecureData(String): Future&lt;void&gt;
+bg=orange</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>350</x>
-      <y>450</y>
+      <x>310</x>
+      <y>530</y>
       <w>30</w>
       <h>130</h>
     </coordinates>
@@ -402,8 +410,8 @@ deleteSecureData(String): Future&lt;void&gt;</panel_attributes>
   <element>
     <id>UMLInterface</id>
     <coordinates>
-      <x>1220</x>
-      <y>480</y>
+      <x>1180</x>
+      <y>560</y>
       <w>620</w>
       <h>150</h>
     </coordinates>
@@ -413,48 +421,74 @@ fetchUserWallets(String): Future&lt;void&gt;
 checkIfWalletExists(String, String): Future&lt;void&gt;
 generateAndAddWallet(String,String, String, Color, String, String, String): Future&lt;void&gt;
 deleteWalletDBandList(Wallet): Future&lt;void&gt;
-updateBalance(String, double): Future&lt;void&gt;</panel_attributes>
+updateBalance(String, double): Future&lt;void&gt;
+bg=pink</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>1230</x>
-      <y>650</y>
+      <x>1190</x>
+      <y>720</y>
       <w>620</w>
-      <h>130</h>
+      <h>160</h>
     </coordinates>
     <panel_attributes>WalletService
 --
-
+- wallets: List&lt;Wallet&gt;
+- firestore: FirebaseFirestore
+- secureStorage: SecureStorage
 --
-fetchUserWallets(String): Future&lt;void&gt;
-checkIfWalletExists(String, String): Future&lt;void&gt;
-generateAndAddWallet(String,String, String, Color, String, String, String): Future&lt;void&gt;
-deleteWalletDBandList(Wallet): Future&lt;void&gt;
-updateBalance(String, double): Future&lt;void&gt;</panel_attributes>
++ fetchUserWallets(String): Future&lt;void&gt;
++ checkIfWalletExists(String, String): Future&lt;void&gt;
++ generateAndAddWallet(String,String, String, Color, String, String, String): Future&lt;void&gt;
++ deleteWalletDBandList(Wallet): Future&lt;void&gt;
++ updateBalance(String, double): Future&lt;void&gt;
+bg=pink</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>1520</x>
-      <y>500</y>
+      <x>1480</x>
+      <y>580</y>
       <w>30</w>
-      <h>170</h>
+      <h>160</h>
     </coordinates>
     <panel_attributes>lt=-</panel_attributes>
-    <additional_attributes>10.0;10.0;10.0;150.0</additional_attributes>
+    <additional_attributes>10.0;10.0;10.0;140.0</additional_attributes>
   </element>
   <element>
     <id>Relation</id>
     <coordinates>
-      <x>510</x>
-      <y>590</y>
+      <x>470</x>
+      <y>670</y>
       <w>150</w>
       <h>180</h>
     </coordinates>
     <panel_attributes>lt=&lt;.</panel_attributes>
     <additional_attributes>10.0;10.0;70.0;10.0;70.0;160.0;130.0;160.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>1180</x>
+      <y>360</y>
+      <w>330</w>
+      <h>230</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;70.0;310.0;70.0;310.0;210.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>470</x>
+      <y>690</y>
+      <w>1050</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0;60.0;200.0;1030.0;200.0;1030.0;190.0</additional_attributes>
   </element>
 </diagram>
